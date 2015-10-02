@@ -6,6 +6,7 @@ public abstract class Sketch extends PApplet{
   public ArrayList<VisualComponent> components;
   public PVector size;
   static int MIN_SIZE = 150;
+  private float speed = 0.1f;
 
   public Sketch(int x, int y) {
     setLayout(null);
@@ -19,11 +20,14 @@ public abstract class Sketch extends PApplet{
     vc.setBounds(0,0,(int)size.x, (int)size.y);
     vc.setSketch(this);
   }
+  public void setSpeed(float s) {
+    this.speed = s;
+  }
 	public abstract void setup();
 	public void draw() {
 	  float d = (float)0.1;
 	  for (int i = 0; i < components.size(); i++) {
-	    (components.get(i)).update(d);
+	    (components.get(i)).update(speed);
 	    (components.get(i)).draw();
 	  }
 	}
