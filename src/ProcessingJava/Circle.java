@@ -1,0 +1,16 @@
+package ProcessingJava;
+import processing.core.*;
+public class Circle extends VisualComponent{
+  int radius;
+  public Circle(PVector position, PVector colour, int radius) {
+    super(colour);
+    this.position = position;
+    this.radius = radius;
+  }
+  public void draw() {
+    sketch.fill(colour.x, colour.y,  colour.z);
+    sketch.ellipse(position.x, position.y, (float)radius, (float)radius);
+  }
+  
+
+}
