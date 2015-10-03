@@ -6,8 +6,7 @@ public class Tear extends VisualComponent{
     PVector size;
     float angle;
     public Tear(PVector position, PVector size, float angle, PVector colour) {
-      super(colour);
-      this.position = position;
+      super(position, colour);
       this.size = size;
       this.angle = angle;
 

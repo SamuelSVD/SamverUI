@@ -3,8 +3,7 @@ import processing.core.*;
 public class Circle extends VisualComponent{
   int radius;
   public Circle(PVector position, PVector colour, int radius) {
-    super(colour);
-    this.position = position;
+    super(position, colour);
     this.radius = radius;
   }
   public void draw() {

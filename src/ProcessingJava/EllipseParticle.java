@@ -5,7 +5,7 @@ public class EllipseParticle extends VisualComponent {
   float x_x,x_y,y_x,y_y;
   float rad;
   public EllipseParticle(PVector colour, float offset, float speed_multiplier, float theta, float alpha, float ellipse_width, float ellipse_height, PVector position, float rad){
-    super(colour);
+    super(position, colour);
     this.rad = rad;
     this.offset = offset;
     this.speed_multiplier = speed_multiplier;
@@ -13,7 +13,6 @@ public class EllipseParticle extends VisualComponent {
     this.alpha = alpha;
     this.ellipse_width = ellipse_width;
     this.ellipse_height = ellipse_height;
-    this.position = position;
     x_x = cos(theta);
     x_y = sin(theta);
     y_x = cos(theta+PI/2);
