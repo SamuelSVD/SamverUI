@@ -4,16 +4,20 @@ import java.util.ArrayList;
 
 public abstract class Sketch extends PApplet{
   public ArrayList<VisualComponent> components;
+  public PVector position;
   public PVector size;
   static int MIN_SIZE = 150;
   private float speed = 0.1f;
-
-  public Sketch(int x, int y) {
+  public Sketch(PVector size) {
+    this(new PVector(0,0), size);
+  }
+  public Sketch(PVector position, PVector size) {
     setLayout(null);
     components = new ArrayList<VisualComponent>();
-    if (x < MIN_SIZE) x = MIN_SIZE;
-    if (y < MIN_SIZE) y = MIN_SIZE;
-    size = new PVector(x,y);
+    if (size.x < MIN_SIZE) size.x = MIN_SIZE;
+    if (size.y < MIN_SIZE) size.y = MIN_SIZE;
+    this.position = position;
+    this.size = size;
   }
   public void addVisualComponent(VisualComponent vc) {
     components.add(vc); 

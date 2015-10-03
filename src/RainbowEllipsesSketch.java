@@ -1,19 +1,20 @@
 import ProcessingJava.*;
 import processing.core.*;
 
-public class SimpleSketch extends Sketch{
-  public SimpleSketch(int x, int y) {
-    super(x,y);
+public class RainbowEllipsesSketch extends Sketch{
+  public RainbowEllipsesSketch(PVector size) {
+    super(size);
+  }
+  public RainbowEllipsesSketch(PVector position, PVector size) {
+    super(position,size);
   }
   public void setup() {
-    size((int)size.x,(int)size.y);
+    size((int)size.x, (int)size.y);
     setSpeed(0.01f);
-    //addVisualComponent(new Circle(new PVector(50,50), new PVector(), 100));
-    //addVisualComponent(new Tear(new PVector(150,150), new PVector(100,100), 0, new PVector(255,255,150)));
-
-    
     if (true) {
-      addVisualComponent(new Square(new PVector(), new PVector(0,0), size));
+      Square s = new Square(new PVector(), new PVector(0,0), size);
+      s.setAlpha(10f);
+      addVisualComponent(s);      
       int N = 1000;
       for (int i = 0; i < N; i++){
         PVector colour = new PVector(255.0f/N*i,255,255);
@@ -22,7 +23,7 @@ public class SimpleSketch extends Sketch{
         float speed_multiplier = 1;
         float a =  random(115);
         float b =  random(115);
-        float alpha = 0;
+        float alpha = 1;
         float X = width/2;
         float Y = height/2;
         offset=1;
