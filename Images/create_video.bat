@@ -1,0 +1,1 @@
+ffmpeg -i frame-%%04d.tif -r 25 -threads 4 video.mp4

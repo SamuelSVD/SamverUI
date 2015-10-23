@@ -16,7 +16,7 @@ public class Square extends VisualComponent{
   
   public void draw() {
     sketch.fill(colour.x,colour.y,colour.z, alpha);
-    sketch.rect(position.x,position.y,size.x,size.y);
+    sketch.rect(position.x-1,position.y-1,size.x+1,size.y+1);
   }
 
 }

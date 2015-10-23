@@ -1,0 +1,1 @@
+del "C:\Programming\processingjava\Images\*.tif"
