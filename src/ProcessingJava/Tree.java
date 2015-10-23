@@ -7,8 +7,7 @@ public class Tree extends VisualComponent{
 	int branch_limit = -1;
 	boolean done_growing;
 	Tree [] branches;
-
-	private Tree(PVector position, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit, int branch_count) {
+	protected Tree(PVector position, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit, int branch_count) {
     super(position, colour);
     this.curr_length = 0;
     this.max_length = max_length;
@@ -23,7 +22,7 @@ public class Tree extends VisualComponent{
     if (branch_count >= branch_limit) done_growing = true;
   }
   
-	public Tree(PVector position, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit) {
+  public Tree(PVector position, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit) {
     this(position, colour, max_length, growth_speed, angle_range, decay, num_branches, branch_limit, 0);
   }
     
@@ -81,6 +80,5 @@ public class Tree extends VisualComponent{
         branches[i].draw();
       }
     }
-		
 	}
 }
