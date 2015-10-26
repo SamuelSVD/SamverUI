@@ -9,11 +9,11 @@ public class Tree_Sketch extends Sketch{
 
 	public void setup() {
     size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
-	setSpeed(0.0333f);
-	int MODE = 6;
-    addVisualComponent(new Square(new PVector(255,255,255), new PVector(500,500)));
-    Tree t;
+    setSpeed(0.0333f);
+    int MODE = 4;
+	  Tree t;
     PVector pos, colour, new_colour;
+    addVisualComponent(new Square(new PVector(255,255,255), new PVector(500,500)));
     switch (MODE) {
       case 0: //dandelion
         pos = new PVector(250,400,3*PI/2);
@@ -46,13 +46,27 @@ public class Tree_Sketch extends Sketch{
           }
           break;
       case 4:// Coloured tree
+        addVisualComponent(new Square(new PVector(0,255,0), new PVector(500,500)));
+        addVisualComponent(new Square(new PVector(134,133,23), new PVector(500,355)));
+        addVisualComponent(new Square(new PVector(155,155,255), new PVector(500,350)));
+//        addVisualComponent(new Circle(new PVector(15,0), new PVector(255,255,0), 150));
+        EllipseParticle e = new EllipseParticle(new PVector(255,255,0), 0/*offset*/, 0.005f /*speed_multiplier*/, 12*PI/8 /*theta*/, 0.1f /*alpha*/, 400 /*ellipse_width*/, 400 /*ellipse_height*/, new PVector(250, 400) /*position*/, 150);
+        addVisualComponent(e);
     	  pos = new PVector(250,350, 3*PI/2);
     	  colour = new PVector(139,69,19);
 //    	  colour = new PVector(218,180,140);
     	  new_colour = new PVector(0,255,0);
     	  FadingTree t2 = new FadingTree(pos, colour, new_colour, 100, 50.0f, PI/2, 0.5f, 4, 5); // forest
-          addVisualComponent(t2);
-          break;
+        addVisualComponent(t2);
+        
+        pos = new PVector(85,350, 3*PI/2);
+        t2 = new FadingTree(pos, colour, new_colour, 100, 50.0f, PI/2, 0.5f, 4, 5); // forest
+        addVisualComponent(t2);
+        
+        pos = new PVector(415,350, 3*PI/2);
+        t2 = new FadingTree(pos, colour, new_colour, 100, 50.0f, PI/2, 0.5f, 4, 5); // forest
+        addVisualComponent(t2);
+        break;
       case 5:
     	  int N = 6;
     	  colour = new PVector(150,150,255);
@@ -83,6 +97,16 @@ public class Tree_Sketch extends Sketch{
     	  break;
       case 6:
     	  addVisualComponent(new Square(new PVector(), new PVector(500,500)));
+    	  int n = 6;
+    	  for (int j = 0; j < 5; j++) {
+          for (int i = 0; i < n; i++) {
+            pos = new PVector(250,250,2*PI/n*i);
+            colour = new PVector(0,0,0);
+            new_colour = new PVector(255,0,0);
+            FadingTree tt = new FadingTree(pos, colour, new_colour, 5+20*j, 2.5f+10*j, PI, 0.5f, (j+5), 3);
+            addVisualComponent(tt);
+      	  }
+    	  }
     	  break;
       default:
         pos = new PVector(250,350,3*PI/2);
@@ -95,6 +119,6 @@ public class Tree_Sketch extends Sketch{
 	}
 	public void draw() {
 	  super.draw();
-//    saveFrame("Images/frame-####.tif");
+    saveFrame("Images/frame-####.tif");
   }
 }

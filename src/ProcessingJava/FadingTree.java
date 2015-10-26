@@ -12,7 +12,11 @@ public class FadingTree extends VisualComponent{
 	    super(position, colour);
 	    this.colour2 = colour2;
 	    PVector colour_diff = new PVector(colour2.x-colour.x,colour2.y-colour.y,colour2.z-colour.z);
-	    this.curr_colour = new PVector(colour.x + colour_diff.x/num_branches*branch_count, colour.y + colour_diff.y/num_branches*branch_count, colour.z + colour_diff.z/num_branches*branch_count);
+	    if (branch_limit >1) {
+	      this.curr_colour = new PVector(colour.x + colour_diff.x/(branch_limit-1)*branch_count, colour.y + colour_diff.y/(branch_limit-1)*branch_count, colour.z + colour_diff.z/(branch_limit-1)*branch_count);
+	    } else {
+	      this.curr_colour = colour;
+	    }
 	    this.curr_length = 0;
 	    this.max_length = max_length;
 	    this.growth_speed = growth_speed;
@@ -39,11 +43,9 @@ public class FadingTree extends VisualComponent{
 		if (done_growing) {
 		  return;
 		}
-//		System.out.println(curr_length + " " + growth_speed + " " + d);
 		curr_length += growth_speed * d;
 		
 		if (curr_length > max_length) {
-		  System.out.println("DONE");
 			done_growing = true;
 			curr_length = max_length;
 			if (branches[0] == null) {
@@ -66,7 +68,8 @@ public class FadingTree extends VisualComponent{
 		sketch.line(0, 0, curr_length, 0);
 		sketch.popMatrix();*/
 		sketch.stroke(curr_colour.x, curr_colour.y, curr_colour.z);
-		//sketch.strokeWeight(branch_count/branch_limit);
+		
+		sketch.strokeWeight(2*(1-branch_count/branch_limit));
 		float x = position.x + curr_length * cos(position.z);
 		float y = position.y + curr_length * sin(position.z);
 		sketch.line(position.x, position.y, x, y);
