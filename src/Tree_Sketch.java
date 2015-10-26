@@ -10,7 +10,7 @@ public class Tree_Sketch extends Sketch{
 	public void setup() {
     size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.0333f);
-    int MODE = 4;
+    int MODE = 7;
 	  Tree t;
     PVector pos, colour, new_colour;
     addVisualComponent(new Square(new PVector(255,255,255), new PVector(500,500)));
@@ -108,6 +108,22 @@ public class Tree_Sketch extends Sketch{
       	  }
     	  }
     	  break;
+      case 7:
+        addVisualComponent(new Square(new PVector(0,155,0), new PVector(500,500)));
+        addVisualComponent(new Square(new PVector(134,133,23), new PVector(500,355)));
+        addVisualComponent(new Square(new PVector(155,155,255), new PVector(500,350)));
+        for (int j = 15; j > 0; j--) {
+          pos = new PVector(random(500),350, 3*PI/2);
+          colour = new PVector(139,69,19);
+          new_colour = new PVector(49,100 + random(100),49);
+          N = 10;
+          for (int i = N; i > 1; i--) {
+            float h = 10;
+            t2 = new FadingTree(pos, colour, new_colour, h*i+3*j, (h/2.0f)*i+3*j/2.0f, PI/2, 0.8f - 0.5f*i/N, 4, 5); // pine tree
+            addVisualComponent(t2);
+          }
+        }
+        break;
       default:
         pos = new PVector(250,350,3*PI/2);
         colour = new PVector(0,0,0);
@@ -120,5 +136,8 @@ public class Tree_Sketch extends Sketch{
 	public void draw() {
 	  super.draw();
     saveFrame("Images/frame-####.tif");
+    if (this.frameCount == 350) {
+      this.stop();
+    }
   }
 }
