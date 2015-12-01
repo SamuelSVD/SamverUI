@@ -1,6 +1,13 @@
+/*
+ * offset - starting position. f(time + offset)
+ * theta - starting angle around circle.
+ * alpha - speed of changing theta
+ * 
+ */
+
 package ProcessingJava;
 import processing.core.*;
-public class EllipseParticle extends VisualComponent {
+public class EllipseParticle extends VisualContainer {
   float  offset, speed_multiplier, theta, alpha, ellipse_width, ellipse_height, X, Y, x, y;
   float x_x,x_y,y_x,y_y;
   float rad;
@@ -19,6 +26,7 @@ public class EllipseParticle extends VisualComponent {
     y_y = sin(theta+PI/2);
   }
   public void update(float d) {
+    super.update(d);
     float r = x*x+y*y;
     if (r == 0){
       r = 1;
@@ -37,10 +45,9 @@ public class EllipseParticle extends VisualComponent {
   public void draw(){
     x = ellipse_width*cos(offset)*cos(theta)-ellipse_height*sin(offset)*sin(theta);
     y = ellipse_width*cos(offset)*sin(theta)+ellipse_height*sin(offset)*cos(theta);
-    float x_f = x*x_x + y*y_x;
-    float y_f = x*x_y + y*y_y;
-    sketch.fill(colour.x,colour.y,colour.z);
-    sketch.ellipse(position.x+x_f, position.y+y_f, rad, rad);
+    visual_component_position.x = x*x_x + y*y_x;
+    visual_component_position.y = x*x_y + y*y_y;
+    super.draw();
   }
 
 }
