@@ -10,6 +10,9 @@ public abstract class Sketch extends PApplet{
   public int frame_limit = 350;
   static int MIN_SIZE = 150;
   private float speed = 0.1f;
+  public Sketch() {
+    this(new PVector(0,0), new PVector(100,100));
+  }
   public Sketch(PVector size) {
     this(new PVector(0,0), size);
   }
