@@ -5,8 +5,8 @@ public class Constant extends Function{
     y_offset = value;
   }
   
-  public float evaluateAt(float t) {
-    return y_offset;
+  public float evaluateDefaultAt(float t) {
+    return 0;
   }
   
   public float getValue() {

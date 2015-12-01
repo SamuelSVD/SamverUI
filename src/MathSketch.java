@@ -10,7 +10,7 @@ public class MathSketch extends Sketch{
     super(position, size);
   }
   public void setup() {
-    record = true;
+    record = false;
     frame_limit = 550;
     size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.033f);
@@ -19,18 +19,18 @@ public class MathSketch extends Sketch{
     Square s = new Square(new PVector(), size);
     addVisualComponent(s);
     for (int i = 0; i <= 10; i++) {
-      float omega = 2*PI/8;
-      Sin a = new Sin(2*PI/omega*i, 250, omega,100);
-      Cos b = new Cos(2*PI/omega*i, 250, omega,100);
+      float omega = 2*PI/12;
+      Sin x = new Sin(2*PI/omega*i, 250, omega,100);
+      Cos y = new Cos(2*PI/omega*i, 250, omega,100);
       Sin c1 = new Sin(2*PI/omega*i, 255/2.0f, 2*PI/3,255/2.0f);
       Cos c2 = new Cos(2*PI/omega*i, 255/2.0f, 2*PI/6,255/2.0f);
-      c1 = new Sin(2*PI/omega*i, 255/2.0f, omega*4,255/2.0f);
-      c2 = new Cos(2*PI/omega*i, 255/2.0f, omega*2,255/2.0f);
+      c1 = new Sin(2*PI/omega*i, 255/2.0f, -omega*4,255/2.0f);
+      c2 = new Cos(2*PI/omega*i, 255/2.0f, -omega*2,255/2.0f);
       Constant c3 = new Constant(150);
       
       Circle circle = new Circle(new PVector(), new PVector(255,255,255), 30);
-      circle.setPositionFun(0, a);
-      circle.setPositionFun(1, b);
+      circle.setPositionFun(0, x);
+      circle.setPositionFun(1, y);
       circle.setColourFun(0, c1);
       circle.setColourFun(1, c2);
       circle.setColourFun(2, c3);
