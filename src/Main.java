@@ -8,7 +8,8 @@ public class Main {
 //    mainDisplay.addSketch(new RainbowEllipsesSketch(p));
 //    mainDisplay.addSketch(new TestingSketch(p));
 //    mainDisplay.addSketch(new OscillatingCircleThingSketch(p));
-    mainDisplay.addSketch(new Tree_Sketch(p));
+//  mainDisplay.addSketch(new Tree_Sketch(p));
+  mainDisplay.addSketch(new ComponentEllipseSketch(p));
     mainDisplay.setVisible(true);
   }
 }

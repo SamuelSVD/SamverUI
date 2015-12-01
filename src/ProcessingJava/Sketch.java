@@ -6,6 +6,8 @@ public abstract class Sketch extends PApplet{
   public ArrayList<VisualComponent> components;
   public PVector position;
   public PVector size;
+  public boolean record = false;
+  public int frame_limit = 350;
   static int MIN_SIZE = 150;
   private float speed = 0.1f;
   public Sketch(PVector size) {
@@ -33,6 +35,12 @@ public abstract class Sketch extends PApplet{
 	  for (int i = 0; i < components.size(); i++) {
 	    (components.get(i)).update(speed);
 	    (components.get(i)).draw();
+	  }
+	  if (record) {
+	    saveFrame("Images/frame-#####.tif");
+      if (this.frameCount > frame_limit) {
+        this.stop();
+      }
 	  }
 	}
 }

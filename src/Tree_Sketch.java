@@ -133,11 +133,4 @@ public class Tree_Sketch extends Sketch{
     }
     
 	}
-	public void draw() {
-	  super.draw();
-    saveFrame("Images/frame-####.tif");
-    if (this.frameCount == 350) {
-      this.stop();
-    }
-  }
 }
