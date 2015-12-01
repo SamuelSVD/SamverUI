@@ -11,6 +11,4 @@ public class Circle extends VisualComponent{
     sketch.fill(colour.x, colour.y,  colour.z);
     sketch.ellipse(position.x, position.y, (float)radius, (float)radius);
   }
-  
-
 }
