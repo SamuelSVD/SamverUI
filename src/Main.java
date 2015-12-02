@@ -10,7 +10,8 @@ public class Main {
 //    mainDisplay.addSketch(new OscillatingCircleThingSketch(p));
 //    mainDisplay.addSketch(new Tree_Sketch(p));
 //    mainDisplay.addSketch(new ComponentEllipseSketch(p));
-    mainDisplay.addSketch(new MathSketch(p));
+//    mainDisplay.addSketch(new MathSketch(p));
+    mainDisplay.addSketch(new MathSketch2(p));
     mainDisplay.setVisible(true);
   }
 }
