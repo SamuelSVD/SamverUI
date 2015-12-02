@@ -46,4 +46,7 @@ public abstract class Sketch extends PApplet{
       }
 	  }
 	}
+	public void line(double x1, double y1, double x2, double y2) {
+	  this.line((float)x1, (float)y1, (float)x2, (float)y2);
+	}
 }

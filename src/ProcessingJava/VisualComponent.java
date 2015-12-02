@@ -49,29 +49,29 @@ abstract class VisualComponent extends PApplet{
     //If the position is a function, change value in position vector.
     if (position_fun[0] != null) {
       position_fun[0].update(d);
-      position.x = position_fun[0].getValue();
+      position.x = (float)position_fun[0].getValue();
     }
     if (position_fun[1] != null) {
       position_fun[1].update(d);
-      position.y = position_fun[1].getValue();
+      position.y = (float)position_fun[1].getValue();
     }
     if (position_fun[2] != null) {
       position_fun[2].update(d);
-      position.z = position_fun[2].getValue();
+      position.z = (float)position_fun[2].getValue();
     }
     
     //If the colour is a function, change value in colour vector.
     if (colour_fun[0] != null) {
       colour_fun[0].update(d);
-      colour.x = colour_fun[0].getValue();
+      colour.x = (float)colour_fun[0].getValue();
     }
     if (colour_fun[1] != null) {
       colour_fun[1].update(d);
-      colour.y = colour_fun[1].getValue();
+      colour.y = (float)colour_fun[1].getValue();
     }
     if (colour_fun[2] != null) {
       colour_fun[2].update(d);
-      colour.z = colour_fun[2].getValue();
+      colour.z = (float)colour_fun[2].getValue();
     }
   }
 }
