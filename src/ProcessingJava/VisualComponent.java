@@ -11,6 +11,7 @@ abstract class VisualComponent extends PApplet{
   protected float alpha;
   protected boolean active;
   protected float delay;
+  protected double rotation;
   VisualComponent(PVector position, PVector colour) {
     this.position = position;
     this.colour = colour;
@@ -37,6 +38,13 @@ abstract class VisualComponent extends PApplet{
     this.position.add(shift);
     this.draw();
     this.position.add(neg);
+  }
+  public void doDraw() {
+    sketch.pushMatrix();
+    sketch.translate(position.x, position.y);
+    sketch.rotate((float)rotation);
+    this.draw();
+    sketch.popMatrix();
   }
   public void setDelay(float d) {
     this.delay = d;
