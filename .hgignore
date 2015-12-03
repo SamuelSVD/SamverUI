@@ -3,3 +3,4 @@ syntax: glob
 *.tif
 *.mp4
 *.class
+*.log

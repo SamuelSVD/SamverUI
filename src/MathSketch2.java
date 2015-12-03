@@ -22,7 +22,7 @@ public class MathSketch2 extends Sketch{
     double length = 400;    
     int N = 15;
     int num_sums = 1000;
-    for (int j = 0; j < N; j++) {
+    for (int j = -1; j < N+1; j++) {
       PVector line_pos = new PVector((float)(500-length)/2,500/(N+1)*(j+1));
 //    PVector line_colour = new PVector(50+100/N*(j+1),50+100/N*(j+1),50+205/N*(j+1));
 //    PVector line_colour = new PVector((float)Math.random()*255,(float)Math.random()*255,(float)Math.random()*255);
