@@ -13,13 +13,12 @@ public class Line extends VisualContainer{
     super(position, colour);
     this.length = length;
     prod.appendFunction(new Sin(1*PI/length));
-    Exponential exp = new Exponential(0.4f);
+/*    Exponential exp = new Exponential(0.4f);
     Constant c = new Constant(exp);
     prod.appendFunction(c);
-//    c = new Constant(0);
-//    prod.appendFunction(c);
-   // sum.appendFunction(new Constant(100));
-//    prod.appendFunction(sum);
+    c = new Constant(0);
+    prod.appendFunction(c);
+    */
   }
   public void addFunction(Function f) {
     sum.appendFunction(f);
