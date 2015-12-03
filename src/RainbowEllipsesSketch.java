@@ -19,18 +19,19 @@ public class RainbowEllipsesSketch extends Sketch{
       for (int i = 0; i < N; i++){
         PVector colour = new PVector(255.0f/N*i,255,255);
         float offset = random(2*PI);
-        float theta = (PI)/((float)(N))*i;
+        float starting_angle = (2*PI)/((float)(N))*i;
         float speed_multiplier = 1;
         float a =  random(115);
         float b =  random(115);
-        float alpha = 1;
+        float angle_speed = 0;
         float X = width/2;
         float Y = height/2;
-        offset=1;
-        theta = PI/N*i;
-        a = 140;
-        b = 0;
-        addVisualComponent(new EllipseParticle(colour, offset+PI/2, speed_multiplier,theta, alpha, a, b, new PVector(X, Y), 1));
+        offset=0;
+        starting_angle = 2*PI/N*i;
+        a = 100;
+        b = 1;
+//        colour = new PVector(255,255,255);
+        addVisualComponent(new EllipseParticle(colour, offset+PI/2, speed_multiplier,starting_angle, angle_speed, a, b, new PVector(X, Y), 1));
       }
     }
     
