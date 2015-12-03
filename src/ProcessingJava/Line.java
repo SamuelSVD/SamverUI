@@ -12,9 +12,7 @@ public class Line extends VisualContainer{
   public Line(PVector position, PVector colour, double length) {
     super(position, colour);
     this.length = length;
-    Quadratic q = new Quadratic(-4/(length*length), 4/length, 0);
-  //  q = new Quadratic(50,1,1,1);
-    prod.appendFunction(q);
+    prod.appendFunction(new Sin(1*PI/length));
     Exponential exp = new Exponential(0.4f);
     Constant c = new Constant(exp);
     prod.appendFunction(c);
@@ -27,10 +25,10 @@ public class Line extends VisualContainer{
     sum.appendFunction(f);
   }
   public void draw() {
-    sketch.stroke(0);
+    sketch.stroke(colour.x, colour.y, colour.z);
     double x, y;
     x = 0;
-    y = prod.evaluateAt(0);
+    y = prod.evaluateAt(0)*sum.evaluateAt(0);
     double delta = 1.0/RESOLUTION;
     for (int i = 0; i <= RESOLUTION*length; i++) {
       double next_x =(float)(i*delta);
@@ -39,7 +37,6 @@ public class Line extends VisualContainer{
       x = next_x;
       y = next_y;
     }
-//    System.out.println(prod.evaluateAt(length/2));
   }
   public void update(float d) {
     cumulative += d*100;
