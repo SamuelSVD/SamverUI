@@ -4,10 +4,10 @@ abstract public class Function {
   Function fun;
   String name = "Function";
   public double cumulative = 0;
-  double x_offset = 0;
-  double x_multiple = 1;
-  double y_offset = 0;
-  double y_multiple = 1;
+  protected double x_offset = 0;
+  protected double x_multiple = 1;
+  protected double y_offset = 0;
+  protected double y_multiple = 1;
   public Function() {
   }
   public Function(double omega) {
@@ -43,6 +43,36 @@ abstract public class Function {
   }
   public String toString() {
     return String.format("%s:[%f,%f,%f,%f]", name, x_offset, y_offset, x_multiple, y_multiple);
+  }
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+  public double getX_offset() {
+    return x_offset;
+  }
+  public void setX_offset(double x_offset) {
+    this.x_offset = x_offset;
+  }
+  public double getX_multiple() {
+    return x_multiple;
+  }
+  public void setX_multiple(double x_multiple) {
+    this.x_multiple = x_multiple;
+  }
+  public double getY_offset() {
+    return y_offset;
+  }
+  public void setY_offset(double y_offset) {
+    this.y_offset = y_offset;
+  }
+  public double getY_multiple() {
+    return y_multiple;
+  }
+  public void setY_multiple(double y_multiple) {
+    this.y_multiple = y_multiple;
   }
   public abstract double evaluateDefaultAt(double t);
 }

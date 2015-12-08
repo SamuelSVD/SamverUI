@@ -17,7 +17,7 @@ public class Sum extends Function{
     functions.add(f);
   }
   public void update(float d) {
-    System.out.println("Update Sum");
+//    System.out.println("Update Sum");
     for (int i = 0; i < functions.size(); i++) {
       if (functions.get(i).name.equals("Sum")) ((Sum)functions.get(i)).update(d);
       else if (functions.get(i).name.equals("Product")) ((Product)functions.get(i)).update(d);
