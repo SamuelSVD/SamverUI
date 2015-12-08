@@ -16,7 +16,7 @@ public class Product extends Function{
     return product;
   }
   public void appendFunction(Function f) {
-    System.out.println("Adding function:" + f.toString());
+//    System.out.println("Adding function:" + f.toString());
     functions.add(f);
   }
   public void update(float d) {

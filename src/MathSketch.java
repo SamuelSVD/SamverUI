@@ -10,8 +10,8 @@ public class MathSketch extends Sketch{
     super(position, size);
   }
   public void setup() {
-    record = false;
-    frame_limit = 550;
+    record = true;
+    frame_limit = 364;
     size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.033f);
     noStroke();
