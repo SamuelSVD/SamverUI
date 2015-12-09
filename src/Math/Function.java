@@ -29,6 +29,8 @@ abstract public class Function {
     this.fun = fun;
   }
   public void update(double d) {
+//    String s = String.format("%s:%f", name, d);
+//    System.out.println(s);
     this.cumulative += d;
     if (fun != null) {
       fun.update(d);
