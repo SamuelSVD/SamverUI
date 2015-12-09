@@ -13,7 +13,8 @@ public class Main {
 //    mainDisplay.addSketch(new MathSketch(p));
 //    mainDisplay.addSketch(new MathSketch2(p));
 //    mainDisplay.addSketch(new MathSketch3(p));
-    mainDisplay.addSketch(new MathSketch4(p));
+//    mainDisplay.addSketch(new MathSketch4(p));
+    mainDisplay.addSketch(new ShapeSketch(p));
     mainDisplay.setVisible(true);
   }
 }
