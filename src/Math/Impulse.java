@@ -3,6 +3,7 @@ package Math;
 public class Impulse extends Function{
   public double ERROR = 0.01f;
   public Impulse() {
+    this(1);
   }
   public Impulse(double y_multiple) {
     this(0, 0, y_multiple);

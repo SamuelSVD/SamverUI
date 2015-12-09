@@ -11,6 +11,7 @@ public class RainbowEllipsesSketch extends Sketch{
   public void setup() {
     size((int)size.x, (int)size.y);
     setSpeed(0.01f);
+    background(0);
     if (true) {
       Square s = new Square(new PVector(), new PVector(0,0), size);
       s.setAlpha(10f);

@@ -27,4 +27,16 @@ public class Product extends Function{
       else functions.get(i).update(d);
     }
   }
+  @Override
+  public String getMathString() {
+    String s = "PRODUCT(";
+    for (int i = 0; i < functions.size(); i++) {
+      s += "(" + functions.get(i).getMathString() + ")";
+      if (i != functions.size()-1) {
+        s += "*";
+      }
+    }
+    s += ")";
+    return s;
+  }
 }
