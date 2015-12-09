@@ -3,9 +3,10 @@ package Math;
 public class Exponential extends Function{
   double base = 1;
   public Exponential() {
+    this(1);
   }
   public Exponential(double base) {
-    this.base = base;
+    this(0,0,base);
   }
   public Exponential(double x_offset, double y_offset) {
     this(x_offset, y_offset, 1);
@@ -19,6 +20,7 @@ public class Exponential extends Function{
     this.y_offset = y_offset;
     this.x_multiple = x_multiple;
     this.y_multiple = y_multiple;
+    name = "exp";
   }
   @Override
   public double evaluateDefaultAt(double t) {

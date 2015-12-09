@@ -25,6 +25,9 @@ abstract public class Function {
     this.x_multiple = x_multiple;
     this.y_multiple = y_multiple;
   }
+  public Function(Function fun) {
+    this.fun = fun;
+  }
   public void update(double d) {
     this.cumulative += d;
     if (fun != null) {
@@ -75,4 +78,10 @@ abstract public class Function {
     this.y_multiple = y_multiple;
   }
   public abstract double evaluateDefaultAt(double t);
+  public String getMathString() {
+    String s;
+    if (fun != null) s = String.format("%f*%s(%f*(%s)-%f)+%f",y_multiple ,name , x_multiple , fun.getMathString(), x_offset, y_offset);
+    else  s = String.format("%f*%s(%f*t-%f)+%f",y_multiple ,name , x_multiple , x_offset, y_offset);
+    return s;
+  }
 }

@@ -2,6 +2,7 @@ package Math;
 
 public class Cos extends Function{
   public Cos() {
+    this(1);
   }
   public Cos(double omega) {
     this(0, 0, omega);
@@ -14,7 +15,7 @@ public class Cos extends Function{
   }
   public Cos(double x_offset, double y_offset, double omega, double amplitude) {
     super(x_offset, y_offset, omega, amplitude);
-    name = "Cos";
+    name = "cos";
   }
 
   public double evaluateDefaultAt(double t) {

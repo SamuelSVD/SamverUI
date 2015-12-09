@@ -2,6 +2,7 @@ package Math;
 
 public class Sin extends Function{
   public Sin() {
+    this(1);
   }
   public Sin(double omega) {
     this(0, 0, omega);
@@ -14,7 +15,7 @@ public class Sin extends Function{
   }
   public Sin(double x_offset, double y_offset, double omega, double amplitude) {
     super(x_offset, y_offset, omega, amplitude);
-    name = "Sin";
+    name = "sin";
   }
   
   public double evaluateDefaultAt(double t) {

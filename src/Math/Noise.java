@@ -2,6 +2,7 @@ package Math;
 
 public class Noise extends Function{
   public Noise() {
+    this(1);
   }
   public Noise(double amplitude) {
     y_multiple=amplitude;

@@ -16,7 +16,7 @@ public class Ellipse_Y extends Function{
     this.a = a;
     this.b = b;
     this.theta = theta;
-    name = "Ellipse_Y";
+    name = "ellipse_Y";
   }
   @Override
   public double evaluateDefaultAt(double t) {
