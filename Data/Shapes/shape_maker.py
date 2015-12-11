@@ -37,3 +37,9 @@ if shape == 1:
     file.write(repr(y))
     file.write(" ")
   file.close()
+
+if shape == 2:
+  file = open("leaf.pts")
+  
+  
+  file.close();

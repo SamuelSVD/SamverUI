@@ -7,6 +7,7 @@ abstract class VisualComponent extends PApplet{
   protected PVector position;
   protected Function[] position_fun = new Function[3];
   protected Function[] colour_fun = new Function[3];
+  protected Function rotation_fun;
   protected PVector colour;
   protected float alpha;
   protected boolean active;
@@ -29,6 +30,9 @@ abstract class VisualComponent extends PApplet{
   }
   public void setColourFun(int index, Function fun) {
     colour_fun[index] = fun;
+  }
+  public void setRotationFun(Function fun) {
+    rotation_fun = fun;
   }
   public boolean isActive() { 
     return active;
@@ -80,6 +84,12 @@ abstract class VisualComponent extends PApplet{
     if (colour_fun[2] != null) {
       colour_fun[2].update(d);
       colour.z = (float)colour_fun[2].getValue();
+    }
+    
+    //If the rotation is a function, change rotation value
+    if (rotation_fun != null) {
+      rotation_fun.update(d);
+      rotation = rotation_fun.getValue();
     }
   }
 }
