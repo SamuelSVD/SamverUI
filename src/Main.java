@@ -5,16 +5,19 @@ public class Main {
     int size = 500;
     PVector p = new PVector(size, size);
     MainDisplay mainDisplay = new MainDisplay(size,size+6);
-    mainDisplay.addSketch(new RainbowEllipsesSketch(p));
-//    mainDisplay.addSketch(new TestingSketch(p));
-//    mainDisplay.addSketch(new OscillatingCircleThingSketch(p));
-//    mainDisplay.addSketch(new Tree_Sketch(p));
-//    mainDisplay.addSketch(new ComponentEllipseSketch(p));
-//    mainDisplay.addSketch(new MathSketch(p));
-//    mainDisplay.addSketch(new MathSketch2(p));
-//    mainDisplay.addSketch(new MathSketch3(p));
-//    mainDisplay.addSketch(new MathSketch4(p));
-//    mainDisplay.addSketch(new ShapeSketch(p));
+    Sketch s;
+//    s = new RainbowEllipsesSketch(p);
+//    s = new TestingSketch(p);
+//    s = new OscillatingCircleThingSketch(p);
+//    s = new Tree_Sketch(p);
+//    s = new ComponentEllipseSketch(p);
+//    s = new MathSketch(p);
+//    s = new MathSketch2(p);
+//    s = new MathSketch3(p);
+//    s = new MathSketch4(p);
+    s = new ShapeSketch(p);
+    s.record = false;
+    mainDisplay.addSketch(s);
     mainDisplay.setVisible(true);
   }
 }

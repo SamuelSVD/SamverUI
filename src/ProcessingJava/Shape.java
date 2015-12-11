@@ -18,7 +18,7 @@ public class Shape extends VisualComponent{
     super(position, colour);
     points = new ArrayList<Double>();
     this.size = size;
-    this.rotation = rotation;
+    this.rotation_after_translate = rotation;
   }
   public void init(String filename) throws Exception{
     File file = new File(filename);
@@ -32,15 +32,15 @@ public class Shape extends VisualComponent{
   }
   public void draw() {
     sketch.fill(colour.x, colour.y, colour.z);
-    sketch.pushMatrix();
-    sketch.translate(position.x, position.y);
-    sketch.rotate((float)rotation);
+//    sketch.pushMatrix();
+//    sketch.translate(position.x, position.y);
+//    sketch.rotate((float)rotation);
     sketch.beginShape();
     for (int i = 0; i < points.size()/2; i++) {
       sketch.vertex((float)(points.get((i*2))*size.x),(float)(points.get((i*2)+1)*size.y));
     }
     sketch.endShape();
-    sketch.popMatrix();
+//    sketch.popMatrix();
   }
   
 }

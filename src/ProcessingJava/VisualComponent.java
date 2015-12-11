@@ -7,12 +7,14 @@ abstract class VisualComponent extends PApplet{
   protected PVector position;
   protected Function[] position_fun = new Function[3];
   protected Function[] colour_fun = new Function[3];
-  protected Function rotation_fun;
+  protected Function rotation_before_translate_fun;
+  protected Function rotation_after_translate_fun;
   protected PVector colour;
   protected float alpha;
   protected boolean active;
   protected float delay;
-  protected double rotation;
+  protected double rotation_before_translate;
+  protected double rotation_after_translate;
   VisualComponent(PVector position, PVector colour) {
     this.position = position;
     this.colour = colour;
@@ -31,8 +33,11 @@ abstract class VisualComponent extends PApplet{
   public void setColourFun(int index, Function fun) {
     colour_fun[index] = fun;
   }
-  public void setRotationFun(Function fun) {
-    rotation_fun = fun;
+  public void setRotationBeforeTranslateFun(Function fun) {
+    rotation_before_translate_fun = fun;
+  }
+  public void setRotationAfterTranslateFun(Function fun) {
+    rotation_after_translate_fun = fun;
   }
   public boolean isActive() { 
     return active;
@@ -45,8 +50,9 @@ abstract class VisualComponent extends PApplet{
   }
   public void doDraw() {
     sketch.pushMatrix();
+    sketch.rotate((float)rotation_before_translate);
     sketch.translate(position.x, position.y);
-    sketch.rotate((float)rotation);
+    sketch.rotate((float)rotation_after_translate);
     this.draw();
     sketch.popMatrix();
   }
@@ -87,9 +93,13 @@ abstract class VisualComponent extends PApplet{
     }
     
     //If the rotation is a function, change rotation value
-    if (rotation_fun != null) {
-      rotation_fun.update(d);
-      rotation = rotation_fun.getValue();
+    if (rotation_before_translate_fun != null) {
+      rotation_before_translate_fun.update(d);
+      rotation_before_translate = rotation_before_translate_fun.getValue();
+    }
+    if (rotation_after_translate_fun != null) {
+      rotation_after_translate_fun.update(d);
+      rotation_after_translate = rotation_after_translate_fun.getValue();
     }
   }
 }

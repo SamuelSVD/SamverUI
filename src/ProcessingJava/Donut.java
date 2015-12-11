@@ -20,7 +20,7 @@ public class Donut extends VisualComponent{
   }
   public void draw() {
     sketch.fill(colour.x,colour.y,colour.z, this.alpha);
-    drawDonut(sketch, position.x, position.y, inner_radius, outer_radius, starting_angle, ending_angle);
+    drawDonut(sketch, 0, 0, inner_radius, outer_radius, starting_angle, ending_angle);
   }
   static void drawDonut(Sketch sketch, float x, float y, float inner_r, float outer_r) {
     drawDonut(sketch, x,y,inner_r,outer_r,0,2*PI); 

@@ -1,3 +1,4 @@
+/* NOTE: Rotation is stored in position.z */
 package ProcessingJava;
 import processing.core.*;
 public class Tree extends VisualComponent{
@@ -9,6 +10,7 @@ public class Tree extends VisualComponent{
 	Tree [] branches;
 	protected Tree(PVector position, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit, int branch_count) {
     super(position, colour);
+    rotation_after_translate = position.z;
     this.curr_length = 0;
     this.max_length = max_length;
     this.growth_speed = growth_speed;
@@ -51,10 +53,10 @@ public class Tree extends VisualComponent{
 			curr_length = max_length;
 			if (branches[0] == null) {
 				for (int i = 0; i < num_branches; i++) {
-					float angle = this.position.z - angle_range/2 + angle_range/(float)(num_branches-1)*i;
-					float x = position.x + curr_length * cos(position.z);
-					float y = position.y + curr_length * sin(position.z);
-					PVector pos = new PVector(x,y,angle);
+				  float angle = angle_range/(float)(num_branches-1)*i - angle_range/2;
+          float x = curr_length;
+          float y = 0;
+          PVector pos = new PVector(x,y,angle);
 					if (branch_limit == -1) {
 					  branches[i] = new Tree(pos, colour, max_length*decay, growth_speed * decay, angle_range, decay, num_branches);
 					} else {
@@ -63,21 +65,14 @@ public class Tree extends VisualComponent{
 					branches[i].setSketch(sketch);
 				}
 			}
-			
 		}
 	}
 	public void draw() {
-		/*sketch.pushMatrix();
-		sketch.translate(position.x, position.y);
-		sketch.rotate(position.z);
-		sketch.line(0, 0, curr_length, 0);
-		sketch.popMatrix();*/
-		float x = position.x + curr_length * cos(position.z);
-    float y = position.y + curr_length * sin(position.z);
-    sketch.line(position.x, position.y, x, y);
+	  sketch.stroke(0);
+	  sketch.line(0,0,curr_length,0);
 		if (branches[0] != null) {
       for (int i = 0; i < num_branches; i++) {
-        branches[i].draw();
+        branches[i].doDraw();
       }
     }
 	}

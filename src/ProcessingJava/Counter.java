@@ -16,7 +16,7 @@ public class Counter extends VisualComponent{
     sketch.textFont(font);
 //    sketch.textAlign(CENTER);
     sketch.fill(colour.x, colour.y, colour.z);
-    sketch.text(String.format("%f", count), position.x, position.y);
+    sketch.text(String.format("%f", count), 0, 0);
   }
 
 }

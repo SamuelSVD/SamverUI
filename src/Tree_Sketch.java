@@ -10,7 +10,7 @@ public class Tree_Sketch extends Sketch{
 	public void setup() {
     size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.0333f);
-    int MODE = 7;
+    int MODE = 0;
 	  Tree t;
     PVector pos, colour, new_colour;
     addVisualComponent(new Square(new PVector(255,255,255), new PVector(500,500)));
