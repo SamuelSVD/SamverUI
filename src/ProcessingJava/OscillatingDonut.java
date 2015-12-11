@@ -34,6 +34,7 @@ public class OscillatingDonut extends Donut{
   }
   
   public void update(float d) {
+    super.update(d);
     time += d;
     oscillating_inner_radius = inner_radius + inner_amplitude * cos(2 * PI * time * frequency + offset);
     oscillating_outer_radius = outer_radius + outer_amplitude * cos(2 * PI * time * frequency + offset);
@@ -42,6 +43,6 @@ public class OscillatingDonut extends Donut{
   }
   public void draw() {
     sketch.fill(colour.x,colour.y, colour.z, this.alpha);
-    drawDonut(sketch, position.x, position.y, oscillating_inner_radius, oscillating_outer_radius, starting_angle, ending_angle);
+    drawDonut(sketch, 0, 0, oscillating_inner_radius, oscillating_outer_radius, starting_angle, ending_angle);
   }
 }

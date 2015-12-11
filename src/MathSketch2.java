@@ -28,7 +28,7 @@ public class MathSketch2 extends Sketch{
 //    PVector line_colour = new PVector((float)Math.random()*255,(float)Math.random()*255,(float)Math.random()*255);
       PVector line_colour = new PVector((float)(99+(53.0-99.0)/(N+1)*(j+1)),0.9f*(float)(254),0.9f*(float)(95+(243.0-95.0)/(N+1)*(j+1)));
       
-      Line line = new Line(line_pos, line_colour, length);
+      Function_Line line = new Function_Line(line_pos, line_colour, length);
       line.setSpeed(100);
       double offset = length*Math.random();
       for (double i = 0; i < num_sums; i++) {
@@ -37,9 +37,9 @@ public class MathSketch2 extends Sketch{
       }
       line.addFunction(new Noise(0));
       addVisualComponent(line);
-      line = new Line(new PVector(0,line_pos.y), line_colour, (500-length)/2);
+      line = new Function_Line(new PVector(0,line_pos.y), line_colour, (500-length)/2);
       addVisualComponent(line);
-      line = new Line(new PVector((float)(length+(500-length)/2),line_pos.y), line_colour, 500-length/2);
+      line = new Function_Line(new PVector((float)(length+(500-length)/2),line_pos.y), line_colour, 500-length/2);
       addVisualComponent(line);
     }
   }

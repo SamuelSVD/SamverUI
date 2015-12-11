@@ -1,3 +1,4 @@
+import Math.*;
 import ProcessingJava.*;
 import processing.core.*;
 
@@ -15,7 +16,7 @@ public class RainbowEllipsesSketch extends Sketch{
     if (true) {
       Square s = new Square(new PVector(), new PVector(0,0), size);
       s.setAlpha(10f);
-      addVisualComponent(s);      
+      addVisualComponent(s);
       int N = 1000;
       for (int i = 0; i < N; i++){
         PVector colour = new PVector(255.0f/N*i,255,255);
@@ -30,9 +31,12 @@ public class RainbowEllipsesSketch extends Sketch{
         offset=0;
         starting_angle = 2*PI/N*i;
         a = 100;
-        b = 1;
+        b = 0;
 //        colour = new PVector(255,255,255);
-        addVisualComponent(new EllipseParticle(colour, offset+PI/2, speed_multiplier,starting_angle, angle_speed, a, b, new PVector(X, Y), 1));
+        EllipseParticle e = new EllipseParticle(colour, offset, speed_multiplier,starting_angle, angle_speed, a, b, new PVector(X, Y), 1);
+//        e.setVisualComponent(new Counter(new PVector(), new PVector(200,200,200)));
+        addVisualComponent(e);
+//        addVisualComponent(vc);
       }
     }
     

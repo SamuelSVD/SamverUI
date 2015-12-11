@@ -37,7 +37,7 @@ public abstract class Sketch extends PApplet{
 	  float d = (float)0.1;
 	  for (int i = 0; i < components.size(); i++) {
 	    (components.get(i)).update(speed);
-	    (components.get(i)).draw();
+	    (components.get(i)).doDraw();
 	  }
 	  if (record) {
 	    saveFrame("Images/frame-#####.tif");

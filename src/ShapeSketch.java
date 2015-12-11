@@ -33,7 +33,7 @@ public class ShapeSketch extends Sketch{
     colour = new PVector(55,21,250);
     size = new PVector(100,100);
     ShapeAnimation all= new ShapeAnimation(position, colour, size);
-    all.setRotationFun(new Sin(0,0,1,PI));
+    all.setRotationAfterTranslateFun(new Sin(0,0,1,PI));
     try {
       square.init("Data/Shapes/square.pts");
       circle.init("Data/Shapes/Circle.pts");

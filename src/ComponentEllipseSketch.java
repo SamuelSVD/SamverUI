@@ -29,7 +29,7 @@ public class ComponentEllipseSketch extends Sketch{
       float X = width/2;
       float Y = height/2;
       offset=0;
-      theta = PI/N*i;
+      theta = 2*PI/N*i;
       alpha = 1;
       a = 140;
       b = i;

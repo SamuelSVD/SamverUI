@@ -4,11 +4,10 @@ import processing.core.*;
 public class Tear extends VisualComponent{
 	ArrayList<PVector> tear;
 	PVector size;
-	float angle;
 	public Tear(PVector position, PVector size, float angle, PVector colour) {
 	  super(position, colour);
 	  this.size = size;
-	  this.angle = angle;
+	  this.rotation_after_translate = angle;
 	
 	  tear = new ArrayList<PVector>();
 	  float d = 0.02f;
@@ -31,14 +30,10 @@ public class Tear extends VisualComponent{
 	}
 	public void draw() {
 	  sketch.fill(colour.x, colour.y, colour.z);
-	  sketch.pushMatrix();
-	  sketch.translate(position.x, position.y);
-	  sketch.rotate(angle);
 	  sketch.beginShape();
 	  for (int i = 0; i < tear.size(); i++) {
 	    sketch.vertex(tear.get(i).x*size.x/5.0f, tear.get(i).y*size.y/5.0f);
 	  }
 	  sketch.endShape();
-	  sketch.popMatrix();
 	}
 }

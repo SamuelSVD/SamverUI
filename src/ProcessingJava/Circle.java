@@ -9,6 +9,6 @@ public class Circle extends VisualComponent{
   public void draw() {
     sketch.noStroke();
     sketch.fill(colour.x, colour.y,  colour.z);
-    sketch.ellipse(position.x, position.y, (float)radius, (float)radius);
+    sketch.ellipse(0, 0, (float)radius, (float)radius);
   }
 }
