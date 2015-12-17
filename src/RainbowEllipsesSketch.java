@@ -33,7 +33,7 @@ public class RainbowEllipsesSketch extends Sketch{
         a = 100;
         b = 0;
 //        colour = new PVector(255,255,255);
-        EllipseParticle e = new EllipseParticle(colour, offset, speed_multiplier,starting_angle, angle_speed, a, b, new PVector(X, Y), 1);
+        EllipseParticle e = new EllipseParticle(colour, offset, speed_multiplier,starting_angle, angle_speed, a, b, new PVector(X, Y));
 //        e.setVisualComponent(new Counter(new PVector(), new PVector(200,200,200)));
         addVisualComponent(e);
 //        addVisualComponent(vc);

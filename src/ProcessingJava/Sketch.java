@@ -7,6 +7,7 @@ public abstract class Sketch extends PApplet{
   public PVector position;
   public PVector size;
   public boolean record = false;
+  protected boolean is_3D = false;
   public int frame_limit = 350;
   static int MIN_SIZE = 150;
   private float speed = 0.1f;
@@ -32,7 +33,6 @@ public abstract class Sketch extends PApplet{
   public void setSpeed(float s) {
     this.speed = s;
   }
-	public abstract void setup();
 	public void draw() {
 	  float d = (float)0.1;
 	  for (int i = 0; i < components.size(); i++) {
@@ -49,4 +49,8 @@ public abstract class Sketch extends PApplet{
 	public void line(double x1, double y1, double x2, double y2) {
 	  this.line((float)x1, (float)y1, (float)x2, (float)y2);
 	}
+	public boolean is3D() {
+	  return is_3D;
+	}
+  public abstract void setup();
 }

@@ -5,10 +5,14 @@ import Math.*;
 abstract class VisualComponent extends PApplet{
   protected Sketch sketch;
   protected PVector position;
+  protected PVector rotation_before_translate_3D;
+  protected PVector rotation_after_translate_3D;
   protected Function[] position_fun = new Function[3];
   protected Function[] colour_fun = new Function[3];
   protected Function rotation_before_translate_fun;
   protected Function rotation_after_translate_fun;
+  protected Function[] rotation_before_translate_fun_3D = new Function[3];
+  protected Function[] rotation_after_translate_fun_3D = new Function[3];
   protected PVector colour;
   protected float alpha;
   protected boolean active;
@@ -18,6 +22,8 @@ abstract class VisualComponent extends PApplet{
   VisualComponent(PVector position, PVector colour) {
     this.position = position;
     this.colour = colour;
+    this.rotation_before_translate_3D = new PVector();
+    this.rotation_after_translate_3D = new PVector();
     this.alpha = 255;
     this.active = false;
   }
@@ -39,6 +45,12 @@ abstract class VisualComponent extends PApplet{
   public void setRotationAfterTranslateFun(Function fun) {
     rotation_after_translate_fun = fun;
   }
+  public void setRotationBeforeTranslateFun3D(int index, Function fun) {
+    rotation_before_translate_fun_3D[index] = fun;
+  }
+  public void setRotationAfterTranslateFun3D(int index, Function fun) {
+    rotation_after_translate_fun_3D[index] = fun;
+  }
   public boolean isActive() { 
     return active;
   }
@@ -49,12 +61,26 @@ abstract class VisualComponent extends PApplet{
     this.position.add(neg);
   }
   public void doDraw() {
-    sketch.pushMatrix();
-    sketch.rotate((float)rotation_before_translate);
-    sketch.translate(position.x, position.y);
-    sketch.rotate((float)rotation_after_translate);
-    this.draw();
-    sketch.popMatrix();
+    if (sketch.is3D()) {
+      sketch.pushMatrix();
+      sketch.rotateX(rotation_before_translate_3D.x);
+      sketch.rotateY(rotation_before_translate_3D.y);
+      sketch.rotateZ(rotation_before_translate_3D.z);
+      sketch.translate(position.x,position.y,position.z);
+      sketch.rotateX(rotation_after_translate_3D.x);
+      sketch.rotateY(rotation_after_translate_3D.y);
+      sketch.rotateZ(rotation_after_translate_3D.z);
+      this.draw();
+      sketch.popMatrix();
+    }
+    else {
+      sketch.pushMatrix();
+      sketch.rotate((float)rotation_before_translate);
+      sketch.translate(position.x, position.y);
+      sketch.rotate((float)rotation_after_translate);
+      this.draw();
+      sketch.popMatrix();
+    }
   }
   public void setDelay(float d) {
     this.delay = d;
@@ -100,6 +126,32 @@ abstract class VisualComponent extends PApplet{
     if (rotation_after_translate_fun != null) {
       rotation_after_translate_fun.update(d);
       rotation_after_translate = rotation_after_translate_fun.getValue();
+    }
+    
+    //If the 3D rotation is a function, change value in rotation vector.
+    if (rotation_after_translate_fun_3D[0] != null) {
+      rotation_after_translate_fun_3D[0].update(d);
+      rotation_after_translate_3D.x = (float)rotation_after_translate_fun_3D[0].getValue();
+    }
+    if (rotation_after_translate_fun_3D[1] != null) {
+      rotation_after_translate_fun_3D[1].update(d);
+      rotation_after_translate_3D.y = (float)rotation_after_translate_fun_3D[1].getValue();
+    }
+    if (rotation_after_translate_fun_3D[2] != null) {
+      rotation_after_translate_fun_3D[2].update(d);
+      rotation_after_translate_3D.z = (float)rotation_after_translate_fun_3D[2].getValue();
+    }
+    if (rotation_after_translate_fun_3D[0] != null) {
+      rotation_before_translate_fun_3D[0].update(d);
+      rotation_before_translate_3D.x = (float)rotation_before_translate_fun_3D[0].getValue();
+    }
+    if (rotation_before_translate_fun_3D[1] != null) {
+      rotation_before_translate_fun_3D[1].update(d);
+      rotation_before_translate_3D.y = (float)rotation_before_translate_fun_3D[1].getValue();
+    }
+    if (rotation_before_translate_fun_3D[2] != null) {
+      rotation_before_translate_fun_3D[2].update(d);
+      rotation_before_translate_3D.z = (float)rotation_before_translate_fun_3D[2].getValue();
     }
   }
 }
