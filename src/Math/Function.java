@@ -41,6 +41,7 @@ abstract public class Function {
     return evaluateAt(f.evaluateAt(cumulative));
   }
   public double evaluateAt(double t) {
+    if (fun != null) t = fun.evaluateAt(t);
     return y_multiple * evaluateDefaultAt(x_multiple * t - x_offset) + y_offset;
   }
   public double getValue() {

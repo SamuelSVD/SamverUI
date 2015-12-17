@@ -11,7 +11,7 @@ import Math.*;
 public class EllipseParticle extends VisualContainer {
   float alpha;
   float rotation;
-  public EllipseParticle(PVector colour, float offset, float speed, float rotation, float alpha, float a, float b, PVector position, float rad){
+  public EllipseParticle(PVector colour, float offset, float speed, float rotation, float alpha, float a, float b, PVector position){
     super(position, colour);
 //    this.rotation_before_translate = rotation;
     this.rotation = rotation;

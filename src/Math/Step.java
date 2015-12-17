@@ -22,6 +22,10 @@ public class Step extends Function{
     this.y_multiple = y_multiple;
     name = "Step";
   }
+  public Step(Function fun) {
+    this.fun = fun;
+    name = "Step";
+  }
   public void setSlew(double slew) {
     this.slew = Math.abs(slew);
     this.is_slewed = true;

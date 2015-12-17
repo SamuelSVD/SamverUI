@@ -16,8 +16,8 @@ public class Main {
 //    s = new MathSketch3(p);
 //    s = new MathSketch4(p);
 //    s = new ShapeSketch(p);
-//    s.record = false;
-    s = new HandSketch(p);
+//    s = new HandSketch(p);
+    s = new Sketch_3D(p);
     mainDisplay.addSketch(s);
     mainDisplay.setVisible(true);
   }

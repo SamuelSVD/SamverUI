@@ -50,7 +50,8 @@ public class Tree_Sketch extends Sketch{
         addVisualComponent(new Square(new PVector(134,133,23), new PVector(500,355)));
         addVisualComponent(new Square(new PVector(155,155,255), new PVector(500,350)));
 //        addVisualComponent(new Circle(new PVector(15,0), new PVector(255,255,0), 150));
-        EllipseParticle e = new EllipseParticle(new PVector(255,255,0), 0/*offset*/, 0.005f /*speed_multiplier*/, 12*PI/8 /*theta*/, 0.1f /*alpha*/, 400 /*ellipse_width*/, 400 /*ellipse_height*/, new PVector(250, 400) /*position*/, 150);
+        EllipseParticle e = new EllipseParticle(new PVector(255,255,0), 0/*offset*/, 0.005f /*speed_multiplier*/, 12*PI/8 /*theta*/, 0.1f /*alpha*/, 400 /*ellipse_width*/, 400 /*ellipse_height*/, new PVector(250, 400) /*position*/);
+        e.addVisualComponent(new Circle(new PVector(0,0),new PVector(255,255,0),150));
         addVisualComponent(e);
     	  pos = new PVector(250,350, 3*PI/2);
     	  colour = new PVector(139,69,19);
