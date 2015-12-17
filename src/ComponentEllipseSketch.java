@@ -34,7 +34,7 @@ public class ComponentEllipseSketch extends Sketch{
       a = 140;
       b = i;
       EllipseParticle e = new EllipseParticle(colour, offset+PI/2, speed_multiplier,theta, alpha, a, b, new PVector(X, Y), 1);
-      e.setVisualComponent(new Tear(new PVector(0,0), new PVector(50,50), PI/2, new PVector(255,255,255)));
+      e.addVisualComponent(new Tear(new PVector(0,0), new PVector(50,50), PI/2, new PVector(255,255,255)));
       addVisualComponent(e);
      }
     //addVisualComponent(new Counter(new PVector(width/2, 30), new PVector(255,255,255)));
