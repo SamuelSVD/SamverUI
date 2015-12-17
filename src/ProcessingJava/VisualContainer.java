@@ -2,37 +2,42 @@ package ProcessingJava;
 
 import Math.Function;
 import processing.core.PVector;
+import java.util.ArrayList;
 
 public class VisualContainer extends VisualComponent{
-  protected VisualComponent visual_component;
+  protected ArrayList<VisualComponent> visual_components;
   
   public VisualContainer() {
-    super(new PVector(), new PVector());
+    this(new PVector(), new PVector());
+  }
+  public VisualContainer(PVector position) {
+    this(position, new PVector());
   }
   public VisualContainer(PVector position, PVector colour) {
     super(position, colour);
+    visual_components = new ArrayList<VisualComponent>();
   }
-  public void setVisualComponent(VisualComponent visual_component) {
-    this.visual_component = visual_component;
+  public void addVisualComponent(VisualComponent visual_component) {
+    this.visual_components.add(visual_component);
     visual_component.sketch = this.sketch;
   }
   public void setSketch(Sketch s) {
     super.setSketch(s);
-    if (visual_component != null) {
-      visual_component.setSketch(s);
+    for (int i = 0; i < visual_components.size(); i++) {
+      visual_components.get(i).setSketch(s);
     }
   }
   public void update(float d) {
     super.update(d);
-    if (visual_component != null) {
-      visual_component.update(d);
+    for (int i = 0; i < visual_components.size(); i++) {
+      visual_components.get(i).update(d);
     }
   }
   public void draw() {
-    if (visual_component != null) {
-      visual_component.doDraw();
+    for (int i = 0; i < visual_components.size(); i++) {
+      visual_components.get(i).doDraw();
     }
-    else {
+    if (visual_components.size() == 0) {
       sketch.fill(colour.x, colour.y, colour.z);
       sketch.ellipse(0, 0, 2, 2);
     }
