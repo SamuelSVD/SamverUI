@@ -18,8 +18,8 @@ public class Sketch_3D extends Sketch{
     super(position, size);
   }
   public void setup() {
-    record = false;
-    frame_limit = 80;
+    record = true;
+    frame_limit = 200;
     size((int)size.x, (int)size.y, P3D); //Always needed. Looking for a fix.
     is_3D = true;
     setSpeed(0.01f);
@@ -27,16 +27,21 @@ public class Sketch_3D extends Sketch{
     camera.setTarget(0, 0, 0);
     camera.setAngles(PI/4, PI/4);
     camera.setRadius(400);
-    camera.angle_accuracy = PI/10;
+    camera.angle_accuracy = PI/8;
     camera.position_accuracy = 100;
     System.out.println(camera);
 //    camera.keyPressed((char)0);
-    addVisualComponent(new Background(new PVector(255,255,255)));
+//    addVisualComponent(new Background(new PVector(255,255,255)));
   }
   public void draw() {
+    int FRAMES = 100;
+    if (frameCount < FRAMES + 1) camera.setAngles(camera.getAngle1(), camera.getAngle2() + 2*PI/FRAMES);
+    else camera.setAngles(camera.getAngle1() + 2*PI/FRAMES, camera.getAngle2());
     camera.use();
-//    camera(, , , width/2.0f, height/2.0f, 0, 0, 1, 0);
-    super.draw();
+    
+    background(255,255,255);
+    directionalLight(200, 200, 200, -1, -1, -1);
+   // ambientLight(250,250,0);
     //Red X
     stroke(255,0,0);
     line(0,0,0,100,0,0);
@@ -61,6 +66,7 @@ public class Sketch_3D extends Sketch{
     translate(100,100,100);
     box(10);
     translate(-100,-100,-100);
+    super.draw();
   }
   public void keyPressed() {
     camera.keyPressed(key);
