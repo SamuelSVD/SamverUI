@@ -2,8 +2,8 @@
 package ProcessingJava;
 
 public class Camera {
-  double camera_x, camera_y, camera_z, camera_x2, camera_y2, camera_z2;
-  double angle1, angle2= Math.PI/2, radius = 100;
+  private double camera_x, camera_y, camera_z, camera_x2, camera_y2, camera_z2;
+  private double angle1, angle2= Math.PI/2, radius = 100;
   double upX, upY, upZ;
   public double angle_accuracy = 0.01;
   public double position_accuracy = 10;
@@ -182,4 +182,11 @@ public class Camera {
   public String toString() {
    return String.format("%f %f %f : %f %f %f : %f %f %f : %f %f %f\n",camera_x, camera_y, camera_z, camera_x2, camera_y2, camera_z2, angle1, angle2, radius, upX, upY, upZ);
   }
+  public double getAngle1() {
+    return angle1;
+  }
+  public double getAngle2() {
+    return angle2;
+  }
+  
 }
