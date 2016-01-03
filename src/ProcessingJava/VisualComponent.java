@@ -51,6 +51,12 @@ abstract class VisualComponent extends PApplet{
   public void setRotationAfterTranslateFun3D(int index, Function fun) {
     rotation_after_translate_fun_3D[index] = fun;
   }
+  public void setRotationBeforeTranslate3D(PVector rot) {
+    rotation_before_translate_3D = rot;
+  }
+  public void setRotationAfterTranslate3D(PVector rot) {
+    rotation_after_translate_3D = rot;
+  }
   public boolean isActive() { 
     return active;
   }
@@ -70,6 +76,8 @@ abstract class VisualComponent extends PApplet{
       sketch.rotateX(rotation_after_translate_3D.x);
       sketch.rotateY(rotation_after_translate_3D.y);
       sketch.rotateZ(rotation_after_translate_3D.z);
+      //Temporary fix
+      sketch.rotate((float)rotation_after_translate);
       this.draw();
       sketch.popMatrix();
     }
@@ -141,7 +149,7 @@ abstract class VisualComponent extends PApplet{
       rotation_after_translate_fun_3D[2].update(d);
       rotation_after_translate_3D.z = (float)rotation_after_translate_fun_3D[2].getValue();
     }
-    if (rotation_after_translate_fun_3D[0] != null) {
+    if (rotation_before_translate_fun_3D[0] != null) {
       rotation_before_translate_fun_3D[0].update(d);
       rotation_before_translate_3D.x = (float)rotation_before_translate_fun_3D[0].getValue();
     }

@@ -3,12 +3,6 @@ import processing.core.*;
 import Math.*;
 
 public class Sketch_3D extends Sketch{
-  float camera_x = 250;
-  float camera_y = 250;
-  float camera_z = 250;
-  float camera_x2 = 250;
-  float camera_y2 = 250;
-  float camera_z2 = 0;
   Camera camera;
   
   public Sketch_3D(PVector size) {
