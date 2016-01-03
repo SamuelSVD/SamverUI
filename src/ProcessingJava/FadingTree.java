@@ -82,5 +82,6 @@ public class FadingTree extends VisualComponent{
 				branches[i].doDraw();
 			}
 		}
+    sketch.strokeWeight(1);
 	}
 }
