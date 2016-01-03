@@ -7,18 +7,20 @@ public class Camera {
   double upX, upY, upZ;
   public double angle_accuracy = 0.01;
   public double position_accuracy = 10;
+  public boolean DEBUG = false;
   camera_mode cm;
   Sketch sketch;
-  public Camera(camera_mode cm, Sketch sketch) {
+  public Camera(camera_mode cm) {
     this.cm = cm;
-    this.sketch = sketch;
     camera_x = camera_x2 + radius * Math.sin(angle1) * Math.cos(angle2);
     camera_y = camera_y2 + radius * Math.sin(angle1) * Math.sin(angle2);
     camera_z = camera_z2 + radius * Math.cos(angle1);
   }
   public void keyPressed(char key) {
-    System.out.print(key + ":");
-    System.out.println((int)key);
+    if (DEBUG) {
+      System.out.print(key + ":");
+      System.out.println((int)key);
+    }
     if (cm == camera_mode.rectangle) {
       switch(key) {
         case 'q': case 'Q':
@@ -58,7 +60,7 @@ public class Camera {
           camera_z2 -= position_accuracy;
           break;
       }
-      System.out.printf("%f %f %f : %f %f %f\n", camera_x, camera_y, camera_z, camera_x2, camera_y2, camera_z2);
+      if (DEBUG) System.out.printf("K: %f %f %f : %f %f %f\n", camera_x, camera_y, camera_z, camera_x2, camera_y2, camera_z2);
     }
     else if (cm == camera_mode.radial) {
       switch (key) {
@@ -100,7 +102,7 @@ public class Camera {
           break;
       }
       calculateCameraPosition();
-      System.out.printf("%f %f %f : %f %f %f\n", camera_x2, camera_y2, camera_z2, angle1, angle2, radius);
+      if (DEBUG) System.out.printf("K: %f %f %f : %f %f %f\n", camera_x2, camera_y2, camera_z2, angle1, angle2, radius);
     }
     switch( key) {
       case '1':
@@ -123,10 +125,12 @@ public class Camera {
         break;
     }
     updateUpZ();
-    System.out.printf("%f %f %f\n", upX, upY, upZ);
+    if (DEBUG) System.out.printf("UP: %f %f %f\n", upX, upY, upZ);
   }
   public void use() {
-    sketch.camera((float)camera_x, (float)camera_y, (float)camera_z, (float)camera_x2, (float)camera_y2, (float)camera_z2, (float)upX, (float)upY, (float)upZ);
+    if (sketch != null) {
+      sketch.camera((float)camera_x, (float)camera_y, (float)camera_z, (float)camera_x2, (float)camera_y2, (float)camera_z2, (float)upX, (float)upY, (float)upZ);
+    }
   }
   public void setTarget(double x, double y, double z) {
     this.camera_x2 = x;
@@ -145,6 +149,7 @@ public class Camera {
   public void setRadius(double rad) {
     radius = rad;
     calculateCameraPosition();
+    updateUpZ();
   }
   public void setAngles(double angle1, double angle2) {
     this.angle1 = angle1;
@@ -155,10 +160,11 @@ public class Camera {
   private void updateUpZ() {
     while(angle1 > Math.PI) angle1 -= 2*Math.PI;
     while(angle1 < -Math.PI) angle1 += 2*Math.PI;
-    
-    System.out.print(angle1);
-    System.out.print(":");
-    System.out.println(angle1 % (2*Math.PI));
+    if (DEBUG) {
+      System.out.print(angle1);
+      System.out.print(":");
+      System.out.println(angle1 % (2*Math.PI));
+    }
     if (angle1 < 0) upZ = 1;
     else upZ = -1;
   }
@@ -188,5 +194,7 @@ public class Camera {
   public double getAngle2() {
     return angle2;
   }
-  
+  public void setSketch(Sketch s) {
+    this.sketch = s;
+  }
 }

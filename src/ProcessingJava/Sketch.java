@@ -1,5 +1,6 @@
 package ProcessingJava;
 import processing.core.*;
+
 import java.util.ArrayList;
 
 public abstract class Sketch extends PApplet{
@@ -8,6 +9,7 @@ public abstract class Sketch extends PApplet{
   public PVector size;
   public boolean record = false;
   protected boolean is_3D = false;
+  protected Camera camera;
   public int frame_limit = 350;
   static int MIN_SIZE = 150;
   private float speed = 0.1f;
@@ -34,6 +36,9 @@ public abstract class Sketch extends PApplet{
     this.speed = s;
   }
 	public void draw() {
+	  if (camera != null) {
+	    camera.use();
+	  }
 	  float d = (float)0.1;
 	  for (int i = 0; i < components.size(); i++) {
 	    (components.get(i)).update(speed);
@@ -52,5 +57,18 @@ public abstract class Sketch extends PApplet{
 	public boolean is3D() {
 	  return is_3D;
 	}
+	public void setCamera(Camera c) {
+	  this.camera = c;
+	  c.setSketch(this);
+	}
+	public Camera getCamera() {
+	  return camera;
+	}
+  public void keyPressed() {
+    if (camera != null) {
+      camera.keyPressed(key);
+    }
+  }
+
   public abstract void setup();
 }

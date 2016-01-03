@@ -17,7 +17,8 @@ public class Sketch_3D extends Sketch{
     size((int)size.x, (int)size.y, P3D); //Always needed. Looking for a fix.
     is_3D = true;
     setSpeed(0.01f);
-    camera = new Camera(camera_mode.radial, this);
+    camera = new Camera(camera_mode.radial);
+    camera.setSketch(this);
     camera.setTarget(0, 0, 0);
     camera.setAngles(PI/4, PI/4);
     camera.setRadius(400);

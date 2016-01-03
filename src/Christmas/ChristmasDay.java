@@ -3,18 +3,22 @@ import processing.core.PVector;
 import ProcessingJava.*;
 import Math.*;
 public class ChristmasDay extends Sketch{
-  Camera camera;
+  Tree t;
+  double x,y,z,dx,dy,dz;
+  float mX, mY;
+  int section = 0;
   public ChristmasDay(PVector size) {
     this(new PVector(0,0), size);
   }
   public ChristmasDay(PVector position, PVector size) {
     super(position,size);
-    camera = new Camera(camera_mode.radial, this);
+    camera = new Camera(camera_mode.radial);
+    this.setCamera(camera);
     camera.setTarget(0, 0, 0);
     camera.setAngles(PI/2,PI/2);
     camera.setRadius(400);
-//  camera.setLocation(250,250, 300);
-  camera.setLocation(0,10, 300);
+  camera.setLocation(250,250, 300);
+//  camera.setLocation(0,10, 300);
     camera.angle_accuracy = PI/8;
     camera.position_accuracy = 100;
     
@@ -22,51 +26,79 @@ public class ChristmasDay extends Sketch{
     
     PVector pos = new PVector(0,0,0);
     PVector colour = new PVector(0,0,0);
-    Tree t = new Tree(pos, 0, colour, 200.0f, 50.0f, 3*PI/2, 0.3f, 10, 3); // dandelion
-    t.setRotationBeforeTranslate3D(new PVector(0,-PI/2,0));
-    t.setRotationAfterTranslate3D(new PVector(PI/2,0,0));
-    addVisualComponent(t);
+    t = new Tree(pos, 0, colour, 200.0f, 1050.0f, 3*PI/2, 0.3f, 10, 3); // dandelion
+//    t.setRotationBeforeTranslate3D(new PVector(0,-PI/2,0));
+//    t.setRotationAfterTranslate3D(new PVector(0,-PI/2,0));
+//    t.setRotationAfterTranslate3D(new PVector(PI/2-PI/3,-PI/3,0));
+    //Aligned with XZ plane
+    x = PI/2;
+    y = -PI;
+    z = PI/2;
+    
+    //Aligned with YZ plane
+    x = 0;
+    y = -PI/2;
+    z = 0;
+    
+    //Aligned diagonally between XZ YZ plane
+    x = PI/2;
+    y = PI/4;
+    z = PI/2;
+    
+//    addVisualComponent(t);
     
     addVisualComponent(new Circle(new PVector(0,0,0), new PVector(158,150,255), 100));
     addVisualComponent(new Circle(new PVector(0,0,1), new PVector(255,150,150), 50));
     
-    for (int j = 1; j > 0; j--) {
-      pos = new PVector(100,100, 3);
-      colour = new PVector(139,69,19);
-      PVector new_colour = new PVector(49,100 + random(100),49);
+    
+    
+    
+    
+    
+    
+    
+    int num = 10;
+    colour = new PVector(139,69,19);
+    PVector new_colour = new PVector(49,100 + random(100),49);
+    for (int j = num; j > 0; j--) {
+      pos = new PVector(0,0, 3);
       int N = 5;
       for (int i = N; i > 1; i--) {
         float h = 10;
-        FadingTree t2 = new FadingTree(pos, 0, colour, new_colour, h*i+3*j, (h/2.0f)*i+3*j/2.0f, PI/2, 0.8f - 0.5f*i/N, 4, 5); // pine tree
-//        t.setRotationBeforeTranslate3D(new PVector(0,-PI/2,0));
-        t.setRotationAfterTranslate3D(new PVector(PI/2,PI/2,0));
+        FadingTree t2 = new FadingTree(pos, 0, colour, new_colour, h*i, (h/2.0f)*i, PI/2, 0.8f - 0.5f*i/N, 4, 5); // pine tree
+//        t2.setRotationBeforeTranslate3D(new PVector(0,-PI/2,0));
+        t2.setRotationAfterTranslate3D(new PVector(PI/2,PI/num*j,PI/2));
         addVisualComponent(t2);
       }
     }
     
   }
   public void draw() {
-    camera.use();
+    t.setRotationAfterTranslate3D(new PVector((float)(x + dx),(float)(y+dy),(float)(z+dz)));
+
+    camera.setAngles(camera.getAngle1(), camera.getAngle2()+0.02);
     super.draw();
-    //Red X
-    stroke(255,0,0);
-    line(0,0,0,100,0,0);
-    translate(100,0,0);
-    box(10);
-    translate(-100,0,0);
-    //Green Y
-    stroke(0,255,0);
-    line(0,0,0,0,100,0);
-    translate(0,100,0);
-    box(10);
-    translate(0,-100,0);
-    //Blue Z
-    stroke(0,0,255);
-    line(0,0,0,0,0,100);
-    translate(0,0,100);
-    box(10);
-    translate(0,0,-100);
-    
+    if (false) {
+      //Red X
+      strokeWeight(1);
+      stroke(255,0,0);
+      line(0,0,0,100,0,0);
+      translate(100,0,0);
+      box(10);
+      translate(-100,0,0);
+      //Green Y
+      stroke(0,255,0);
+      line(0,0,0,0,100,0);
+      translate(0,100,0);
+      box(10);
+      translate(0,-100,0);
+      //Blue Z
+      stroke(0,0,255);
+      line(0,0,0,0,0,100);
+      translate(0,0,100);
+      box(10);
+      translate(0,0,-100);
+    }
   }
   @Override
   public void setup() {
@@ -76,6 +108,45 @@ public class ChristmasDay extends Sketch{
 
   }
   
+  public void keyPressed() {
+    System.out.println((int)key);
+    super.keyPressed();
+    switch(key){
+      case 32:
+        System.out.printf("%f %f %f\n", x, y, z);
+        break;
+    }
+  }
+  
+  public void mousePressed() {
+    if (mouseX > 0 && mouseX < width/3) section = 0;
+    if (mouseX > width/3 && mouseX < 2*width/3) section = 1;
+    if (mouseX > 2*width/3 && mouseX < width) section = 2;
+    mX = mouseX;
+    mY = mouseY;
+  }
+  public void mouseDragged() {
+    float dM = (mY - mouseY);
+    switch(section) {
+      case 0:
+        dx = dM/100.0*PI/2;
+        break;
+      case 1:
+        dy = dM/100.0*PI/2;
+        break;
+      case 2:
+        dz = dM/100.0*PI/2;
+        break;
+    }
+  }
+  public void mouseReleased() {
+    x = x+dx;
+    y = y+dy;
+    z = z+dz;
+    dx = 0;
+    dy = 0;
+    dz = 0;
+  }
   public static void main(String[] args) {
     int size = 500;
     PVector p = new PVector(size, size);
@@ -86,9 +157,4 @@ public class ChristmasDay extends Sketch{
     mainDisplay.setVisible(true);
   }
   
-  public void keyPressed() {
-    camera.keyPressed(key);
-    System.out.println(camera);
-  }
-
 }
