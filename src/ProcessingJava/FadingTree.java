@@ -37,6 +37,7 @@ public class FadingTree extends VisualComponent{
 	}
 	
 	public void update(float d) {
+	  super.update(d);
 		if (branches[0] != null) {
 			for (int i = 0; i < num_branches; i++) {
 				branches[i].update(d);

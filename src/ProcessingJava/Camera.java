@@ -165,8 +165,26 @@ public class Camera {
       System.out.print(":");
       System.out.println(angle1 % (2*Math.PI));
     }
-    if (angle1 < 0) upZ = 1;
-    else upZ = -1;
+    if (Math.abs(angle1) < 0.001) {
+      upX = 1;
+      upY = 1;
+      upZ = 0;
+    }
+    else if (Math.abs((angle1)-Math.PI) < 0.001) {
+      upX = 1;
+      upY = 1;
+      upZ = 0;
+    }
+    else if (angle1 < 0){
+      upX = 0;
+      upY = 0;
+      upZ = 1;
+    }
+    else {
+      upX = 0;
+      upY = 0;
+      upZ = -1;
+    }
   }
   private void calculateAngles() {
     double dx = camera_x - camera_x2;
