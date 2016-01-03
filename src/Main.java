@@ -9,7 +9,7 @@ public class Main {
 //    s = new RainbowEllipsesSketch(p);
 //    s = new TestingSketch(p);
 //    s = new OscillatingCircleThingSketch(p);
-//    s = new Tree_Sketch(p);
+    s = new Tree_Sketch(p);
 //    s = new ComponentEllipseSketch(p);
 //    s = new MathSketch(p);
 //    s = new MathSketch2(p);
@@ -17,7 +17,7 @@ public class Main {
 //    s = new MathSketch4(p);
 //    s = new ShapeSketch(p);
 //    s = new HandSketch(p);
-    s = new Sketch_3D(p);
+//    s = new Sketch_3D(p);
     mainDisplay.addSketch(s);
     mainDisplay.setVisible(true);
   }

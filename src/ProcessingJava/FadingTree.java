@@ -8,10 +8,11 @@ public class FadingTree extends VisualComponent{
 	boolean done_growing;
 	FadingTree [] branches;
 	PVector colour2, curr_colour;
-	protected FadingTree(PVector position, PVector colour, PVector colour2, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit, int branch_count) {
+	protected FadingTree(PVector position, float angle, PVector colour, PVector colour2, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit, int branch_count) {
 	    super(position, colour);
 	    this.rotation_after_translate = position.z;
 	    this.colour2 = colour2;
+	    rotation_after_translate = angle;
 	    PVector colour_diff = new PVector(colour2.x-colour.x,colour2.y-colour.y,colour2.z-colour.z);
 	    if (branch_limit >1) {
 	      this.curr_colour = new PVector(colour.x + colour_diff.x/(branch_limit-1)*branch_count, colour.y + colour_diff.y/(branch_limit-1)*branch_count, colour.z + colour_diff.z/(branch_limit-1)*branch_count);
@@ -31,8 +32,8 @@ public class FadingTree extends VisualComponent{
 	    if (branch_count >= branch_limit) done_growing = true;
 	}
   
-	public FadingTree(PVector position, PVector colour, PVector colour2, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit) {
-		this(position, colour, colour2, max_length, growth_speed, angle_range, decay, num_branches, branch_limit, 0);
+	public FadingTree(PVector position, float angle, PVector colour, PVector colour2, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit) {
+		this(position, angle, colour, colour2, max_length, growth_speed, angle_range, decay, num_branches, branch_limit, 0);
 	}
 	
 	public void update(float d) {
@@ -55,8 +56,8 @@ public class FadingTree extends VisualComponent{
 					float x = curr_length;
 					float y = 0;
 					
-					PVector pos = new PVector(x,y,angle);
-					branches[i] = new FadingTree(pos, colour, colour2, max_length*decay, growth_speed * decay, angle_range, decay, num_branches, branch_limit, branch_count+1);
+					PVector pos = new PVector(x,y);
+					branches[i] = new FadingTree(pos, angle, colour, colour2, max_length*decay, growth_speed * decay, angle_range, decay, num_branches, branch_limit, branch_count+1);
 					branches[i].setSketch(sketch);
 				}
 			}

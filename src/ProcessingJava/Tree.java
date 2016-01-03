@@ -8,9 +8,9 @@ public class Tree extends VisualComponent{
 	int branch_limit = -1;
 	boolean done_growing;
 	Tree [] branches;
-	protected Tree(PVector position, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit, int branch_count) {
+	protected Tree(PVector position, double rotation, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit, int branch_count) {
     super(position, colour);
-    rotation_after_translate = position.z;
+    rotation_after_translate = rotation;
     this.curr_length = 0;
     this.max_length = max_length;
     this.growth_speed = growth_speed;
@@ -24,12 +24,12 @@ public class Tree extends VisualComponent{
     if (branch_count >= branch_limit) done_growing = true;
   }
   
-  public Tree(PVector position, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit) {
-    this(position, colour, max_length, growth_speed, angle_range, decay, num_branches, branch_limit, 0);
+  public Tree(PVector position, double rotation, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit) {
+    this(position, rotation, colour, max_length, growth_speed, angle_range, decay, num_branches, branch_limit, 0);
   }
     
-	public Tree(PVector position, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches) {
-    this(position, colour, max_length, growth_speed, angle_range, decay, num_branches, -1, 0);
+	public Tree(PVector position, double rotation, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches) {
+    this(position, rotation, colour, max_length, growth_speed, angle_range, decay, num_branches, -1, 0);
 		if (branch_limit == -1 && max_length <= 5) {
 		  System.out.println("TU SHORT");
 		  done_growing = true;
@@ -56,11 +56,11 @@ public class Tree extends VisualComponent{
 				  float angle = angle_range/(float)(num_branches-1)*i - angle_range/2;
           float x = curr_length;
           float y = 0;
-          PVector pos = new PVector(x,y,angle);
+          PVector pos = new PVector(x,y);
 					if (branch_limit == -1) {
-					  branches[i] = new Tree(pos, colour, max_length*decay, growth_speed * decay, angle_range, decay, num_branches);
+					  branches[i] = new Tree(pos, angle, colour, max_length*decay, growth_speed * decay, angle_range, decay, num_branches);
 					} else {
-					  branches[i] = new Tree(pos, colour, max_length*decay, growth_speed * decay, angle_range, decay, num_branches, branch_limit, branch_count+1);
+					  branches[i] = new Tree(pos, angle, colour, max_length*decay, growth_speed * decay, angle_range, decay, num_branches, branch_limit, branch_count+1);
           }
 					branches[i].setSketch(sketch);
 				}
