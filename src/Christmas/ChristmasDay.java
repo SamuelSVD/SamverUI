@@ -12,16 +12,20 @@ public class ChristmasDay extends Sketch{
   }
   public ChristmasDay(PVector position, PVector size) {
     super(position,size);
+    record = false;
+    frame_limit = 250;
     camera = new Camera(camera_mode.radial);
     this.setCamera(camera);
     camera.setTarget(0, 0, 0);
-    camera.setAngles(PI/2,PI/2);
-    camera.setRadius(400);
-  camera.setLocation(250,250, 300);
-//  camera.setLocation(0,10, 300);
+    System.out.println(camera);
+    camera.setAngles(PI/4,PI/2);
+    System.out.println(camera);
+    camera.setRadius(200);
+    System.out.println(camera);
+//  camera.setLocation(250,250, 300);
     camera.angle_accuracy = PI/8;
     camera.position_accuracy = 100;
-    
+    camera.DEBUG = true;
     addVisualComponent(new Background(new PVector(255,255,255)));
     
     PVector pos = new PVector(0,0,0);
@@ -53,26 +57,39 @@ public class ChristmasDay extends Sketch{
     
     
     
-    
-    
-    
-    
-    int num = 10;
+    int num = 0;
     colour = new PVector(139,69,19);
-    PVector new_colour = new PVector(49,100 + random(100),49);
+    PVector new_colour = new PVector(49,150 + random(100),49);
     for (int j = num; j > 0; j--) {
       pos = new PVector(0,0, 3);
       int N = 5;
       for (int i = N; i > 1; i--) {
         float h = 10;
-        FadingTree t2 = new FadingTree(pos, 0, colour, new_colour, h*i, (h/2.0f)*i, PI/2, 0.8f - 0.5f*i/N, 4, 5); // pine tree
+        FadingTree t2 = new FadingTree(pos, 0, colour, new_colour, h*i, 100*(h/2.0f)*i, PI/2, 0.8f - 0.5f*i/N, 4, 4); // pine tree
 //        t2.setRotationBeforeTranslate3D(new PVector(0,-PI/2,0));
         t2.setRotationAfterTranslate3D(new PVector(PI/2,PI/num*j,PI/2));
         addVisualComponent(t2);
       }
     }
-    
+    FadingTree t2;
+    num = 5;
+    colour = new PVector(139,69,19);
+    new_colour = new PVector(49,150 + random(100),49);
+    for (int j = 0; j < num; j++) {
+      int h = 10;
+      float cumulative = 0;
+      float N = 10;
+      for( int i = 0; i < N; i++) {
+        pos = new PVector(0,0, 3+cumulative);
+        cumulative += h*(1-i/N);
+        t2 = new FadingTree(pos, 0, colour, new_colour, h*(1-i/N), 1000, PI/2, 0.8f, 4, 4); // pine tree
+    //    t2.setDelay(i*1);
+        t2.setRotationAfterTranslate3D(new PVector(PI/2,PI/num*j,PI/2));
+        addVisualComponent(t2);
+      }
+    }
   }
+
   public void draw() {
     t.setRotationAfterTranslate3D(new PVector((float)(x + dx),(float)(y+dy),(float)(z+dz)));
 

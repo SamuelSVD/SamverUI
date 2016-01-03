@@ -15,7 +15,7 @@ abstract class VisualComponent extends PApplet{
   protected Function[] rotation_after_translate_fun_3D = new Function[3];
   protected PVector colour;
   protected float alpha;
-  protected boolean active;
+  protected boolean isActive;
   protected float delay;
   protected double rotation_before_translate;
   protected double rotation_after_translate;
@@ -25,7 +25,7 @@ abstract class VisualComponent extends PApplet{
     this.rotation_before_translate_3D = new PVector();
     this.rotation_after_translate_3D = new PVector();
     this.alpha = 255;
-    this.active = false;
+    this.isActive = true;
   }
   public void setSketch(Sketch s) {
     this.sketch = s;
@@ -58,7 +58,7 @@ abstract class VisualComponent extends PApplet{
     rotation_after_translate_3D = rot;
   }
   public boolean isActive() { 
-    return active;
+    return isActive;
   }
   public void draw(PVector shift) {
     PVector neg = new PVector(-shift.x, -shift.y);
@@ -67,6 +67,7 @@ abstract class VisualComponent extends PApplet{
     this.position.add(neg);
   }
   public void doDraw() {
+    if (!isActive) return;
     if (sketch.is3D()) {
       sketch.pushMatrix();
       sketch.rotateX(rotation_before_translate_3D.x);
@@ -92,11 +93,14 @@ abstract class VisualComponent extends PApplet{
   }
   public void setDelay(float d) {
     this.delay = d;
+    this.isActive = false;
   }
   public void update(float d) {
-    if (!active) {
+    if (!isActive) {
       if (delay > 0) delay -= d;
-      else active = true;
+      else isActive = true;
+      System.out.println(delay);
+      return;
     }
     //If the position is a function, change value in position vector.
     if (position_fun[0] != null) {
