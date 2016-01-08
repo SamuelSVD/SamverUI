@@ -12,16 +12,16 @@ public class ChristmasDay extends Sketch{
   }
   public ChristmasDay(PVector position, PVector size) {
     super(position,size);
-    record = true;
+    record = false;
     frame_limit = 250;
-//    camera = new Camera(camera_mode.first_person);
-    camera = new Camera(camera_mode.third_person);
+    camera = new Camera(camera_mode.first_person);
+//    camera = new Camera(camera_mode.third_person);
     this.setCamera(camera);
     camera.setTarget(0, 0, 0);
     camera.setAngles(PI/4,PI/2);
     camera.setRadius(200);
     camera.angle_accuracy = PI/8;
-    camera.position_accuracy = 100;
+    camera.position_accuracy = 10;
     camera.DEBUG = false;
     camera.activateControl();
     addVisualComponent(new Background(new PVector(255,255,255)));
@@ -95,7 +95,7 @@ public class ChristmasDay extends Sketch{
 
 //    camera.setAngles(camera.getAngle1(), camera.getAngle2()+0.02);
     super.draw();
-    if (false) {
+    if (true) {
       //Red X
       strokeWeight(1);
       stroke(255,0,0);
