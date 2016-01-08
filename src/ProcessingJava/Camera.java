@@ -89,17 +89,31 @@ public class Camera {
     }
   }
   public void setTarget(float x, float y, float z) {
-    this.target.x = x;
-    this.target.y = y;
-    this.target.z = z;
+    if (cm == camera_mode.first_person) {
+      camera.x = x;
+      camera.y = y;
+      camera.z = z;
+    }
+    else {
+      target.x = x;
+      target.y = y;
+      target.z = z;
+    }
     calculateAngles();
     calculateDelta();
     updateUpZ();
   }
   public void setLocation(float x, float y, float z) {
-    this.camera.x = x;
-    this.camera.y = y;
-    this.camera.z = z;
+    if (cm == camera_mode.first_person) {
+      target.x = x;
+      target.y = y;
+      target.z = z;
+    }
+    else {
+      camera.x = x;
+      camera.y = y;
+      camera.z = z;
+    }
     calculateAngles();
     calculateDelta();
     updateUpZ();
@@ -216,48 +230,57 @@ public class Camera {
     moveDirection(PConstants.RIGHT);
   }
   protected void moveDirection(int direction) {
+    PVector p = new PVector(delta.x, delta.y, delta.z);
+    if (cm == camera_mode.first_person) p.mult(-1);
     switch(direction){
     case PConstants.UP:
       break;
     case PConstants.DOWN:
       break;
     case PConstants.LEFT:
+      p = new PVector(p.x, p.y);
+      p.rotate((float)Math.PI/2);
+      p.mult(-(float)position_accuracy);
       break;
     case PConstants.RIGHT:
+      p = new PVector(p.x, p.y);
+      p.rotate((float)Math.PI/2);
+      p.mult((float)position_accuracy);
       break;
     case PConstants.ADD: //move forward
-      PVector p = new PVector(delta.x, delta.y, delta.z);
       p.mult((float)position_accuracy);
-      camera.add(p);
-      target.add(p);
       break;
     case PConstants.SUBTRACT: //move backward
-      p = new PVector(delta.x, delta.y, delta.z);
       p.mult((float)-position_accuracy);
-      camera.add(p);
-      target.add(p);
       break;
     }
+    camera.add(p);
+    target.add(p);
+
   }
   protected void moveAngle(int direction) {
     System.out.println("MOVE");
     System.out.println(direction);
     switch(direction){
     case PConstants.UP:
-      angle1 += angle_accuracy;
-      if (angle1 > Math.PI) angle1 = Math.PI;
+      if (cm == camera_mode.first_person) angle1 -= angle_accuracy;
+      else angle1 += angle_accuracy;
       break;
     case PConstants.DOWN:
-      angle1 -= angle_accuracy;
-      if (angle1 < 0) angle1 = 0;
+      if (cm == camera_mode.first_person) angle1 += angle_accuracy;
+      else angle1 -= angle_accuracy;
       break;
     case PConstants.LEFT:
-      angle2 += angle_accuracy;
+      if (cm == camera_mode.first_person) angle2 -= angle_accuracy;
+      else angle2 += angle_accuracy;
       break;
     case PConstants.RIGHT:
-      angle2 -= angle_accuracy;
+      if (cm == camera_mode.first_person) angle2 += angle_accuracy;
+      else angle2 -= angle_accuracy;
       break;
     }
+    if (angle1 > Math.PI) angle1 = Math.PI;
+    if (angle1 < 0) angle1 = 0;
     calculateCameraPosition();
     updateUpZ();
   }
