@@ -12,20 +12,18 @@ public class ChristmasDay extends Sketch{
   }
   public ChristmasDay(PVector position, PVector size) {
     super(position,size);
-    record = false;
+    record = true;
     frame_limit = 250;
-    camera = new Camera(camera_mode.radial);
+//    camera = new Camera(camera_mode.first_person);
+    camera = new Camera(camera_mode.third_person);
     this.setCamera(camera);
     camera.setTarget(0, 0, 0);
-    System.out.println(camera);
     camera.setAngles(PI/4,PI/2);
-    System.out.println(camera);
     camera.setRadius(200);
-    System.out.println(camera);
-//  camera.setLocation(250,250, 300);
     camera.angle_accuracy = PI/8;
     camera.position_accuracy = 100;
-    camera.DEBUG = true;
+    camera.DEBUG = false;
+    camera.activateControl();
     addVisualComponent(new Background(new PVector(255,255,255)));
     
     PVector pos = new PVector(0,0,0);
@@ -71,6 +69,8 @@ public class ChristmasDay extends Sketch{
         addVisualComponent(t2);
       }
     }
+    
+    
     FadingTree t2;
     num = 5;
     colour = new PVector(139,69,19);
@@ -93,7 +93,7 @@ public class ChristmasDay extends Sketch{
   public void draw() {
     t.setRotationAfterTranslate3D(new PVector((float)(x + dx),(float)(y+dy),(float)(z+dz)));
 
-    camera.setAngles(camera.getAngle1(), camera.getAngle2()+0.02);
+//    camera.setAngles(camera.getAngle1(), camera.getAngle2()+0.02);
     super.draw();
     if (false) {
       //Red X

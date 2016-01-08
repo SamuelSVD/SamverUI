@@ -1,160 +1,120 @@
 //http://tutorial.math.lamar.edu/Classes/CalcIII/SphericalCoords.aspx
 package ProcessingJava;
+import processing.core.*;
 
 public class Camera {
-  private double camera_x, camera_y, camera_z, camera_x2, camera_y2, camera_z2;
+//  private double camera.x, camera.y, camera.z, target.x, target.y, target.z;
   private double angle1, angle2= Math.PI/2, radius = 100;
+  private PVector camera = new PVector();
+  private PVector target = new PVector();
+  private PVector delta = new PVector(1,0,0);
   double upX, upY, upZ;
   public double angle_accuracy = 0.01;
   public double position_accuracy = 10;
   public boolean DEBUG = false;
+  private boolean camera_control = false;
   camera_mode cm;
   Sketch sketch;
   public Camera(camera_mode cm) {
     this.cm = cm;
-    camera_x = camera_x2 + radius * Math.sin(angle1) * Math.cos(angle2);
-    camera_y = camera_y2 + radius * Math.sin(angle1) * Math.sin(angle2);
-    camera_z = camera_z2 + radius * Math.cos(angle1);
   }
-  public void keyPressed(char key) {
+  public void activateControl() {
+    camera_control = true;
+  }
+  public void deactivateControl() {
+    camera_control = false;
+  }
+  public void keyPressed(char key, int keyCode) {
+    if (!camera_control) return;
     if (DEBUG) {
       System.out.print(key + ":");
       System.out.println((int)key);
     }
-    if (cm == camera_mode.rectangle) {
-      switch(key) {
-        case 'q': case 'Q':
-          camera_x += position_accuracy;
-          break;
-        case 'a': case 'A':
-          camera_x -= position_accuracy;
-          break;
-        case 'w': case 'W':
-          camera_y += position_accuracy;
-          break;
-        case 's': case 'S':
-          camera_y -= position_accuracy;
-          break;
-        case 'e': case 'E':
-          camera_z += position_accuracy;
-          break;
-        case 'd': case 'D':
-          camera_z -= position_accuracy;
-          break;
-        case '7':
-          camera_x2 += position_accuracy;
-          break;
-        case '4':
-          camera_x2 -= position_accuracy;
-          break;
-        case '8':
-          camera_y2 += position_accuracy;
-          break;
-        case '5':
-          camera_y2 -= position_accuracy;
-          break;
-        case '9':
-          camera_z2 += position_accuracy;
-          break;
-        case '6':
-          camera_z2 -= position_accuracy;
-          break;
+    System.out.printf("Coded: %d %d", (int)key, PConstants.CODED);
+    if (key == PConstants.CODED) {
+      if (keyCode == PConstants.UP) {
+        tiltUp();
       }
-      if (DEBUG) System.out.printf("K: %f %f %f : %f %f %f\n", camera_x, camera_y, camera_z, camera_x2, camera_y2, camera_z2);
-    }
-    else if (cm == camera_mode.radial) {
-      switch (key) {
-        case 'q': case 'Q':
-          angle1 += angle_accuracy;
-          break;
-        case 'a': case 'A':
-          angle1 -= angle_accuracy;
-          break;
-        case 'w': case 'W':
-          angle2 += angle_accuracy;
-          break;
-        case 's': case 'S':
-          angle2 -= angle_accuracy;
-          break;
-        case 'e': case 'E':
-          radius += position_accuracy;
-          break;
-        case 'd': case 'D':
-          radius -= position_accuracy;
-          break;
-        case '7':
-          camera_x2 += position_accuracy;
-          break;
-        case '4':
-          camera_x2 -= position_accuracy;
-          break;
-        case '8':
-          camera_y2 += position_accuracy;
-          break;
-        case '5':
-          camera_y2 -= position_accuracy;
-          break;
-        case '9':
-          camera_z2 += position_accuracy;
-          break;
-        case '6':
-          camera_z2 -= position_accuracy;
-          break;
+      if (keyCode == PConstants.DOWN) {
+        tiltDown();
       }
-      calculateCameraPosition();
-      if (DEBUG) System.out.printf("K: %f %f %f : %f %f %f\n", camera_x2, camera_y2, camera_z2, angle1, angle2, radius);
+      if (keyCode == PConstants.LEFT) {
+        turnCW();
+      }
+      if (keyCode == PConstants.RIGHT) {
+        turnCCW();
+      }
     }
-    switch( key) {
-      case '1':
-        upX += 1;
-        upX += 0.1;
-        upX = upX %2.1;
-        upX = upX - 1;
+    
+    else switch(key) {
+      case 'q': case 'Q':
         break;
-      case '2':
-        upY += 1;
-        upY += 0.1;
-        upY = upY %2.1;
-        upY = upY - 1;
+      case 'a': case 'A':
+        moveLeft();
         break;
-      case '3':
-        upZ += 1;
-        upZ += 0.1;
-        upZ = upZ %2.1;
-        upZ = upZ - 1;
+      case 'w': case 'W':
+        moveForward();
+        break;
+      case 's': case 'S':
+        moveBackward();
+        break;
+      case 'e': case 'E':
+        break;
+      case 'd': case 'D':
+        moveRight();
+        break;
+      case '7':
+        break;
+      case '4':
+        break;
+      case '8':
+        break;
+      case '5':
+        break;
+      case '9':
+        break;
+      case '6':
         break;
     }
+    if (DEBUG) System.out.printf("K: %f %f %f : %f %f %f\n", target.x, target.y, target.z, angle1, angle2, radius);
+    
+    calculateCameraPosition();
+    calculateDelta();
     updateUpZ();
-    if (DEBUG) System.out.printf("UP: %f %f %f\n", upX, upY, upZ);
   }
   public void use() {
     if (sketch != null) {
-      sketch.camera((float)camera_x, (float)camera_y, (float)camera_z, (float)camera_x2, (float)camera_y2, (float)camera_z2, (float)upX, (float)upY, (float)upZ);
+      if (this.cm == camera_mode.third_person) sketch.camera((float)camera.x, (float)camera.y, (float)camera.z, (float)target.x, (float)target.y, (float)target.z, (float)upX, (float)upY, (float)upZ);
+      if (this.cm == camera_mode.first_person) sketch.camera((float)target.x, (float)target.y, (float)target.z, (float)camera.x, (float)camera.y, (float)camera.z, (float)upX, (float)upY, (float)upZ);
     }
   }
-  public void setTarget(double x, double y, double z) {
-    this.camera_x2 = x;
-    this.camera_y2 = y;
-    this.camera_z2 = z;
+  public void setTarget(float x, float y, float z) {
+    this.target.x = x;
+    this.target.y = y;
+    this.target.z = z;
     calculateAngles();
+    calculateDelta();
     updateUpZ();
   }
-  public void setLocation(double x, double y, double z) {
-    this.camera_x = x;
-    this.camera_y = y;
-    this.camera_z = z;
+  public void setLocation(float x, float y, float z) {
+    this.camera.x = x;
+    this.camera.y = y;
+    this.camera.z = z;
     calculateAngles();
+    calculateDelta();
     updateUpZ();
   }
   public void setRadius(double rad) {
     radius = rad;
     calculateCameraPosition();
+    calculateDelta();
     updateUpZ();
   }
   public void setAngles(double angle1, double angle2) {
     this.angle1 = angle1;
     this.angle2 = angle2;
     calculateCameraPosition();
+    calculateDelta();
     updateUpZ();
   }
   private void updateUpZ() {
@@ -165,14 +125,14 @@ public class Camera {
       System.out.print(":");
       System.out.println(angle1 % (2*Math.PI));
     }
-    if (Math.abs(angle1) < 0.001) {
-      upX = 1;
-      upY = 1;
+    if (Math.abs(angle1) < Math.PI/4-0.78539) {
+      upX = Math.cos(angle2);
+      upY = Math.sin(angle2);
       upZ = 0;
     }
-    else if (Math.abs((angle1)-Math.PI) < 0.001) {
-      upX = 1;
-      upY = 1;
+    else if (Math.abs((angle1)-Math.PI) < Math.abs(Math.PI/4-0.78539)) {
+      upX = -Math.cos(angle2);
+      upY = -Math.sin(angle2);
       upZ = 0;
     }
     else if (angle1 < 0){
@@ -185,26 +145,36 @@ public class Camera {
       upY = 0;
       upZ = -1;
     }
+    if (DEBUG) System.out.printf("UP: %f %f %f\n", upX, upY, upZ);
   }
   private void calculateAngles() {
-    double dx = camera_x - camera_x2;
-    double dy = camera_y - camera_y2;
-    double dz = camera_z - camera_z2;
+    double dx = camera.x - target.x;
+    double dy = camera.y - target.y;
+    double dz = camera.z - target.z;
     radius = Math.sqrt(dx*dx+dy*dy+dz*dz);
     if (radius == 0) return;
     angle1 = Math.acos(dz/radius);
     angle2 = Math.atan2(dy/radius/Math.sin(angle1),dx/radius/Math.sin(angle1));
   }
   private void calculateCameraPosition() {
-    camera_x = camera_x2 + radius * Math.sin(angle1) * Math.cos(angle2);
-    camera_y = camera_y2 + radius * Math.sin(angle1) * Math.sin(angle2);
-    camera_z = camera_z2 + radius * Math.cos(angle1);
+    camera.x = (float)(target.x + radius * Math.sin(angle1) * Math.cos(angle2));
+    camera.y = (float)(target.y + radius * Math.sin(angle1) * Math.sin(angle2));
+    camera.z = (float)(target.z + radius * Math.cos(angle1));
+  }
+  private void calculateDelta() {
+    PVector p = new PVector(camera.x,camera.y,camera.z);
+    p.mult(-1);
+    p.add(target);
+    if (p.mag() > 0){
+      delta = p;
+      delta.normalize();
+    }
   }
   public void init() {
     updateUpZ();
   }
   public String toString() {
-   return String.format("%f %f %f : %f %f %f : %f %f %f : %f %f %f\n",camera_x, camera_y, camera_z, camera_x2, camera_y2, camera_z2, angle1, angle2, radius, upX, upY, upZ);
+   return String.format("%f %f %f : %f %f %f : %f %f %f : %f %f %f\n",camera.x, camera.y, camera.z, target.x, target.y, target.z, angle1, angle2, radius, upX, upY, upZ);
   }
   public double getAngle1() {
     return angle1;
@@ -214,5 +184,85 @@ public class Camera {
   }
   public void setSketch(Sketch s) {
     this.sketch = s;
+  }
+  public void tiltUp() {
+    moveAngle(PConstants.UP);
+  }
+  public void tiltDown() {
+    moveAngle(PConstants.DOWN);
+  }
+  public void turnCW() {
+    moveAngle(PConstants.LEFT);
+  }
+  public void turnCCW() {
+    moveAngle(PConstants.RIGHT);
+  }
+  public void moveForward() {
+    moveDirection(PConstants.ADD);
+  }
+  public void moveBackward() {
+    moveDirection(PConstants.SUBTRACT);
+  }
+  public void moveUp() {
+    moveDirection(PConstants.UP);
+  }
+  public void moveDown() {
+    moveDirection(PConstants.DOWN);
+  }
+  public void moveLeft() {
+    moveDirection(PConstants.LEFT);
+  }
+  public void moveRight() {
+    moveDirection(PConstants.RIGHT);
+  }
+  protected void moveDirection(int direction) {
+    switch(direction){
+    case PConstants.UP:
+      break;
+    case PConstants.DOWN:
+      break;
+    case PConstants.LEFT:
+      break;
+    case PConstants.RIGHT:
+      break;
+    case PConstants.ADD: //move forward
+      PVector p = new PVector(delta.x, delta.y, delta.z);
+      p.mult((float)position_accuracy);
+      camera.add(p);
+      target.add(p);
+      break;
+    case PConstants.SUBTRACT: //move backward
+      p = new PVector(delta.x, delta.y, delta.z);
+      p.mult((float)-position_accuracy);
+      camera.add(p);
+      target.add(p);
+      break;
+    }
+  }
+  protected void moveAngle(int direction) {
+    System.out.println("MOVE");
+    System.out.println(direction);
+    switch(direction){
+    case PConstants.UP:
+      angle1 += angle_accuracy;
+      if (angle1 > Math.PI) angle1 = Math.PI;
+      break;
+    case PConstants.DOWN:
+      angle1 -= angle_accuracy;
+      if (angle1 < 0) angle1 = 0;
+      break;
+    case PConstants.LEFT:
+      angle2 += angle_accuracy;
+      break;
+    case PConstants.RIGHT:
+      angle2 -= angle_accuracy;
+      break;
+    }
+    calculateCameraPosition();
+    updateUpZ();
+  }
+  public void shift(PVector p) {
+    camera.add(p);
+    target.add(p);
   }
 }
