@@ -99,6 +99,7 @@ abstract class VisualComponent extends PApplet{
     if (!isActive) {
       if (delay > 0) delay -= d;
       else isActive = true;
+      System.out.print("VisComp.delay: ");
       System.out.println(delay);
       return;
     }

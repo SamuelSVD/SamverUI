@@ -66,7 +66,7 @@ public abstract class Sketch extends PApplet{
 	}
   public void keyPressed() {
     if (camera != null) {
-      camera.keyPressed(key);
+      camera.keyPressed(key, keyCode);
     }
   }
 
