@@ -18,6 +18,7 @@ public class Main {
 //    s = new ShapeSketch(p);
 //    s = new HandSketch(p);
 //    s = new Sketch_3D(p);
+    s = new Orbit_3D(p);
     mainDisplay.addSketch(s);
     mainDisplay.setVisible(true);
   }

@@ -13,7 +13,9 @@ abstract class VisualComponent extends PApplet{
   protected Function rotation_after_translate_fun;
   protected Function[] rotation_before_translate_fun_3D = new Function[3];
   protected Function[] rotation_after_translate_fun_3D = new Function[3];
-  protected PVector colour;
+  protected PVector colour, stroke_colour;
+  protected boolean hasStroke = true;
+  protected boolean isFilled = true;
   protected float alpha;
   protected boolean isActive;
   protected float delay;
@@ -22,6 +24,7 @@ abstract class VisualComponent extends PApplet{
   VisualComponent(PVector position, PVector colour) {
     this.position = position;
     this.colour = colour;
+    this.stroke_colour = new PVector();
     this.rotation_before_translate_3D = new PVector();
     this.rotation_after_translate_3D = new PVector();
     this.alpha = 255;
@@ -79,6 +82,11 @@ abstract class VisualComponent extends PApplet{
       sketch.rotateZ(rotation_after_translate_3D.z);
       //Temporary fix
       sketch.rotate((float)rotation_after_translate);
+      sketch.fill(colour.x,colour.y,colour.z);
+      if (this.hasStroke) sketch.stroke(stroke_colour.x, stroke_colour.y, stroke_colour.z);
+      else sketch.noStroke();
+      if (this.isFilled) sketch.fill(colour.x, colour.y, colour.z);
+      else sketch.noFill();
       this.draw();
       sketch.popMatrix();
     }
@@ -166,5 +174,20 @@ abstract class VisualComponent extends PApplet{
       rotation_before_translate_fun_3D[2].update(d);
       rotation_before_translate_3D.z = (float)rotation_before_translate_fun_3D[2].getValue();
     }
+  }
+  public void noStroke() {
+    this.hasStroke = false;
+  }
+  public void stroke() {
+    this.hasStroke = true;
+  }
+  public void noFill() {
+    this.isFilled = false;
+  }
+  public void Fill() {
+    this.isFilled = true;
+  }
+  public void setStrokeColor(PVector colour) {
+    this.stroke_colour = colour;
   }
 }
