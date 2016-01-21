@@ -29,145 +29,68 @@ public class Orbit_3D extends Sketch{
     camera.DEBUG = false;
     camera.activateControl();
     System.out.println(camera);
-    addVisualComponent(new Background(new PVector(5,25,10)));
+    addVisualComponent(new Background(new PVector(5,10,25)));
     
     double a = 125;
     double b = 150;
+    double size[] = {10, 15, 20, 15, 35, 30, 20, 15};
+    double inc[] =  {65, 65, 85, 85, 85, 85, 85, 65};
+    float freq[] = {16*PI/15, 16*PI/15, 8*PI/15, 8*PI/15, 4*PI/15, 4*PI/15, 2*PI/15, 2*PI/15};
+    PVector colours[] = {new PVector(147,121,106),
+                         new PVector(207,138,15), 
+                         new PVector(), 
+                         new PVector(140,80,60), 
+                         new PVector(170,160,150), 
+                         new PVector(100,100,75), 
+                         new PVector(130,150,160), 
+                         new PVector(40,130,210)};
     
-    //Planet 1
-    Sphere sphere = new Sphere(new PVector(), new PVector(147,121,106));
-    sphere.setPositionFun(0, new Ellipse_X(0,0,PI/2,1,a,b,0));
-    sphere.setPositionFun(1, new Ellipse_Y(0,0,PI/2,1,a,b,0));
-    sphere.setRotationBeforeTranslateFun3D(0, new Constant(PI));
-//    sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
-//    sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
-//    sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
-    sphere.setSize(10);
-    sphere.setDetail(50);
-    sphere.noStroke();
-    addVisualComponent(sphere);
-    a += 65;
-    b += 65;
-
-    //Planet 2
-    sphere = new Sphere(new PVector(), new PVector(207,138,15));
-    sphere.setPositionFun(0, new Ellipse_X(0,0,2*PI/15*64,1,a,b,0));
-    sphere.setPositionFun(1, new Ellipse_Y(0,0,2*PI/15*64,1,a,b,0));
-    sphere.setRotationBeforeTranslateFun3D(0, new Constant(PI));
-//    sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
-//    sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
-//    sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
-    sphere.setSize(15);
-    sphere.setDetail(50);
-    sphere.noStroke();
-    addVisualComponent(sphere);
-    a += 65;
-    b += 65;
-
-    //Planet 3
-    VisualContainer vc = new VisualContainer(new PVector(), new PVector());
-    vc.setPositionFun(0, new Ellipse_X(0,0,2*PI/15*32,1,a,b,0));
-    vc.setPositionFun(1, new Ellipse_Y(0,0,2*PI/15*32,1,a,b,0));
-    vc.setRotationBeforeTranslateFun3D(0, new Constant(PI));
+    Sphere sphere;
+    for (int i = 0; i < 8; i++) {
+      if (i == 2) {
+      //Planet 3
+        VisualContainer vc = new VisualContainer(new PVector(), new PVector());
+        vc.setPositionFun(0, new Ellipse_X(0,0,freq[i],1,a,b,0));
+        vc.setPositionFun(1, new Ellipse_Y(0,0,freq[i],1,a,b,0));
+//        vc.setRotationBeforeTranslateFun3D(0, new Constant(PI));
+        
+        sphere = new Sphere(new PVector(), new PVector(98,113,162));
+        //  sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
+        //  sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
+        //  sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
+        sphere.setSize(20);
+        sphere.setDetail(50);
+        sphere.noStroke();
+        vc.addVisualComponent(sphere);
+        
+        //Moon
+        sphere = new Sphere(new PVector(), new PVector(255,255,255));
+        //sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
+        //sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
+        //sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
+        sphere.setPositionFun(0, new Ellipse_X(0,0,-2*freq[i],1,30,30,0));
+        sphere.setPositionFun(1, new Ellipse_Y(0,0,-2*freq[i],1,30,30,0));
+        sphere.setSize(10);
+        sphere.setDetail(50);
+        sphere.noStroke();
+        vc.addVisualComponent(sphere);
+        addVisualComponent(vc);
+      }
+      else {
+        float offset_x = random(2*PI/freq[i]);
+        sphere = new Sphere(new PVector(), colours[i]);
+        sphere.setPositionFun(0, new Ellipse_X(offset_x,0,freq[i],1,a,b,0));
+        sphere.setPositionFun(1, new Ellipse_Y(offset_x,0,freq[i],1,a,b,0));
+  //      sphere.setRotationBeforeTranslateFun3D(0, new Constant(PI));
+        sphere.setSize(size[i]);
+        sphere.setDetail(50);
+        sphere.noStroke();
+        addVisualComponent(sphere);
+      }
+      a += inc[i];
+      b += inc[i];
+    }
     
-    sphere = new Sphere(new PVector(), new PVector(98,113,162));
-//  sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
-//  sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
-//  sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
-    sphere.setSize(20);
-    sphere.setDetail(50);
-    sphere.noStroke();
-    vc.addVisualComponent(sphere);
-    
-    //Moon
-    sphere = new Sphere(new PVector(), new PVector(255,255,255));
-    //sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
-    //sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
-    //sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
-    sphere.setPositionFun(0, new Ellipse_X(0,0,-PI/2,1,30,30,0));
-    sphere.setPositionFun(1, new Ellipse_Y(0,0,-PI/2,1,30,30,0));
-    sphere.setSize(10);
-    sphere.setDetail(50);
-    sphere.noStroke();
-    vc.addVisualComponent(sphere);
-    addVisualComponent(vc);
-    
-    a += 85;
-    b += 85;
-
-    //Planet 4
-    sphere = new Sphere(new PVector(), new PVector(140,80,60));
-    sphere.setPositionFun(0, new Ellipse_X(0,0,2*PI/15*16,1,a,b,0));
-    sphere.setPositionFun(1, new Ellipse_Y(0,0,2*PI/15*16,1,a,b,0));
-    sphere.setRotationBeforeTranslateFun3D(0, new Constant(PI));
-//    sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
-//    sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
-//    sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
-    sphere.setSize(15);
-    sphere.setDetail(50);
-    sphere.noStroke();
-    addVisualComponent(sphere);
-    a += 85;
-    b += 85;
-
-    //Planet 5
-    sphere = new Sphere(new PVector(), new PVector(170,160,150));
-    sphere.setPositionFun(0, new Ellipse_X(0,0,2*PI/15*8,1,a,b,0));
-    sphere.setPositionFun(1, new Ellipse_Y(0,0,2*PI/15*8,1,a,b,0));
-    sphere.setRotationBeforeTranslateFun3D(0, new Constant(PI));
-//    sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
-//    sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
-//    sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
-    sphere.setSize(35);
-    sphere.setDetail(50);
-    sphere.noStroke();
-    addVisualComponent(sphere);
-    a += 85;
-    b += 85;
-
-    //Planet 6
-    sphere = new Sphere(new PVector(), new PVector(100,100,75));
-    sphere.setPositionFun(0, new Ellipse_X(0,0,2*PI/15*4,1,a,b,0));
-    sphere.setPositionFun(1, new Ellipse_Y(0,0,2*PI/15*4,1,a,b,0));
-    sphere.setRotationBeforeTranslateFun3D(0, new Constant(PI));
-//    sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
-//    sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
-//    sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
-    sphere.setSize(30);
-    sphere.setDetail(50);
-    sphere.noStroke();
-    addVisualComponent(sphere);
-    a += 85;
-    b += 85;
-
-    //Planet 7
-    sphere = new Sphere(new PVector(), new PVector(130,150,160));
-    sphere.setPositionFun(0, new Ellipse_X(0,0,2*PI/15*2,1,a,b,0));
-    sphere.setPositionFun(1, new Ellipse_Y(0,0,2*PI/15*2,1,a,b,0));
-    sphere.setRotationBeforeTranslateFun3D(0, new Constant(PI));
-//    sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
-//    sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
-//    sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
-    sphere.setSize(20);
-    sphere.setDetail(50);
-    sphere.noStroke();
-    addVisualComponent(sphere);
-    a += 85;
-    b += 85;
-
-    //Planet 8
-    sphere = new Sphere(new PVector(), new PVector(40,130,210));
-    sphere.setPositionFun(0, new Ellipse_X(0,0,2*PI/15,1,a,b,0));
-    sphere.setPositionFun(1, new Ellipse_Y(0,0,2*PI/15,1,a,b,0));
-    sphere.setRotationBeforeTranslateFun3D(0, new Constant(PI));
-//    sphere.setRotationAfterTranslateFun3D(1, new Line(-1));
-//    sphere.setRotationAfterTranslateFun3D(0, new Constant(PI/2));
-//    sphere.setRotationAfterTranslateFun3D(2, new Constant(PI/2));
-    sphere.setSize(15);
-    sphere.setDetail(50);
-    sphere.noStroke();
-    addVisualComponent(sphere);
-
     //SUN
     sphere = new Sphere(new PVector(), new PVector(253,193,55));
     sphere.setRotationBeforeTranslateFun3D(0,new Constant(PI/2));

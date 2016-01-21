@@ -4,3 +4,4 @@ syntax: glob
 *.mp4
 *.class
 *.log
+*.gif
