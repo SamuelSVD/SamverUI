@@ -12,7 +12,7 @@ public class Orbit_3D extends Sketch{
     super(position, size);
   }
   public void setup() {
-    record = true;
+    record = false;
     frame_limit = 25*15;
     size((int)size.x, (int)size.y, P3D); //Always needed. Looking for a fix.
     is_3D = true;
