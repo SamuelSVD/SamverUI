@@ -15,6 +15,9 @@ public class Camera {
   private boolean camera_control = false;
   camera_mode cm;
   Sketch sketch;
+  
+  private boolean tilt_up, tilt_down, turn_cw, turn_ccw, move_left, move_forward, move_right, move_backward = false;
+  
   public Camera(camera_mode cm) {
     this.cm = cm;
   }
@@ -24,7 +27,10 @@ public class Camera {
   public void deactivateControl() {
     camera_control = false;
   }
-  public void keyPressed(char key, int keyCode) {
+  public boolean hasControl() {
+    return camera_control;
+  }
+  private void setKeyValue(char key, int keyCode, boolean value) {
     if (!camera_control) return;
     if (DEBUG) {
       System.out.print(key + ":");
@@ -33,16 +39,16 @@ public class Camera {
     System.out.printf("Coded: %d %d", (int)key, PConstants.CODED);
     if (key == PConstants.CODED) {
       if (keyCode == PConstants.UP) {
-        tiltUp();
+        tilt_up = value;
       }
       if (keyCode == PConstants.DOWN) {
-        tiltDown();
+        tilt_down = value;
       }
       if (keyCode == PConstants.LEFT) {
-        turnCW();
+        turn_cw = value;
       }
       if (keyCode == PConstants.RIGHT) {
-        turnCCW();
+        turn_ccw = value;
       }
     }
     
@@ -50,40 +56,47 @@ public class Camera {
       case 'q': case 'Q':
         break;
       case 'a': case 'A':
-        moveLeft();
+        move_left = value;
         break;
       case 'w': case 'W':
-        moveForward();
+        move_forward = value;
         break;
       case 's': case 'S':
-        moveBackward();
+        move_backward = value;
         break;
       case 'e': case 'E':
         break;
       case 'd': case 'D':
-        moveRight();
-        break;
-      case '7':
-        break;
-      case '4':
-        break;
-      case '8':
-        break;
-      case '5':
-        break;
-      case '9':
-        break;
-      case '6':
+        move_right = value;
         break;
     }
     if (DEBUG) System.out.printf("K: %f %f %f : %f %f %f\n", target.x, target.y, target.z, angle1, angle2, radius);
-    
     calculateCameraPosition();
     calculateDelta();
     updateUpZ();
   }
+  public void keyPressed(char key, int keyCode) {
+    setKeyValue(key, keyCode, true);
+  }
+  public void keyReleased(char key, int keyCode) {
+    setKeyValue(key, keyCode, false);
+  }
   public void use() {
     if (sketch != null) {
+      if (this.cm == camera_mode.third_person) sketch.camera((float)camera.x, (float)camera.y, (float)camera.z, (float)target.x, (float)target.y, (float)target.z, (float)upX, (float)upY, (float)upZ);
+      if (this.cm == camera_mode.first_person) sketch.camera((float)target.x, (float)target.y, (float)target.z, (float)camera.x, (float)camera.y, (float)camera.z, (float)upX, (float)upY, (float)upZ);
+    }
+  }
+  public void use(float delta) {
+    if (sketch != null) {
+      if (tilt_up) tiltUp(delta);
+      if (tilt_down) tiltDown(delta);
+      if (turn_cw) turnCW(delta);
+      if (turn_ccw) turnCCW(delta);
+      if (move_left) moveLeft(delta);
+      if (move_forward) moveForward(delta);
+      if (move_backward) moveBackward(delta);
+      if (move_right) moveRight(delta);
       if (this.cm == camera_mode.third_person) sketch.camera((float)camera.x, (float)camera.y, (float)camera.z, (float)target.x, (float)target.y, (float)target.z, (float)upX, (float)upY, (float)upZ);
       if (this.cm == camera_mode.first_person) sketch.camera((float)target.x, (float)target.y, (float)target.z, (float)camera.x, (float)camera.y, (float)camera.z, (float)upX, (float)upY, (float)upZ);
     }
@@ -199,38 +212,38 @@ public class Camera {
   public void setSketch(Sketch s) {
     this.sketch = s;
   }
-  public void tiltUp() {
-    moveAngle(PConstants.UP);
+  public void tiltUp(float delta) {
+    moveAngle(PConstants.UP, delta);
   }
-  public void tiltDown() {
-    moveAngle(PConstants.DOWN);
+  public void tiltDown(float delta) {
+    moveAngle(PConstants.DOWN, delta);
   }
-  public void turnCW() {
-    moveAngle(PConstants.LEFT);
+  public void turnCW(float delta) {
+    moveAngle(PConstants.LEFT, delta);
   }
-  public void turnCCW() {
-    moveAngle(PConstants.RIGHT);
+  public void turnCCW(float delta) {
+    moveAngle(PConstants.RIGHT, delta);
   }
-  public void moveForward() {
-    moveDirection(PConstants.ADD);
+  public void moveForward(float delta) {
+    moveDirection(PConstants.ADD, delta);
   }
-  public void moveBackward() {
-    moveDirection(PConstants.SUBTRACT);
+  public void moveBackward(float delta) {
+    moveDirection(PConstants.SUBTRACT, delta);
   }
-  public void moveUp() {
-    moveDirection(PConstants.UP);
+  public void moveUp(float delta) {
+    moveDirection(PConstants.UP, delta);
   }
-  public void moveDown() {
-    moveDirection(PConstants.DOWN);
+  public void moveDown(float delta) {
+    moveDirection(PConstants.DOWN, delta);
   }
-  public void moveLeft() {
-    moveDirection(PConstants.LEFT);
+  public void moveLeft(float delta) {
+    moveDirection(PConstants.LEFT, delta);
   }
-  public void moveRight() {
-    moveDirection(PConstants.RIGHT);
+  public void moveRight(float delta) {
+    moveDirection(PConstants.RIGHT, delta);
   }
-  protected void moveDirection(int direction) {
-    PVector p = new PVector(delta.x, delta.y, delta.z);
+  protected void moveDirection(int direction, float delta) {
+    PVector p = new PVector(this.delta.x, this.delta.y, this.delta.z);
     if (cm == camera_mode.first_person) p.mult(-1);
     switch(direction){
     case PConstants.UP:
@@ -240,43 +253,42 @@ public class Camera {
     case PConstants.LEFT:
       p = new PVector(p.x, p.y);
       p.rotate((float)Math.PI/2);
-      p.mult(-(float)position_accuracy);
+      p.mult(-(float)position_accuracy*delta);
       break;
     case PConstants.RIGHT:
       p = new PVector(p.x, p.y);
       p.rotate((float)Math.PI/2);
-      p.mult((float)position_accuracy);
+      p.mult((float)position_accuracy*delta);
       break;
     case PConstants.ADD: //move forward
-      p.mult((float)position_accuracy);
+      p.mult((float)position_accuracy*delta);
       break;
     case PConstants.SUBTRACT: //move backward
-      p.mult((float)-position_accuracy);
+      p.mult((float)-position_accuracy*delta);
       break;
     }
     camera.add(p);
     target.add(p);
-
   }
-  protected void moveAngle(int direction) {
+  protected void moveAngle(int direction, float delta) {
     System.out.println("MOVE");
     System.out.println(direction);
     switch(direction){
     case PConstants.UP:
-      if (cm == camera_mode.first_person) angle1 -= angle_accuracy;
-      else angle1 += angle_accuracy;
+      if (cm == camera_mode.first_person) angle1 -= angle_accuracy*delta;
+      else angle1 += angle_accuracy*delta;
       break;
     case PConstants.DOWN:
-      if (cm == camera_mode.first_person) angle1 += angle_accuracy;
-      else angle1 -= angle_accuracy;
+      if (cm == camera_mode.first_person) angle1 += angle_accuracy*delta;
+      else angle1 -= angle_accuracy*delta;
       break;
     case PConstants.LEFT:
-      if (cm == camera_mode.first_person) angle2 -= angle_accuracy;
-      else angle2 += angle_accuracy;
+      if (cm == camera_mode.first_person) angle2 -= angle_accuracy*delta;
+      else angle2 += angle_accuracy*delta;
       break;
     case PConstants.RIGHT:
-      if (cm == camera_mode.first_person) angle2 += angle_accuracy;
-      else angle2 -= angle_accuracy;
+      if (cm == camera_mode.first_person) angle2 += angle_accuracy*delta;
+      else angle2 -= angle_accuracy*delta;
       break;
     }
     if (angle1 > Math.PI) angle1 = Math.PI;
