@@ -37,9 +37,9 @@ public abstract class Sketch extends PApplet{
   }
 	public void draw() {
 	  if (camera != null) {
-	    camera.use();
+	    if (camera.hasControl()) camera.use(speed);
+	    else camera.use();
 	  }
-	  float d = (float)0.1;
 	  for (int i = 0; i < components.size(); i++) {
 	    (components.get(i)).update(speed);
 	    (components.get(i)).doDraw();
@@ -67,6 +67,11 @@ public abstract class Sketch extends PApplet{
   public void keyPressed() {
     if (camera != null) {
       camera.keyPressed(key, keyCode);
+    }
+  }
+  public void keyReleased() {
+    if (camera != null) {
+      camera.keyReleased(key, keyCode);
     }
   }
 
