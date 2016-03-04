@@ -74,6 +74,15 @@ public abstract class Sketch extends PApplet{
       camera.keyReleased(key, keyCode);
     }
   }
-
+  public void mouseDragged() {
+    if (camera != null) {
+      camera.mouseDragged();
+    }
+  }
+  public void mouseWheel(processing.event.MouseEvent me) {
+    if (camera != null) {
+      camera.mouseWheel(me);
+    }
+  }
   public abstract void setup();
 }

@@ -36,7 +36,7 @@ public class Camera {
       System.out.print(key + ":");
       System.out.println((int)key);
     }
-    System.out.printf("Coded: %d %d", (int)key, PConstants.CODED);
+    System.out.printf("Coded: %d %d\n", (int)key, PConstants.CODED);
     if (key == PConstants.CODED) {
       if (keyCode == PConstants.UP) {
         tilt_up = value;
@@ -299,5 +299,35 @@ public class Camera {
   public void shift(PVector p) {
     camera.add(p);
     target.add(p);
+  }
+  public void mouseDragged() {
+    if (!camera_control) return;
+    float pi = 400;
+    float dx = sketch.mouseX-sketch.pmouseX;
+    float dy = sketch.mouseY-sketch.pmouseY;
+    
+    if (cm == camera_mode.first_person) angle1 += Math.PI*dy/pi;
+    else angle1 -= Math.PI*dy/pi;
+    
+    if (cm == camera_mode.first_person) angle2 -= Math.PI*dx/pi;
+    else angle2 += Math.PI*dx/pi;
+    
+    if (angle1 > Math.PI) angle1 = Math.PI;
+    if (angle1 < 0) angle1 = 0;
+    calculateCameraPosition();
+    updateUpZ();
+  }
+  public void mouseWheel(processing.event.MouseEvent me) {
+    int count = me.getCount();
+    if (count < 0) zoomIn();
+    else zoomOut();
+  }
+  public void zoomIn() {
+    radius = radius-radius/10;
+    calculateCameraPosition();
+  }
+  public void zoomOut() {
+    radius = radius+radius/10;
+    calculateCameraPosition();
   }
 }
