@@ -29,26 +29,26 @@ public class Utils {
   }
   public static void draw_shape_3D(ArrayList<Float> points, Sketch sketch) {
     sketch.beginShape(sketch.TRIANGLE_STRIP);
-//    System.out.print("Start shape:");
     for (int i = 0; i < points.size()/3; i++) {
-      sketch.vertex(points.get(i*3),points.get(i*3+1),points.get(i*3+2));
-//      System.out.print("("+Float.toString(points.get(i*3))+","+Float.toString(points.get(i*3+1))+","+Float.toString(points.get(i*3+2))+") ");
+      float x = points.get(i*3);
+      float y = points.get(i*3+1);
+      float z = points.get(i*3+2);
+      sketch.vertex((int)x,(int)y,(int)z);
     }
-//    System.out.println();
-    sketch.endShape();
+    sketch.endShape(sketch.CLOSE);
   }
   public static void draw_rect_mesh_3D(ArrayList<Float> points, ArrayList<Float> points2, Sketch sketch) {
-    for (int i = 0; i < points.size()/3-2; i++) {
+    for (int i = 0; i < points.size()/3-3; i++) {
       ArrayList<Float> temp_rect = new ArrayList<Float>();
       temp_rect.add(points.get(i*3));
       temp_rect.add(points.get(i*3+1));
       temp_rect.add(points.get(i*3+2));
-      temp_rect.add(points.get((i+1)*3));
-      temp_rect.add(points.get((i+1)*3+1));
-      temp_rect.add(points.get((i+1)*3+2));
       temp_rect.add(points2.get(i*3));
       temp_rect.add(points2.get(i*3+1));
       temp_rect.add(points2.get(i*3+2));
+      temp_rect.add(points.get((i+1)*3));
+      temp_rect.add(points.get((i+1)*3+1));
+      temp_rect.add(points.get((i+1)*3+2));
       temp_rect.add(points2.get((i+1)*3));
       temp_rect.add(points2.get((i+1)*3+1));
       temp_rect.add(points2.get((i+1)*3+2));

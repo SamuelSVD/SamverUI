@@ -41,7 +41,7 @@ public class Field3D extends VisualComponent{
         double z_2 = fun(x_2, y_2, t);
         double x_3 = x0 + dx*(i+1);
         double y_3 = y0 + dy*(j+1);
-        double z_3 = fun(x_3, y_3);
+        double z_3 = fun(x_3, y_3,t);
         row1.add((float)x_0);
         row1.add((float)y_0);
         row1.add((float)z_0);
@@ -66,9 +66,10 @@ public class Field3D extends VisualComponent{
     return fun(x, y, 0);
   }
   double fun(double x, double y, double t) {
-    double r = Math.sqrt(x*x+y*y)/5;
+    double r = Math.sqrt(x*x+y*y)/6;
     double a = 10;
-    return r!=0?a*Math.cos(r+2*PI/50*t)/r:2.5*a*Math.cos(2*PI/50*t);
+    double result = Math.abs(r)>0.5?a*Math.cos(r-2*PI/50*t)/r:2.5*a*Math.cos(r-2*PI/50*t);
+    return result;
   }
 
 }
