@@ -184,8 +184,9 @@ abstract class VisualComponent extends PApplet{
   public void noFill() {
     this.isFilled = false;
   }
-  public void Fill() {
+  public void setFillColour(PVector colour) {
     this.isFilled = true;
+    this.colour = colour;
   }
   public void setStrokeColor(PVector colour) {
     this.stroke_colour = colour;

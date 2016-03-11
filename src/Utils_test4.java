@@ -2,12 +2,12 @@ import ProcessingJava.*;
 import processing.core.*;
 import Math.*;
 
-public class Utils_test3 extends Sketch{
+public class Utils_test4 extends Sketch{
   float t;
-  public Utils_test3(PVector size) {
+  public Utils_test4(PVector size) {
     super(size);
   }
-  public Utils_test3(PVector position, PVector size) {
+  public Utils_test4(PVector position, PVector size) {
     super(position, size);
   }
   public void setup() {
@@ -41,19 +41,7 @@ public class Utils_test3 extends Sketch{
       t = t+1;
 //      camera.setAngles(Math.PI/4,t*Math.PI/100.0);
     }
-//    directionalLight(255,255,255,1,1,-1);
-//    directionalLight(0,200,0,-1,1,-1);
-//    directionalLight(50,50,150,1,-1,-1);
-//    directionalLight(250,50,150,-1,-1,-1);
-//    directionalLight(255,150,150,-1,-1,0);
-    noStroke();
     super.draw();
-//    Utils.drawAxes(this, 100);
-//    noStroke();
-//    stroke(255);
-    fill(0);
-//    Utils.draw_shape_3D(points, this);
-    fill(0,0,0);
     directionalLight(255,255,255,-1,-1,0);
   }
 }
