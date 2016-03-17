@@ -21,7 +21,8 @@ public class Main {
 //    s = new Orbit_3D(p);
 //    s = new Utils_test(p);
 //    s = new Utils_test2(p);
-    s = new Utils_test3(p);
+//    s = new Utils_test3(p);
+    s = new Utils_test4(p);
     mainDisplay.addSketch(s);
     mainDisplay.setVisible(true);
   }

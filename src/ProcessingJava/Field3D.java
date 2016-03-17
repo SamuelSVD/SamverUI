@@ -66,10 +66,10 @@ public class Field3D extends VisualComponent{
     return fun(x, y, 0);
   }
   double fun(double x, double y, double t) {
-    double r = Math.sqrt(x*x+y*y)/6;
+    double r = Math.sqrt(x*x+y*y)/5;
     double a = 10;
-    double result = Math.abs(r)>0.5?a*Math.cos(r-2*PI/50*t)/r:2.5*a*Math.cos(r-2*PI/50*t);
-    return result;
+//    return r>0.9?a*Math.cos(r-2*PI/50*t)/r:a*Math.cos(r-2*PI/50*t);
+    return a*Math.cos(r-2*PI/50*t);
   }
 
 }
