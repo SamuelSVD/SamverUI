@@ -28,7 +28,8 @@ public class Utils {
     }
   }
   public static void draw_shape_3D(ArrayList<Float> points, Sketch sketch) {
-    sketch.beginShape(sketch.TRIANGLE_STRIP);
+//    sketch.beginShape(sketch.TRIANGLE_STRIP);
+    sketch.beginShape(sketch.QUAD_STRIP);
     for (int i = 0; i < points.size()/3; i++) {
       float x = points.get(i*3);
       float y = points.get(i*3+1);
@@ -38,7 +39,7 @@ public class Utils {
     sketch.endShape(sketch.CLOSE);
   }
   public static void draw_rect_mesh_3D(ArrayList<Float> points, ArrayList<Float> points2, Sketch sketch) {
-    for (int i = 0; i < points.size()/3-3; i++) {
+    for (int i = 0; i < points.size()/3-1; i++) {
       ArrayList<Float> temp_rect = new ArrayList<Float>();
       temp_rect.add(points.get(i*3));
       temp_rect.add(points.get(i*3+1));
@@ -53,6 +54,7 @@ public class Utils {
       temp_rect.add(points2.get((i+1)*3+1));
       temp_rect.add(points2.get((i+1)*3+2));
       draw_shape_3D(temp_rect, sketch);
+//      System.out.println("Drawing");
     }
   }
   public static void drawAxes(Sketch sketch, int length) {

@@ -116,6 +116,9 @@ public class Camera {
     calculateDelta();
     updateUpZ();
   }
+  public PVector getTarget() {
+    return new PVector(target.x, target.y, target.z);
+  }
   public void setLocation(float x, float y, float z) {
     if (cm == camera_mode.first_person) {
       target.x = x;
@@ -130,6 +133,9 @@ public class Camera {
     calculateAngles();
     calculateDelta();
     updateUpZ();
+  }
+  public PVector getLocation() {
+    return new PVector(camera.x, camera.y, camera.z);
   }
   public void setRadius(double rad) {
     radius = rad;
