@@ -25,4 +25,8 @@ public class Ellipse_Y extends Function{
   public void setTheta(double theta) {
     this.theta = theta;
   }
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }

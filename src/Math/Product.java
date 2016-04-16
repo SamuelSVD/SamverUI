@@ -39,4 +39,8 @@ public class Product extends Function{
     s += ")";
     return s;
   }
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }

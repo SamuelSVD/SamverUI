@@ -29,4 +29,8 @@ public class Exponential extends Function{
   public void setBase(double base) {
     this.base = base;
   }
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }

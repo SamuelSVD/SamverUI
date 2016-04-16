@@ -17,6 +17,7 @@ public class Line extends Function{
     this.y_offset = y_offset;
     this.x_multiple = x_multiple;
     this.y_multiple = y_multiple;
+    this.name = "Line";
   }
   public Line(Line fun) {
     this.fun = fun;
@@ -24,5 +25,9 @@ public class Line extends Function{
   @Override
   public double evaluateDefaultAt(double t) {
     return t;
+  }
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return x_multiple*y_multiple;
   }
 }

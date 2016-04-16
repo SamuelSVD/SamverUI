@@ -42,6 +42,9 @@ abstract class VisualComponent extends PApplet{
   public void setColourFun(int index, Function fun) {
     colour_fun[index] = fun;
   }
+  public void setRotationBeforeTranslate(float f) {
+    rotation_before_translate = f;
+  }
   public void setRotationBeforeTranslateFun(Function fun) {
     rotation_before_translate_fun = fun;
   }
@@ -50,6 +53,9 @@ abstract class VisualComponent extends PApplet{
   }
   public void setRotationBeforeTranslateFun3D(int index, Function fun) {
     rotation_before_translate_fun_3D[index] = fun;
+  }
+  public void setRorationAfterTranslate(float f) {
+    rotation_after_translate = f;
   }
   public void setRotationAfterTranslateFun3D(int index, Function fun) {
     rotation_after_translate_fun_3D[index] = fun;

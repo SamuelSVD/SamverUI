@@ -12,5 +12,8 @@ public class Noise extends Function{
   public double evaluateDefaultAt(double t) {
     return 2*(Math.random()-0.5);
   }
-
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }
