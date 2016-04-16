@@ -21,4 +21,8 @@ public class Sin extends Function{
   public double evaluateDefaultAt(double t) {
     return Math.sin(t);
   }
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }

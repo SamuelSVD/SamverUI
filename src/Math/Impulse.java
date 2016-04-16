@@ -23,4 +23,8 @@ public class Impulse extends Function{
     if (Math.abs(t) < ERROR) return 1;
     return 0;
   }
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }

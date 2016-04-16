@@ -43,4 +43,8 @@ public class Step extends Function{
     if (v > 1) return 1;
     return v;
   }
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }

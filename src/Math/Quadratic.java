@@ -18,4 +18,8 @@ public class Quadratic extends Function{
   public double evaluateDefaultAt(double t) {
     return t*t;
   }
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }

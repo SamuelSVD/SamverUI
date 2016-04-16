@@ -35,5 +35,8 @@ public class Wave extends Function{
     String s = String.format("Wave(%f,%f)", length, harmonic);
     return s;
   }
-
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }
