@@ -14,7 +14,7 @@ public class MathUtils {
     //f(x) = a(x + (b/2a)) + (c - b*b/4/a);
     //b = v0;
     //c = y0;
-    System.out.printf("a = %f b = %f c = %f\n", a, v0, y0);
+//    System.out.printf("a = %f b = %f c = %f\n", a, v0, y0);
     Power fun = new Power(-v0/2/a+x0,y0-v0*v0/4/a,1,a,2);
     return fun;
   }
