@@ -24,7 +24,10 @@ public class Main {
 //    s = new Utils_test3(p);
 //    s = new Utils_test4(p);
 //    s = new Utils_test5(p);
-    s = new MathUtilsTest(p);
+//    s = new MathUtilsTest(p);
+    p = new PVector(1.5f*size,size);
+    s = new MathUtilsTest2(p);
+    
     mainDisplay.addSketch(s);
     mainDisplay.setVisible(true);
   }
