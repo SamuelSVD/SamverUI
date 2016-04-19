@@ -5,3 +5,4 @@ syntax: glob
 *.class
 *.log
 *.gif
+*.avi
