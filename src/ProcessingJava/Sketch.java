@@ -32,6 +32,9 @@ public abstract class Sketch extends PApplet{
     vc.setBounds(0,0,(int)size.x, (int)size.y);
     vc.setSketch(this);
   }
+  public ArrayList<VisualComponent> getVisualComponents() {
+    return components;
+  }
   public void setSpeed(float s) {
     this.speed = s;
   }
