@@ -41,4 +41,13 @@ public class SystemUtils {
     }
     return lists;
   }
+  public static String ArrayListToString(ArrayList<Double> arr) {
+    String s = "{";
+    for (int i = 0; i < arr.size(); i++) {
+      s = s + Double.toString(arr.get(i));
+      if (i != arr.size()-1) s = s + ",";
+    }
+    s = s + "}";
+    return s;
+  }
 }

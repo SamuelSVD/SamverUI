@@ -12,15 +12,15 @@ public class Exponential extends Function{
     this(x_offset, y_offset, 1);
   }
   public Exponential(double x_offset, double y_offset, double base) {
-    this(x_offset, y_offset, 1, 1);
-    this.base = base;
+    this(x_offset, y_offset, 1, 1, base);
   }
-  public Exponential(double x_offset, double y_offset, double x_multiple, double y_multiple) {
+  public Exponential(double x_offset, double y_offset, double x_multiple, double y_multiple, double base) {
+    this.base = base;
     this.x_offset = x_offset;
     this.y_offset = y_offset;
     this.x_multiple = x_multiple;
     this.y_multiple = y_multiple;
-    name = "exp";
+    name = "Exponential";
   }
   @Override
   public double evaluateDefaultAt(double t) {
