@@ -27,9 +27,13 @@ public class Utils {
       draw_shape(temp_rect, sketch);
     }
   }
+  
   public static void draw_shape_3D(ArrayList<Float> points, Sketch sketch) {
+    draw_shape_3D(points, sketch.TRIANGLE_STRIP, sketch);
+  }
+  public static void draw_shape_3D(ArrayList<Float> points, int mode, Sketch sketch) {
 //    sketch.beginShape(sketch.TRIANGLE_STRIP);
-    sketch.beginShape(sketch.QUAD_STRIP);
+    sketch.beginShape(mode);
     for (int i = 0; i < points.size()/3; i++) {
       float x = points.get(i*3);
       float y = points.get(i*3+1);

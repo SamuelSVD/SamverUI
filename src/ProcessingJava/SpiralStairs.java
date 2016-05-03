@@ -28,8 +28,29 @@ public class SpiralStairs extends VisualComponent{
     makeStairs();
   }
   public void draw() {
-    Utils.draw_rect_mesh_3D(row1, row0, sketch);
+    super.draw();
+    ArrayList<Float> a = new ArrayList<Float>();
+    ArrayList<Float> b = new ArrayList<Float>();
+    //Rectangles
+    for (int i = 0 ; i < row1.size()/6; i++) {
+      for(int j = 0; j < 6; j++) {
+        a.add(row1.get(6*i+j));
+        b.add(row0.get(6*i+j));
+      }
+      Utils.draw_rect_mesh_3D(a, b, sketch);
+      a.clear();
+      b.clear();
+    }
+    //Curved section
+    //sketch.fill(255,255,255);
+    for (int i = 0 ; i < row1.size()/6; i++) {
+      sketch.translate(0,0,(float)step_height*(1+i));
+      sketch.arc(0,0,2*(float)step_length,2*(float)step_length,(float)(starting_angle + i*step_angle),(float)(starting_angle + (i+1)*step_angle));
+      //sketch.arc(0,0,(float)200,(float)200,(float)(starting_angle + i*step_angle),(float)(starting_angle + (i+1)*step_angle));
+      sketch.translate(0,0,(float)-step_height*(1+i));
+    }
   }
+  
   public void update(float d) {
     super.update(d);
   }
@@ -52,20 +73,22 @@ public class SpiralStairs extends VisualComponent{
       row1.add((float)y1);
       row1.add((float)z1);
       //make horizontal section
+      
       for (int j = 0; j < accuracy; j++) {
-        println(time);
-        x0 = step_length * Math.cos(time);
-        y0 = step_length * Math.sin(time);
-        z0 = step_height * (i+1);
-        x1 = 0;
-        y1 = 0;
-        z1 = step_height * (i+1);
-        row0.add((float)x0);
-        row0.add((float)y0);
-        row0.add((float)z0);
-        row1.add((float)x1);
-        row1.add((float)y1);
-        row1.add((float)z1);
+        if (j == 0) {
+          x0 = step_length * Math.cos(time);
+          y0 = step_length * Math.sin(time);
+          z0 = step_height * (i+1);
+          x1 = 0;
+          y1 = 0;
+          z1 = step_height * (i+1);
+          row0.add((float)x0);
+          row0.add((float)y0);
+          row0.add((float)z0);
+          row1.add((float)x1);
+          row1.add((float)y1);
+          row1.add((float)z1);
+        }
         time = time + step_angle/accuracy;
       }
     }
