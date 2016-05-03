@@ -38,6 +38,7 @@ public class Utils_test5 extends Sketch{
     camera.activateControl();
     
     Background b = new Background(new PVector());
+    b = new Background(new PVector(255,255,255));
     addVisualComponent(b);
     
     Function x0 = new Sin(0,0,-2*PI/10,2);
@@ -55,7 +56,7 @@ public class Utils_test5 extends Sketch{
     Band band = new Band(colour, x0, y0, z0, x1, y1, z1, start, end, sections);
     band.noStroke();
 //    addVisualComponent(band);
-    SpiralStairs s = new SpiralStairs(new PVector(0,0,-200), colour, PI/4, 100, 10, 100);
+    SpiralStairs s = new SpiralStairs(new PVector(0,0,0), colour, PI/4, 100, 10, 100);
     s.noStroke();
     addVisualComponent(s);
     
@@ -72,9 +73,9 @@ public class Utils_test5 extends Sketch{
       camera.shift(shift);
       camera.setAngles(3*Math.PI/8,t*Math.PI/100.0);
     }
-//    lights();
-    directionalLight(255,255,255,0,-1,-1);
-    shader(light_shader);
+    lights();
+    directionalLight(255,255,255,-1.0f,-1.01f,-1);
+//    shader(light_shader);
 //    directionalLight(150,150,150,1,1,1);
     super.draw();
     //ortho(-width/2, width/2, height/2, -height/2, 0, 200);
