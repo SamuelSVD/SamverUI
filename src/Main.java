@@ -23,7 +23,11 @@ public class Main {
 //    s = new Utils_test2(p);
 //    s = new Utils_test3(p);
 //    s = new Utils_test4(p);
-    s = new Utils_test5(p);
+//    s = new Utils_test5(p);
+//    s = new MathUtilsTest(p);
+    p = new PVector(size,size);
+    s = new FFT_Bars(p);
+    
     mainDisplay.addSketch(s);
     mainDisplay.setVisible(true);
   }

@@ -22,4 +22,8 @@ public class Constant extends Function{
     if (fun != null) return fun.getValue();
     return 0;
   }
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }

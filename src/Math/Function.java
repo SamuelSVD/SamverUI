@@ -2,7 +2,7 @@ package Math;
 
 abstract public class Function {
   Function fun;
-  String name = "Function";
+  public String name = "Function";
   public double cumulative = 0;
   protected double x_offset = 0;
   protected double x_multiple = 1;
@@ -81,6 +81,7 @@ abstract public class Function {
     this.y_multiple = y_multiple;
   }
   public abstract double evaluateDefaultAt(double t);
+  public abstract double evaluateDerivativeAt(double t);
   public String getMathString() {
     String s;
     if (fun != null) s = String.format("%f*%s(%f*(%s)-%f)+%f",y_multiple ,name , x_multiple , fun.getMathString(), x_offset, y_offset);

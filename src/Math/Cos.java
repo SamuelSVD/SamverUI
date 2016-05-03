@@ -21,5 +21,8 @@ public class Cos extends Function{
   public double evaluateDefaultAt(double t) {
     return Math.cos(t);
   }
-  
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
+  }
 }
