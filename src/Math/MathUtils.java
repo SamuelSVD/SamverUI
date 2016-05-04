@@ -1,6 +1,12 @@
 package Math;
 
 public class MathUtils {
+  public static Function makeLine(double x0, double y0, double x1, double y1) {
+    double dy = y1-y0;
+    double dx = x1-x0;
+    double m = dy/dx;
+    return new Line(x0,y0,1,m);
+  }
   public static Function makeParabola(double x0, double y0, double x1, double y1, double v0) {
     double dy = y1-y0;
     double dx = x1-x0;
@@ -16,6 +22,11 @@ public class MathUtils {
     //c = y0;
 //    System.out.printf("a = %f b = %f c = %f\n", a, v0, y0);
     Power fun = new Power(-v0/2/a+x0,y0-v0*v0/4/a,1,a,2);
+    return fun;
+  }
+  public static Function makeExponential(double x0, double y0, double x1, double y1) {
+    double y_multiple = (y1-y0)/Math.pow(Math.E, (x1-x0));
+    Exponential fun = new Exponential(0,y0,1,y_multiple,Math.E);
     return fun;
   }
 }
