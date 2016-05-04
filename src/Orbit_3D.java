@@ -7,15 +7,15 @@ public class Orbit_3D extends Sketch{
   
   public Orbit_3D(PVector size) {
     super(size);
+    is_3D = true;
   }
   public Orbit_3D(PVector position, PVector size) {
     super(position, size);
+    is_3D = true;
   }
   public void setup() {
     record = false;
     frame_limit = 25*15;
-    size((int)size.x, (int)size.y, P3D); //Always needed. Looking for a fix.
-    is_3D = true;
     setSpeed(0.04f);
     camera = new Camera(camera_mode.third_person);
     this.setCamera(camera);

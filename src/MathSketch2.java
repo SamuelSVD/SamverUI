@@ -12,7 +12,6 @@ public class MathSketch2 extends Sketch{
   public void setup() {
     record = false;
     frame_limit = 80;
-    size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.1f);
     //noStroke();
     Square s = new Square(new PVector(0,0,0), new PVector(500,500));

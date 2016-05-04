@@ -39,7 +39,6 @@ public class MathUtilsTest extends Sketch{
   public void setup() {
     record = true;
     frame_limit = 17*16;
-    size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.033f);
     Background back = new Background(new PVector());
     addVisualComponent(back);

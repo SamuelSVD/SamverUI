@@ -6,16 +6,16 @@ public class Utils_test4 extends Sketch{
   float t;
   public Utils_test4(PVector size) {
     super(size);
+    is_3D = true;
   }
   public Utils_test4(PVector position, PVector size) {
     super(position, size);
+    is_3D = true;
   }
   public void setup() {
     record = false;
     frame_limit =200;
-    size((int)size.x, (int)size.y, P3D); //Always needed. Looking for a fix.
     setSpeed(0.033f);
-    is_3D = true;
     camera = new Camera(camera_mode.third_person);
     this.setCamera(camera);
     camera.setTarget(0, 0, 0);

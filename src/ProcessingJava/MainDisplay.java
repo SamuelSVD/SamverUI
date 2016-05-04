@@ -1,6 +1,8 @@
 package ProcessingJava;
 
 import javax.swing.*;
+
+import processing.core.PApplet;
 public class MainDisplay extends JFrame{
 	JPanel panel;
 	Sketch sketch;
@@ -19,15 +21,17 @@ public class MainDisplay extends JFrame{
 	  if(sketch == null) {
 	    System.out.println('a');
 	    sketch = s;
-	    panel.add(s);
-	    s.init();
+	    String[] wat = {"Name"};
+	    PApplet.runSketch(wat, sketch);
+//	    panel.add(s);
+//	    s.init();
 	  }
 	  else {
-	    System.out.printf("b: %d", s.getVisualComponents().size());
-	    for(VisualComponent component: s.getVisualComponents()) {
-	      System.out.println('c');
-	      sketch.addVisualComponent(component);
-	    }
+//	    System.out.printf("b: %d", s.getVisualComponents().size());
+//	    for(VisualComponent component: s.getVisualComponents()) {
+//	      System.out.println('c');
+//	      sketch.addVisualComponent(component);
+//	    }
 	  }
 	}
 

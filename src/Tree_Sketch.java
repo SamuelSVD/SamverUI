@@ -8,7 +8,6 @@ public class Tree_Sketch extends Sketch{
 	}
 
 	public void setup() {
-    size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.0333f);
     int MODE = 7;
 	  Tree t;
