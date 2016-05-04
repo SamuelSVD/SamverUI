@@ -13,8 +13,8 @@ public class FFT_Bars extends Sketch{
   }
   @Override
   public void setup() {
-    String filename = "Data/CSV/music.csv";
-    PVector COLOUR = new PVector(10+random(100),100+random(155),100+random(155));
+    String filename = "Data/CSV/Televisor_Alliance.csv";
+    PVector COLOUR = new PVector(random(255),random(255),random(255));
     boolean different_colours = false;    //Only applies if COLOUR null
     boolean normalize_all = true;        //normalizes all by largest value
     boolean normalize_individual = false; //only applies if normalize_all false;
@@ -22,10 +22,10 @@ public class FFT_Bars extends Sketch{
     boolean smoothen = true;             //used to smoothen the curves. Mean of +-1 entries;
     boolean isLoop = false;               //adds the first points to the end
     boolean exponential_fix = false;     //Used to make the average for each frequency more normalized
-    int BAR_WIDTH = 5;
+    int BAR_WIDTH = 6;
     int NUM_BARS = (460/BAR_WIDTH);
     int MAX_BAR_HEIGHT = (int)300;
-    int MIN_BAR_HEIGHT = (int) 10;
+    int MIN_BAR_HEIGHT = (int) 50;
     int VERTICAL_OFFSET = 50;
     int HORIZONTAL_OFFSET = 20;
     double transition_period = 3;
@@ -33,7 +33,7 @@ public class FFT_Bars extends Sketch{
     boolean DEBUG = false;
     
     
-    record = false;
+    record = true;
     size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.033333f);
     Background back = new Background(new PVector());
@@ -100,6 +100,10 @@ public class FFT_Bars extends Sketch{
             total += lists.get(j-1).get(i);
             count++;
           }
+          else {
+            total += lists.get(j+2).get(i);
+            count++;
+          }
           if (i != NUM_BARS-1) {
             total += lists.get(j+1).get(i);
           }
@@ -114,9 +118,17 @@ public class FFT_Bars extends Sketch{
       PVector colour;
       if (different_colours) colour = new PVector(random(255),random(255),random(255));
       else colour = COLOUR;
+      
+      //Circles
+      float starting_angle = 2*Sketch.PI/NUM_BARS*j;
+      float ending_angle = 2*Sketch.PI/NUM_BARS*(j+1);
+      TransitionDonut d = new TransitionDonut(new PVector(size.x/2,size.y/2), colour, a, transition_period, starting_angle, ending_angle);
+      addVisualComponent(d);
+      
+      //Rectangles
       TransitionBar b = new TransitionBar(position, colour, a,transition_period,BAR_WIDTH);
       b.setRorationAfterTranslate(-PI/2);
-      addVisualComponent(b);
+//      addVisualComponent(b);
     }
   }
 }

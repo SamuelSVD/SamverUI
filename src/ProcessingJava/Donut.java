@@ -18,6 +18,18 @@ public class Donut extends VisualComponent{
     this.starting_angle = starting_angle;
     this.ending_angle = ending_angle;
   }
+  public void setStartingAngle(float starting_angle) {
+    this.starting_angle = starting_angle;
+  }
+  public void setEndingAngle(float ending_angle) {
+    this.ending_angle = ending_angle;
+  }
+  public void setInnerRadius(float inner_radius) {
+    this.inner_radius=inner_radius;
+  }
+  public void setOuterRadius(float outer_radius) {
+    this.outer_radius = outer_radius;
+  }
   public void draw() {
     sketch.fill(colour.x,colour.y,colour.z, this.alpha);
     drawDonut(sketch, 0, 0, inner_radius, outer_radius, starting_angle, ending_angle);
