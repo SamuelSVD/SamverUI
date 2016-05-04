@@ -48,8 +48,8 @@ public abstract class Sketch extends PApplet{
 	    (components.get(i)).doDraw();
 	  }
 	  if (record) {
-	    saveFrame("Images/frame-#####.tif");
-      if (this.frameCount > frame_limit) {
+      if (this.frameCount < frame_limit+1) {
+        saveFrame("Images/frame-#####.tif");
         this.stop();
       }
 	  }
