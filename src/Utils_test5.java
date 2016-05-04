@@ -17,16 +17,16 @@ public class Utils_test5 extends Sketch{
   PShader light_shader;
   public Utils_test5(PVector size) {
     super(size);
+    is_3D = true;
   }
   public Utils_test5(PVector position, PVector size) {
     super(position, size);
+    is_3D = true;
   }
   public void setup() {
     record = false;
     frame_limit = 200;
-    size((int)size.x, (int)size.y, OPENGL); //Always needed. Looking for a fix.
     setSpeed(0.033f);
-    is_3D = true;
     camera = new Camera(camera_mode.third_person);
     this.setCamera(camera);
     camera.setTarget(0, 0, 0);
@@ -55,7 +55,7 @@ public class Utils_test5 extends Sketch{
     int sections=1000;
     Band band = new Band(colour, x0, y0, z0, x1, y1, z1, start, end, sections);
     band.noStroke();
-//    addVisualComponent(band);
+    addVisualComponent(band);
     SpiralStairs s = new SpiralStairs(new PVector(0,0,0), colour, PI/4, 100, 10, 100);
     s.noStroke();
     addVisualComponent(s);
@@ -75,7 +75,7 @@ public class Utils_test5 extends Sketch{
     }
     lights();
     directionalLight(255,255,255,-1.0f,-1.01f,-1);
-//    shader(light_shader);
+    shader(light_shader);
 //    directionalLight(150,150,150,1,1,1);
     super.draw();
     //ortho(-width/2, width/2, height/2, -height/2, 0, 200);

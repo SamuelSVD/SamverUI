@@ -12,7 +12,6 @@ public class ShapeSketch extends Sketch{
   public void setup() {
     record = true;
     frame_limit = 250;
-    size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.04f);
     //noStroke();
     Square s = new Square(new PVector(0,0,0), new PVector(500,500));

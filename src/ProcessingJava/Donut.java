@@ -35,8 +35,23 @@ public class Donut extends VisualComponent{
     drawDonut(sketch, 0, 0, inner_radius, outer_radius, starting_angle, ending_angle);
   }
   static void drawDonut(Sketch sketch, float x, float y, float inner_r, float outer_r) {
-    drawDonut(sketch, x,y,inner_r,outer_r,0,2*PI); 
-   }
+    
+    drawDonut(sketch, x,y,inner_r,outer_r,0,2*PI);// No. This causes the glitchy look of the lines.
+    /*sketch.beginShape();
+    float N = 50;
+    float d = 2*PI;
+    for(int i = 0; i < N+1; i++) {
+      sketch.vertex(x + inner_r*cos(d/N*i), y + inner_r*sin(d/N*i));
+//      sketch.vertex(x + outer_r*cos(start + d/N*i), y + outer_r*sin(start + d/N*i));
+    }
+//    sketch.
+    for(float i = N-1; i > -1; i--) {
+      sketch.vertex(x + outer_r*cos(d/N*i), y + outer_r*sin(d/N*i));
+//      sketch.vertex(x + inner_r*cos(start + d/N*i), y + inner_r*sin(start + d/N*i));
+    }
+    sketch.endShape(CLOSE);
+    */
+  }
   static void drawDonut(Sketch sketch, float x, float y, float inner_r, float outer_r, float start, float end){
      sketch.beginShape(TRIANGLE_STRIP);
      float N = 50;
@@ -47,7 +62,7 @@ public class Donut extends VisualComponent{
      }
      for(float i = N-1; i > -1; i--) {
        sketch.vertex(x + outer_r*cos(start + d/N*i), y + outer_r*sin(start + d/N*i));
-       sketch.vertex(x + inner_r*cos(start + d/N*i), y + inner_r*sin(start + d/N*i));
+ //      sketch.vertex(x + inner_r*cos(start + d/N*i), y + inner_r*sin(start + d/N*i));
      }
      sketch.endShape(CLOSE);
    }

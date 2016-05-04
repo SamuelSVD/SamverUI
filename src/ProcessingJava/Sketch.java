@@ -1,6 +1,5 @@
 package ProcessingJava;
 import processing.core.*;
-
 import java.util.ArrayList;
 
 public abstract class Sketch extends PApplet{
@@ -9,6 +8,7 @@ public abstract class Sketch extends PApplet{
   public PVector size;
   public boolean record = false;
   protected boolean is_3D = false;
+  protected boolean DEBUG = false;
   protected Camera camera;
   public int frame_limit = 350;
   static int MIN_SIZE = 150;
@@ -20,7 +20,6 @@ public abstract class Sketch extends PApplet{
     this(new PVector(0,0), size);
   }
   public Sketch(PVector position, PVector size) {
-    setLayout(null);
     components = new ArrayList<VisualComponent>();
     if (size.x < MIN_SIZE) size.x = MIN_SIZE;
     if (size.y < MIN_SIZE) size.y = MIN_SIZE;
@@ -29,7 +28,6 @@ public abstract class Sketch extends PApplet{
   }
   public void addVisualComponent(VisualComponent vc) {
     components.add(vc); 
-    vc.setBounds(0,0,(int)size.x, (int)size.y);
     vc.setSketch(this);
   }
   public ArrayList<VisualComponent> getVisualComponents() {
@@ -39,6 +37,7 @@ public abstract class Sketch extends PApplet{
     this.speed = s;
   }
 	public void draw() {
+	  if (DEBUG) System.out.println(frameCount);
 	  if (camera != null) {
 	    if (camera.hasControl()) camera.use(speed);
 	    else camera.use();
@@ -50,7 +49,8 @@ public abstract class Sketch extends PApplet{
 	  if (record) {
       if (this.frameCount < frame_limit+1) {
         saveFrame("Images/frame-#####.tif");
-        this.stop();
+        fill(255,0,0);
+        this.ellipse(10,10,10,10);
       }
 	  }
 	}
@@ -86,6 +86,10 @@ public abstract class Sketch extends PApplet{
     if (camera != null) {
       camera.mouseWheel(me);
     }
+  }
+  public void settings() {
+    if (is_3D) size((int)size.x, (int)size.y, P3D);
+    else size((int)size.x, (int)size.y);
   }
   public abstract void setup();
 }

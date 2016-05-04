@@ -9,7 +9,6 @@ public class TestingSketch extends Sketch{
     super(position, size);
   }
   public void setup() {
-    size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.033f);
 
     noStroke();

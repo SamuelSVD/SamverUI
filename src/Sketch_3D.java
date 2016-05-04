@@ -7,15 +7,16 @@ public class Sketch_3D extends Sketch{
   
   public Sketch_3D(PVector size) {
     super(size);
+	  is_3D = true;
   }
   public Sketch_3D(PVector position, PVector size) {
     super(position, size);
+    is_3D = true;
   }
   public void setup() {
     record = true;
     frame_limit = 200;
     size((int)size.x, (int)size.y, P3D); //Always needed. Looking for a fix.
-    is_3D = true;
     setSpeed(0.01f);
     camera = new Camera(camera_mode.third_person);
     camera.setSketch(this);

@@ -14,7 +14,6 @@ public class Utils_test extends Sketch{
   public void setup() {
     record = false;
     frame_limit = 364;
-    size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.033f);
     noStroke();
     background(0);

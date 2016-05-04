@@ -33,7 +33,7 @@ public class FFT_Bars extends Sketch{
     boolean DEBUG = false;
     
     
-    record = true;
+    record = false;
     size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
     setSpeed(0.033333f);
     Background back = new Background(new PVector());

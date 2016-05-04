@@ -29,4 +29,35 @@ public class MathUtils {
     Exponential fun = new Exponential(0,y0,1,y_multiple,Math.E);
     return fun;
   }
+  public static double[] getCircleCoeffs(double x0, double y0, double dx0, double dy0, double x1, double y1, double dx1, double dy1) {
+    SVector d0 = new SVector(dx0, dy0);
+    SVector d1 = new SVector(dx1, dy1);
+    d0.normalize();
+    System.out.println(d0);
+    d1.normalize();
+    System.out.println(d1);
+    d0.rotate(Math.PI/2);
+    System.out.println(d0);
+    d1.rotate(Math.PI/2);
+    System.out.println(d1);
+    double t = (x0-x1)/(d1.x-d0.x);
+    double a = x0+d0.x*t;
+    double b = y0+d0.y*t;
+    double r = Math.sqrt((x0-a)*(x0-a)+(y0-b)*(y0-b));
+    System.out.print(a);
+    System.out.print(',');
+    System.out.print(b);
+    System.out.print(',');
+    System.out.println(r);
+    double [] coeffs = {a, b, r};
+    return coeffs;
+  }
+  public static Function getCirlceX(double x0, double y0, double dx0, double dy0, double x1, double y1, double dx1, double dy1) {
+    double [] coeffs = getCircleCoeffs(x0,y0,dx0,dy0,x1,y1,dx1,dy1);
+    return new Cos(0,coeffs[0],1,coeffs[2]);
+  }
+  public static Function getCirlceY(double x0, double y0, double dx0, double dy0, double x1, double y1, double dx1, double dy1) {
+    double [] coeffs = getCircleCoeffs(x0,y0,dx0,dy0,x1,y1,dx1,dy1);
+    return new Sin(0,coeffs[1],1,coeffs[2]);
+  }
 }

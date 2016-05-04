@@ -9,8 +9,6 @@ public class OscillatingCircleThingSketch extends Sketch{
     super(new PVector(), size);
   }
   public void setup() {
-    size((int)size.x,(int)size.y); //Need to fix. Don't know how.
-    
     addVisualComponent(new Square(new PVector(), size));
     setSpeed(0.01f);
     noStroke();
