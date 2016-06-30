@@ -9,10 +9,10 @@ public class ParabolicTransition extends Function{
     f = new ArrayList<Function>();
     this.transition_period = transition_period;
 //    System.out.println(SystemUtils.SystemUtils.ArrayListToString(points));
-    for (int i = 0; i < points.size(); i++) {
+    for (int i = 1; i < points.size(); i++) {
 //      System.out.printf("i:%d\n",i);
-      double v0=(i != 0)?f.get(i-1).evaluateDerivativeAt(transition_period):0;
-      double x0=(i != 0)?points.get(i-1):0;
+      double v0=(i != 1)?f.get(i-2).evaluateDerivativeAt(transition_period):0;
+      double x0=(i != 1)?points.get(i-2):0;
       Function fun = MathUtils.makeParabola(0, x0, transition_period, points.get(i), v0);
       f.add(fun);
 //      System.out.println(f.size());

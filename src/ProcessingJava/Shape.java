@@ -1,11 +1,13 @@
 package ProcessingJava;
 
 import processing.core.PVector;
+import Math.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 
 public class Shape extends VisualComponent{
+  public static int RESOLUTION = 100; 
   ArrayList<Double> points;
   PVector size;
   public Shape(PVector position, PVector colour) {
@@ -30,7 +32,11 @@ public class Shape extends VisualComponent{
     }
     in.close();
   }
+  public void init(ArrayList<Double> points) {
+    this.points = points;
+  }
   public void draw() {
+    super.draw();
     sketch.fill(colour.x, colour.y, colour.z);
 //    sketch.pushMatrix();
 //    sketch.translate(position.x, position.y);
@@ -41,6 +47,15 @@ public class Shape extends VisualComponent{
     }
     sketch.endShape();
 //    sketch.popMatrix();
+  }
+  public static ArrayList<Double> getCicle(double x, double y, double radius, double starting_angle, double ending_angle, int num_points) {
+    ArrayList<Double> points = new ArrayList<Double>();
+    double dT = (ending_angle - starting_angle)/(num_points-1);
+    for (int i = 0; i < num_points; i++) {
+      points.add(x + radius * Math.cos(starting_angle + i * dT));
+      points.add(y + radius * Math.sin(starting_angle + i * dT));
+    }
+    return points;
   }
   
 }

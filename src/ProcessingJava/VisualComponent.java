@@ -2,7 +2,7 @@ package ProcessingJava;
 import processing.core.*;
 import Math.*;
 
-abstract class VisualComponent extends PApplet{
+public abstract class VisualComponent extends PApplet{
   protected Sketch sketch;
   protected PVector position;
   protected PVector rotation_before_translate_3D;
@@ -21,7 +21,10 @@ abstract class VisualComponent extends PApplet{
   protected float delay;
   protected double rotation_before_translate;
   protected double rotation_after_translate;
-  VisualComponent(PVector position, PVector colour) {
+  public VisualComponent() {
+    this(new PVector(), new PVector());
+  }
+  public VisualComponent(PVector position, PVector colour) {
     this.position = position;
     this.colour = colour;
     this.stroke_colour = new PVector();
@@ -36,8 +39,14 @@ abstract class VisualComponent extends PApplet{
   public void setAlpha(float a) {
     this.alpha = a;
   }
+  public void setPosition(PVector pos) {
+    this.position = pos;
+  }
   public void setPositionFun(int index, Function fun) {
     position_fun[index] = fun;
+  }
+  public void setColour(PVector col) {
+    this.colour = col;
   }
   public void setColourFun(int index, Function fun) {
     colour_fun[index] = fun;
