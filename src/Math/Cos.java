@@ -1,6 +1,6 @@
 package Math;
 
-public class Cos extends Function{
+public class Cos extends PeriodicFunction{
   public Cos() {
     this(1);
   }

@@ -10,14 +10,14 @@ abstract public class Function {
   protected double y_multiple = 1;
   public Function() {
   }
-  public Function(double omega) {
-    this(0, 0, omega);
+  public Function(double x_multiple) {
+    this(0, 0, x_multiple);
   }
   public Function(double x_offset, double y_offset) {
     this(x_offset, y_offset, 1);
   }
-  public Function(double x_offset, double y_offset, double omega) {
-    this(x_offset, y_offset, omega, 1);
+  public Function(double x_offset, double y_offset, double x_multiple) {
+    this(x_offset, y_offset, x_multiple, 1);
   }
   public Function(double x_offset, double y_offset, double x_multiple, double y_multiple) {
     this.x_offset = x_offset;

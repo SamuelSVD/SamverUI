@@ -80,6 +80,15 @@ public class Utils {
     sketch.translate(0,0,length);
     sketch.box(10);
     sketch.translate(0,0,-length);
-
+  }
+  public static ArrayList<Float> doubleToFloat(ArrayList<Double> p) {
+    ArrayList<Float> points = new ArrayList<Float>();
+    for (int i = 0; i < p.size(); i++) {
+      points.add(new Float(p.get(i)));
+    }
+    return points;
+  }
+  public static PVector randomPVector() {
+    return new PVector((float)Math.random()*255, (float)Math.random()*255, (float)Math.random()*255);
   }
 }

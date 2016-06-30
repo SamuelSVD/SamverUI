@@ -6,7 +6,7 @@ public class Main {
     PVector p = new PVector(size, size);
     Sketch s;
 //    s = new RainbowEllipsesSketch(p);
-    s = new TestingSketch(p);
+//    s = new TestingSketch(p);
 //    s = new OscillatingCircleThingSketch(p);
 //    s = new Tree_Sketch(p);
 //    s = new ComponentEllipseSketch(p);
@@ -25,7 +25,8 @@ public class Main {
 //    s = new Utils_test5(p);
 //    s = new MathUtilsTest(p);
 //    s = new FFT_Bars(p);
-    s = new RussianDolls(p);
+//    s = new RussianDolls(p);
+    s = new SunAndMoon(p);
     String[] strings = {"A", "B", "C", "D", "E"};
     PApplet.runSketch(strings, s);
   }

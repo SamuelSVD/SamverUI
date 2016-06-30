@@ -9,12 +9,12 @@ public class LinearTransition extends Function{
     f = new ArrayList<Function>();
     this.transition_period = transition_period;
 //    System.out.println(SystemUtils.SystemUtils.ArrayListToString(points));
-    for (int i = 0; i < points.size(); i++) {
+    for (int i = 1; i < points.size(); i++) {
 //      System.out.printf("i:%d\n",i);
       double x0=(i != 0)?points.get(i-1):0;
       Function fun = MathUtils.makeLine(0, x0, transition_period, points.get(i));
       f.add(fun);
-//      System.out.println(f.size());
+      System.out.println(f.size());
     }
     f.add(new Constant(points.get(points.size()-1)));
 //    System.out.println(points.size());
@@ -22,6 +22,7 @@ public class LinearTransition extends Function{
   }
   @Override
   public double evaluateDefaultAt(double t) {
+    if (t < 0) return f.get(0).evaluateAt(0);
     int i = (int)(t / transition_period);
     t = t%transition_period;
     if (i > f.size()-1) i = f.size()-1;

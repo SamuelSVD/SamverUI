@@ -1,6 +1,8 @@
 package ProcessingJava;
 import processing.core.*;
 import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public abstract class Sketch extends PApplet{
   public ArrayList<VisualComponent> components;
@@ -68,6 +70,10 @@ public abstract class Sketch extends PApplet{
 	  return camera;
 	}
   public void keyPressed() {
+    if (key == '`') {
+      String timeStamp = new java.text.SimpleDateFormat("yyMMdd_HHmmss").format(new Date());
+      saveFrame("Images/Screenshots/Screenshot_" + timeStamp + ".tif");
+    }
     if (camera != null) {
       camera.keyPressed(key, keyCode);
     }
@@ -90,6 +96,28 @@ public abstract class Sketch extends PApplet{
   public void settings() {
     if (is_3D) size((int)size.x, (int)size.y, P3D);
     else size((int)size.x, (int)size.y);
+  }
+  public void arc(float a, float b, float c, float d, float start, float stop) {
+    if (start > stop) {
+      start = start % (2*PI);
+      stop = stop % (2*PI);
+      if (stop > start) start = start + 2*PI;
+      super.arc(a, b, c, d, stop, start);
+    }
+    else super.arc(a,b,c,d,start, stop);
+  }
+
+  public void arc(float a, float b, float c, float d, float start, float stop, int mode) {
+    if (start > stop) {
+      start = start % (2*PI);
+      stop = stop % (2*PI);
+      if (stop > start) start = start + 2*PI;
+      super.arc(a, b, c, d, stop, start, mode);
+    }
+    else super.arc(a,b,c,d,start, stop, mode);
+  }
+  public void fill(PVector color) {
+    super.fill(color.x, color.y, color.z);
   }
   public abstract void setup();
 }

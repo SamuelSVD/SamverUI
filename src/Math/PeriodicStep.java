@@ -1,8 +1,10 @@
 package Math;
 
-public class PeriodicStep extends Step {
+public class PeriodicStep extends PeriodicFunction {
   protected double period_low = 1;
   protected double period_high = 1;
+  private double slew;
+  private boolean is_slewed = false;
   public PeriodicStep() {
     this(0);
   }
@@ -26,7 +28,7 @@ public class PeriodicStep extends Step {
   public double evaluateDefaultAt(double t) {
     if (t < 0) return 0;
     double v = t%(period_low+period_high);
-    if (! is_slewed) {
+    if (!is_slewed) {
         if (v > period_high) {
           return 0;
         }
@@ -42,6 +44,13 @@ public class PeriodicStep extends Step {
     if (v > 1) return 1;
     return v;
   }
+  public double getSlew() {
+    return slew;
+  }
+  public void setSlew(double slew) {
+    this.slew = slew;
+  }
+  
   public double getPeriod_low() {
     return period_low;
   }
@@ -57,6 +66,10 @@ public class PeriodicStep extends Step {
   public void setPeriods(double period_low, double period_high) {
     this.period_low = period_low;
     this.period_high = period_high;
+  }
+  @Override
+  public double evaluateDerivativeAt(double t) {
+    return 0;
   }
 
 }
