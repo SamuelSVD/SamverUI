@@ -1,9 +1,12 @@
 package ProcessingJava;
 
 import processing.core.PVector;
-import Math.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Math.*;
+
 import java.io.File;
 
 public class Shape extends VisualComponent{

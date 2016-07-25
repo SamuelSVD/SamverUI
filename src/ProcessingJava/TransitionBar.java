@@ -1,8 +1,9 @@
 package ProcessingJava;
 
 import java.util.ArrayList;
-import processing.core.PVector;
+
 import Math.*;
+import processing.core.PVector;
 
 public class TransitionBar extends VisualComponent{
   ArrayList<Double> points;

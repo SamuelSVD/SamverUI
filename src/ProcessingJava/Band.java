@@ -1,9 +1,10 @@
 package ProcessingJava;
 
 import processing.core.PVector;
-import Math.*;
 
 import java.util.ArrayList;
+
+import Math.*;
 public class Band extends VisualComponent{
   Function x0, y0, z0, x1, y1, z1;
   ArrayList <Float> row0, row1;

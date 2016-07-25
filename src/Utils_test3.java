@@ -1,6 +1,6 @@
+import Math.*;
 import ProcessingJava.*;
 import processing.core.*;
-import Math.*;
 
 public class Utils_test3 extends Sketch{
   float t;

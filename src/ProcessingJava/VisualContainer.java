@@ -1,8 +1,9 @@
 package ProcessingJava;
 
-import Math.Function;
 import processing.core.PVector;
 import java.util.ArrayList;
+
+import Math.Function;
 
 public class VisualContainer extends VisualComponent{
   protected ArrayList<VisualComponent> visual_components;

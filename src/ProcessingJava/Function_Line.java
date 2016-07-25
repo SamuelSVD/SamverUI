@@ -1,7 +1,7 @@
 package ProcessingJava;
 
-import processing.core.PVector;
 import Math.*;
+import processing.core.PVector;
 
 public class Function_Line extends VisualContainer{
   int RESOLUTION = 1;

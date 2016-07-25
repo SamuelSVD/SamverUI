@@ -1,4 +1,4 @@
-package Primitives;
+package primitive;
 
 public class SVFloat extends SVProperty {
 	protected float value = 0;

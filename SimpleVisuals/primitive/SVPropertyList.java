@@ -1,8 +1,8 @@
-package Primitives;
+package primitive;
 import java.util.ArrayList;
 
 public class SVPropertyList extends SVProperty {
-	ArrayList<SVProperty> list;
+	protected ArrayList<SVProperty> list;
 	public SVPropertyList(String name) {
 		super(name);
 		list = new ArrayList<SVProperty>();
