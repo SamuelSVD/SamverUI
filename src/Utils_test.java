@@ -1,7 +1,9 @@
 import ProcessingJava.*;
 import processing.core.*;
-import Math.*;
+
 import java.util.ArrayList;
+
+import Math.*;
 
 public class Utils_test extends Sketch{
   ArrayList<Float> points,points1,points2;

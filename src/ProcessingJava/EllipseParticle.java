@@ -5,8 +5,8 @@
  */
 
 package ProcessingJava;
-import processing.core.*;
 import Math.*;
+import processing.core.*;
 
 public class EllipseParticle extends VisualContainer {
   float alpha;

@@ -1,6 +1,6 @@
+import Math.*;
 import ProcessingJava.*;
 import processing.core.*;
-import Math.*;
 
 public class Orbit_3D extends Sketch{
   Camera camera;

@@ -1,8 +1,8 @@
 package ProcessingComponents;
 
 import java.util.ArrayList;
-import Math.*;
 
+import Math.*;
 import ProcessingJava.*;
 import processing.core.*;
 public class RussianDoll extends VisualComponent{

@@ -1,12 +1,15 @@
 package Christmas;
 import processing.core.PVector;
-import ProcessingJava.*;
 import Math.*;
+import ProcessingJava.*;
 public class ChristmasDay extends Sketch{
   Tree t;
   double x,y,z,dx,dy,dz;
   float mX, mY;
   int section = 0;
+  public ChristmasDay() {
+	  this(new PVector(500,500));
+  }
   public ChristmasDay(PVector size) {
     this(new PVector(0,0), size);
   }

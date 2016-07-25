@@ -1,6 +1,6 @@
 package ProcessingJava;
-import processing.core.*;
 import Math.*;
+import processing.core.*;
 
 public abstract class VisualComponent extends PApplet{
   protected Sketch sketch;

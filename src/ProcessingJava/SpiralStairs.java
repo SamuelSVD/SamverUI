@@ -1,9 +1,10 @@
 package ProcessingJava;
 
 import processing.core.PVector;
-import Math.*;
 
 import java.util.ArrayList;
+
+import Math.*;
 public class SpiralStairs extends VisualComponent{
   ArrayList <Float> row0, row1;
   double step_angle, step_length, step_height, starting_angle;

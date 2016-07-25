@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
-import processing.core.*;
 import Math.*;
+import processing.core.*;
 import ProcessingJava.*;
 import ProcessingComponents.*;
 

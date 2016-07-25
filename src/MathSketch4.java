@@ -1,6 +1,6 @@
+import Math.*;
 import ProcessingJava.*;
 import processing.core.*;
-import Math.*;
 
 public class MathSketch4 extends Sketch{
   public MathSketch4(PVector size) {

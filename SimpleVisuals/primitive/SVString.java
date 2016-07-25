@@ -1,4 +1,4 @@
-package Primitives;
+package primitive;
 
 public class SVString extends SVProperty {
 	protected String value;

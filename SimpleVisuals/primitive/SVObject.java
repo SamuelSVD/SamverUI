@@ -1,4 +1,4 @@
-package Primitives;
+package primitive;
 
 public class SVObject {
 	protected String name;

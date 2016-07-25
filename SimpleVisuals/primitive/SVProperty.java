@@ -1,4 +1,4 @@
-package Primitives;
+package primitive;
 
 public class SVProperty extends SVObject {
 	protected boolean isNumberic = false;

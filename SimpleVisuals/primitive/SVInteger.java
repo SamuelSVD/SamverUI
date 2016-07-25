@@ -1,4 +1,4 @@
-package Primitives;
+package primitive;
 
 public class SVInteger extends SVProperty {
 	protected int value = 0;
