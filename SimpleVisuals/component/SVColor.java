@@ -1,7 +1,7 @@
 package component;
 
+import Utils.SVPropertyList;
 import primitive.SVFloat;
-import primitive.SVPropertyList;
 
 public class SVColor extends SVPropertyList {
 	protected SVFloat first;

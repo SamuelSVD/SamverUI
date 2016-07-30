@@ -9,18 +9,18 @@ public class ComponentUtils {
 	}
 
 	public static boolean VolumeCollide(SVArea area1, SVArea area2) {
-		float x1 = area1.position.getX().getValue();
-		float y1 = area1.position.getY().getValue();
-		float z1 = area1.position.getZ().getValue();
-		float w1 = area1.size.getWidth().getValue();
-		float h1 = area1.size.getHeight().getValue();
-		float d1 = area1.size.getDepth().getValue();
-		float x2 = area2.position.getX().getValue();
-		float y2 = area2.position.getY().getValue();
-		float z2 = area2.position.getZ().getValue();
-		float w2 = area2.size.getWidth().getValue();
-		float h2 = area2.size.getHeight().getValue();
-		float d2 = area2.size.getDepth().getValue();
+		float x1 = area1.position.getX();
+		float y1 = area1.position.getY();
+		float z1 = area1.position.getZ();
+		float w1 = area1.size.getWidth();
+		float h1 = area1.size.getHeight();
+		float d1 = area1.size.getDepth();
+		float x2 = area2.position.getX();
+		float y2 = area2.position.getY();
+		float z2 = area2.position.getZ();
+		float w2 = area2.size.getWidth();
+		float h2 = area2.size.getHeight();
+		float d2 = area2.size.getDepth();
 		
 		return false;
 	}
@@ -28,7 +28,7 @@ public class ComponentUtils {
 		return false;
 	}
 	public static boolean rectCollide3D(float x1, float y1, float z1, float w1, float h1, float d1, float x2, float y2, float z2, float w2, float h2, float d2) {
-		if ()
+		return false;
 	}
 	public static boolean rectCollide(float x1, float y1, float l1, float w1, float x2, float y2, float l2, float w2) {
 		if (l1 < 0) {

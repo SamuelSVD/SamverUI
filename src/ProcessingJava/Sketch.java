@@ -69,30 +69,6 @@ public abstract class Sketch extends PApplet{
 	public Camera getCamera() {
 	  return camera;
 	}
-  public void keyPressed() {
-    if (key == '`') {
-      String timeStamp = new java.text.SimpleDateFormat("yyMMdd_HHmmss").format(new Date());
-      saveFrame("Images/Screenshots/Screenshot_" + timeStamp + ".tif");
-    }
-    if (camera != null) {
-      camera.keyPressed(key, keyCode);
-    }
-  }
-  public void keyReleased() {
-    if (camera != null) {
-      camera.keyReleased(key, keyCode);
-    }
-  }
-  public void mouseDragged() {
-    if (camera != null) {
-      camera.mouseDragged();
-    }
-  }
-  public void mouseWheel(processing.event.MouseEvent me) {
-    if (camera != null) {
-      camera.mouseWheel(me);
-    }
-  }
   public void settings() {
     if (is_3D) size((int)size.x, (int)size.y, P3D);
     else size((int)size.x, (int)size.y);
@@ -120,4 +96,37 @@ public abstract class Sketch extends PApplet{
     super.fill(color.x, color.y, color.z);
   }
   public abstract void setup();
+  
+  //EVENTS
+  public void keyPressed() {
+    if (key == '`') {
+      String timeStamp = new java.text.SimpleDateFormat("yyMMdd_HHmmss").format(new Date());
+      saveFrame("Images/Screenshots/Screenshot_" + timeStamp + ".tif");
+    }
+    if (camera != null) {
+      camera.keyPressed(key, keyCode);
+    }
+  }
+  public void keyReleased() {
+    if (camera != null) {
+      camera.keyReleased(key, keyCode);
+    }
+  }
+  public void mousePressed() {
+  }
+  public void mouseReleased() {
+  }
+  public void mouseMoved() {
+  }
+  public void mouseDragged() {
+    if (camera != null) {
+      camera.mouseDragged();
+    }
+  }
+  public void mouseWheel(processing.event.MouseEvent me) {
+    if (camera != null) {
+      camera.mouseWheel(me);
+    }
+  }
+
 }
