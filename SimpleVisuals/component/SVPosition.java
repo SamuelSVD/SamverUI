@@ -1,5 +1,6 @@
 package component;
 
+import Utils.SVPropertyList;
 import primitive.*;
 
 public class SVPosition extends SVPropertyList {
@@ -15,22 +16,22 @@ public class SVPosition extends SVPropertyList {
 		list.add(y);
 		list.add(z);
 	}
-	public SVFloat getX() {
-		return x;
+	public float getX() {
+		return x.getValue();
 	}
-	public void setX(SVFloat x) {
-		this.x = x;
+	public void setX(float x) {
+		this.x.setValue(x);
 	}
-	public SVFloat getY() {
-		return y;
+	public float getY() {
+		return y.getValue();
 	}
-	public void setY(SVFloat y) {
-		this.y = y;
+	public void setY(float y) {
+		this.y.setValue(y);;
 	}
-	public SVFloat getZ() {
-		return z;
+	public float getZ() {
+		return z.getValue();
 	}
-	public void setZ(SVFloat z) {
-		this.z = z;
+	public void setZ(float z) {
+		this.z.setValue(z);
 	}
 }

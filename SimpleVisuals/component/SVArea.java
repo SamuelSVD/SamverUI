@@ -1,6 +1,6 @@
 package component;
 
-import primitive.SVPropertyList;
+import Utils.SVPropertyList;
 
 public class SVArea extends SVPropertyList {
 	public SVPosition position;
