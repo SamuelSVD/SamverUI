@@ -25,8 +25,9 @@ public class Main {
 //    s = new Utils_test5(p);
 //    s = new MathUtilsTest(p);
 //    s = new FFT_Bars(p);
+    s = new FFT_Waves(p);
 //    s = new RussianDolls(p);
-    s = new SunAndMoon(p);
+    //s = new SunAndMoon(p);
     String[] strings = {"A", "B", "C", "D", "E"};
     PApplet.runSketch(strings, s);
   }
