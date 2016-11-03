@@ -25,7 +25,34 @@ public class RussianDoll extends VisualComponent{
   public void setSize(PVector size) {
     this.size = size;
   }
-  public void setPosition(PVector position) {
+  public PVector getDecoration_color() {
+		return decoration_color;
+	}
+	public void setDecoration_color(PVector decoration_color) {
+		this.decoration_color = decoration_color;
+	}
+	public PVector getHair_color() {
+		return hair_color;
+	}
+	public void setHair_color(PVector hair_color) {
+		this.hair_color = hair_color;
+	}
+	public PVector getSkin_color() {
+		return skin_color;
+	}
+	public void setSkin_color(PVector skin_color) {
+		this.skin_color = skin_color;
+	}
+	public PVector getBackground_color() {
+		return background_color;
+	}
+	public void setBackground_color(PVector background_color) {
+		this.background_color = background_color;
+	}
+	public PVector getSize() {
+		return size;
+	}
+	public void setPosition(PVector position) {
     this.position = position;
   }
   public void setDecorationColor(PVector color) {

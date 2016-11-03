@@ -120,7 +120,7 @@ public abstract class VisualComponent extends PApplet{
   }
   public void update(float d) {
     if (!isActive) {
-      if (delay > 0) delay -= d;
+    	if (delay > 0) delay -= d;
       else isActive = true;
       System.out.print("VisComp.delay: ");
       System.out.println(delay);
@@ -158,7 +158,8 @@ public abstract class VisualComponent extends PApplet{
     if (rotation_before_translate_fun != null) {
       rotation_before_translate_fun.update(d);
       rotation_before_translate = rotation_before_translate_fun.getValue();
-    }
+    } 
+    
     if (rotation_after_translate_fun != null) {
       rotation_after_translate_fun.update(d);
       rotation_after_translate = rotation_after_translate_fun.getValue();

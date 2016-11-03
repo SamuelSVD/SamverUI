@@ -36,7 +36,7 @@ public class FFT_Bars extends Sketch{
     
     record = false;
     size((int)size.x, (int)size.y); //Always needed. Looking for a fix.
-    setSpeed(0.033333f);
+    setSpeed(1f);
     Background back = new Background(new PVector());
     addVisualComponent(back);
     ArrayList<ArrayList<Double>> lists = SystemUtils.readDoubleCSV(filename);

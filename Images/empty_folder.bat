@@ -1,1 +1,1 @@
-del "C:\Programming\processingjava\Images\*.tif"
+del "*.tif"
