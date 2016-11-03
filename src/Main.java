@@ -1,5 +1,6 @@
 import ProcessingJava.*;
 import processing.core.*;
+import ProcessingSketches.*;
 public class Main {
   public static void main(String[] args) {
     int size = 500;
@@ -25,9 +26,11 @@ public class Main {
 //    s = new Utils_test5(p);
 //    s = new MathUtilsTest(p);
 //    s = new FFT_Bars(p);
-    s = new FFT_Waves(p);
+//    s = new FFT_Waves(p);
 //    s = new RussianDolls(p);
     //s = new SunAndMoon(p);
+//    s = new WaveTest(p);
+    s = new Halloween2016(new PVector(500,500));
     String[] strings = {"A", "B", "C", "D", "E"};
     PApplet.runSketch(strings, s);
   }

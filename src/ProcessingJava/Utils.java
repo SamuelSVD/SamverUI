@@ -91,4 +91,10 @@ public class Utils {
   public static PVector randomPVector() {
     return new PVector((float)Math.random()*255, (float)Math.random()*255, (float)Math.random()*255);
   }
+  
+  public static double angleBetween(PVector v1, PVector v2) {
+  	double dot = v1.x*v2.x+v1.y*v2.y+v2.z*v2.z;
+  	double mag = v1.mag() * v2.mag();
+  	return Math.acos(dot/mag);
+  }
 }

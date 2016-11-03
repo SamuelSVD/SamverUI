@@ -22,6 +22,7 @@ public class Tree extends VisualComponent{
     this.branch_limit = branch_limit;
     this.branch_count = branch_count;
     if (branch_count >= branch_limit) done_growing = true;
+    isActive = true;
   }
   
   public Tree(PVector position, double rotation, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches, int branch_limit) {
@@ -31,11 +32,12 @@ public class Tree extends VisualComponent{
 	public Tree(PVector position, double rotation, PVector colour, float max_length, float growth_speed, float angle_range, float decay, int num_branches) {
     this(position, rotation, colour, max_length, growth_speed, angle_range, decay, num_branches, -1, 0);
 		if (branch_limit == -1 && max_length <= 5) {
-		  System.out.println("TU SHORT");
+		  //System.out.println("TU SHORT");
 		  done_growing = true;
 		}
 	}
 	public void update(float d) {
+		super.update(d);
 	  if (branches[0] != null) {
 	    for (int i = 0; i < num_branches; i++) {
 	      branches[i].update(d);
@@ -48,7 +50,7 @@ public class Tree extends VisualComponent{
 		curr_length += growth_speed * d;
 		
 		if (curr_length > max_length) {
-		  System.out.println("DONE");
+		  //System.out.println("DONE");
 			done_growing = true;
 			curr_length = max_length;
 			if (branches[0] == null) {
@@ -69,6 +71,7 @@ public class Tree extends VisualComponent{
 	}
 	public void draw() {
 	  sketch.stroke(0);
+	  sketch.strokeWeight(5);
 	  sketch.line(0,0,curr_length,0);
 		if (branches[0] != null) {
       for (int i = 0; i < num_branches; i++) {
