@@ -6,6 +6,7 @@ import SystemUtils.SystemUtils;
 import processing.core.PVector;
 import ProcessingJava.*;
 import Math.*;
+import SystemUtils.OpenDialog;
 
 public class FFT_Waves extends Sketch {
 	FFTWave wave;
@@ -20,8 +21,19 @@ public class FFT_Waves extends Sketch {
 	
   @Override
 	public void setup() {
+/*  	OpenDialog fd = new OpenDialog("C:\\");
+  	String[] filters = {".csv"};
+  	String[] descriptions = {"CommaSeparatedValues"};
+  	fd.SetFilter(filters, descriptions);
+  	fd.setVisible(true);
+  	String filename = fd.getSelectedFile().getAbsolutePath();
+  	if (filename == null)
+  	  System.out.println("You cancelled the choice");
+  	else
+  	  System.out.println("You chose " + filename);
+    */
     String filename = "Data/CSV/Summer Was Fun - Hold On (feat. Q'AILA).mp3.csv";
-    record = true;
+    record = false;
     ArrayList<ArrayList<Double>> lists = SystemUtils.readDoubleCSV(filename);
     lists = SystemUtils.transpose(lists);
     this.frame_limit = 3 * lists.get(0).size();

@@ -23,16 +23,22 @@ public class WaveTest extends Sketch {
 	@Override
 	public void setup() {
     ArrayList<Function> functions = new ArrayList<Function>();
-    double max = 0;
-    for (int i = 0; i < 10; i++) {
-    	double temp = Math.random() * 100;
+    double max = 100;
+    for (int i = 0; i < 4; i++) {
+    	double temp = (i % 2 == 0)? 0 : 100;
+    	temp = Math.random() * 100;
     	if (max < temp) max = temp;
     	functions.add(new Constant(-temp));
     }
+
+    functions.add(new Constant(100));
+    functions.add(new Constant(75));
+    functions.add(new Constant(0));
+    functions.add(new Constant(100));
 	  wave = new FFTWave(new PVector(50,size.y*1.50f/3), Utils.randomPVector());
 		wave.init(functions, max);
-		wave.setWidth(size.x+2-100);
-		wave.setHeight(size.y/3);
+		wave.setWidth(400);
+		wave.setHeight(100);
 		wave.horizontal_vertex = false;
 		addVisualComponent(new Background(new PVector(255,255,255)));
 		addVisualComponent(wave);
