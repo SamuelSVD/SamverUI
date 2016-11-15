@@ -2,6 +2,9 @@ package ProcessingJava;
 
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 import SystemUtils.SystemUtils;
 import processing.core.PVector;
 import ProcessingJava.*;
@@ -21,20 +24,34 @@ public class FFT_Waves extends Sketch {
 	
   @Override
 	public void setup() {
-/*  	OpenDialog fd = new OpenDialog("C:\\");
+  	String filename;
+  	ArrayList<ArrayList<Double>> lists = new ArrayList<ArrayList<Double>>();
+  	
+  	OpenDialog fd = new OpenDialog();
   	String[] filters = {".csv"};
-  	String[] descriptions = {"CommaSeparatedValues"};
+  	String[] descriptions = {".csv | Comma-Separated Values"};
   	fd.SetFilter(filters, descriptions);
   	fd.setVisible(true);
-  	String filename = fd.getSelectedFile().getAbsolutePath();
-  	if (filename == null)
-  	  System.out.println("You cancelled the choice");
-  	else
-  	  System.out.println("You chose " + filename);
-    */
-    String filename = "Data/CSV/Summer Was Fun - Hold On (feat. Q'AILA).mp3.csv";
-    record = false;
-    ArrayList<ArrayList<Double>> lists = SystemUtils.readDoubleCSV(filename);
+  	fd.setAcceptAllFileFilterUsed(false);
+  	boolean hasInit = false;
+  	while (!hasInit) {
+	  	try {
+		  	int result = fd.showOpenDialog(null);
+		  	if (result == JFileChooser.APPROVE_OPTION) {
+			  	filename = fd.getSelectedFile().getAbsolutePath();
+			  	System.out.println("You chose " + filename);
+			  	lists = SystemUtils.readDoubleCSV(filename);
+			  } else {
+		  		System.exit(0);
+		  	}
+	    // */
+	  		hasInit = true;
+	  	} catch(Exception e) {
+	  		JOptionPane.showMessageDialog(frame, "Invalid file format", "Error", JOptionPane.ERROR_MESSAGE, null);
+	  	}
+  	}
+    
+    record = true;
     lists = SystemUtils.transpose(lists);
     this.frame_limit = 3 * lists.get(0).size();
     DEBUG = false;

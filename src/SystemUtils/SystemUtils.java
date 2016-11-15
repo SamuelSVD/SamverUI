@@ -22,6 +22,7 @@ public class SystemUtils {
         line = br.readLine();
         index++;
       }
+      br.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -166,7 +167,7 @@ public class SystemUtils {
   
   public static ArrayList<ArrayList<Double>> transpose(ArrayList<ArrayList<Double>> list) {
   	ArrayList<ArrayList<Double>> transpose = new ArrayList<ArrayList<Double>>();
-  	for (int j = 0; j < list.get(j).size(); j++) {
+  	for (int j = 0; j < list.get(0).size(); j++) {
   		ArrayList<Double> row = new ArrayList<Double>();
   		for (int i = 0; i < list.size(); i++) {
   			row.add(list.get(i).get(j));
