@@ -1,7 +1,7 @@
 package gui;
 
-import component.*;
 import primitive.*;
+import primitive.component.*;
 import ProcessingJava.*;
 import Utils.SVPropertyList;
 import processing.core.*;

@@ -1,16 +1,44 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import panels.SVMainPanel;
-import processing.core.*;
-
-public class SVMainForm {
-
-	public SVMainForm() {
-	}
-
+public class SVMainForm extends JFrame {
+  
+	private JPanel contentPane;
+	private SVMainPanel mainPanel;
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
-		SVMainPanel mainPanel = new SVMainPanel();
-	  String[] strings = {"Option1", "This is the class name", "arg1"};
-	  PApplet.runSketch(strings, mainPanel);
-	  mainPanel.getSurface().setTitle("Simple Visuals");
-	  mainPanel.getSurface().setResizable(true);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SVMainForm frame = new SVMainForm();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
+
+	/**
+	 * Create the frame.
+	 */
+	public SVMainForm() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 700, 480);
+		contentPane = new JPanel();
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		mainPanel = new SVMainPanel();
+		getContentPane().add(mainPanel);
+		
+		
+	}
+
 }

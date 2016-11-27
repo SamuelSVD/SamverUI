@@ -1,7 +1,8 @@
 package Utils;
 
-import component.*;
 import java.util.ArrayList;
+
+import primitive.component.*;
 
 public class ComponentUtils {
 

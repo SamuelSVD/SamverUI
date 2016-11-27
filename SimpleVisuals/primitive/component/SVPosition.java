@@ -1,4 +1,4 @@
-package component;
+package primitive.component;
 
 import Utils.SVPropertyList;
 import primitive.*;
@@ -17,21 +17,30 @@ public class SVPosition extends SVPropertyList {
 		list.add(z);
 	}
 	public float getX() {
-		return x.getValue();
+		return (float)x.getValue();
 	}
 	public void setX(float x) {
-		this.x.setValue(x);
+		try {
+			this.x.setValue(x);
+		} catch (Exception e) {
+		}
 	}
 	public float getY() {
-		return y.getValue();
+		return (float)y.getValue();
 	}
 	public void setY(float y) {
-		this.y.setValue(y);;
+		try {
+			this.y.setValue(y);
+		} catch (Exception e) {
+		}
 	}
 	public float getZ() {
-		return z.getValue();
+		return (float)z.getValue();
 	}
 	public void setZ(float z) {
+	  try {
 		this.z.setValue(z);
+	  } catch (Exception e) {
+	  }
 	}
 }

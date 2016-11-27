@@ -1,8 +1,8 @@
 package ProcessingJava;
 import processing.core.*;
 import java.util.ArrayList;
-import java.sql.Timestamp;
 import java.util.Date;
+import processing.awt.PSurfaceAWT.SmoothCanvas;
 
 public abstract class Sketch extends PApplet{
   public ArrayList<VisualComponent> components;
@@ -37,6 +37,12 @@ public abstract class Sketch extends PApplet{
   }
   public void setSpeed(float s) {
     this.speed = s;
+  }
+  public SmoothCanvas getCanvas() {
+  	PSurface ps = initSurface();
+  	ps.setSize((int)size.x, (int)size.y);
+  	SmoothCanvas s = (SmoothCanvas)ps.getNative();
+  	return s;
   }
 	public void draw() {
 	  if (DEBUG) System.out.println(frameCount);

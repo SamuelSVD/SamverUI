@@ -1,12 +1,12 @@
 package primitive;
 
 public class SVProperty extends SVObject {
-	protected boolean isNumberic = false;
-	public boolean isNumberic() {
-		return isNumberic;
+	protected boolean isNumeric = false;
+	public boolean isNumeric() {
+		return isNumeric;
 	}
-	public void setNumberic(boolean isNumberic) {
-		this.isNumberic = isNumberic;
+	public void setNumeric(boolean isNumeric) {
+		this.isNumeric = isNumeric;
 	}
 	public SVProperty(String name) {
 		super(name);

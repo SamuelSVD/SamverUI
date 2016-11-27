@@ -1,4 +1,4 @@
-package component;
+package primitive.component;
 
 import Utils.SVPropertyList;
 import primitive.*;
@@ -17,21 +17,30 @@ public class SVSize extends SVPropertyList {
 		list.add(depth);
 	}
 	public float getWidth() {
-		return width.getValue();
+		return (float)width.getValue();
 	}
 	public void setWidth(float width) {
-		this.width.setValue(width);
+		try {
+			this.width.setValue(width);
+		} catch (Exception e) {
+		}
 	}
 	public float getHeight() {
-		return height.getValue();
+		return (float)height.getValue();
 	}
 	public void setHeight(float height) {
-		this.height.setValue(height);
+		try {
+			this.height.setValue(height);
+		} catch (Exception e) {
+		}
 	}
 	public float getDepth() {
-		return depth.getValue();
+		return (float)depth.getValue();
 	}
 	public void setDepth(float depth) {
-		this.depth.setValue(depth);
+		try {
+			this.depth.setValue(depth);
+		} catch (Exception e) {
+		}
 	}
 }
