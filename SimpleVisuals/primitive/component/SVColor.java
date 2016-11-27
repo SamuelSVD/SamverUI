@@ -1,4 +1,4 @@
-package component;
+package primitive.component;
 
 import Utils.SVPropertyList;
 import primitive.SVFloat;

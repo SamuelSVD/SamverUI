@@ -1,4 +1,4 @@
-package component;
+package primitive.component;
 
 public class SVColorHSB extends SVColor {
 	public SVColorHSB() {
