@@ -3,6 +3,7 @@ package panels;
 import javax.swing.JPanel;
 import javax.swing.JEditorPane;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 public class SVConsolePanel extends JPanel {
 
@@ -15,7 +16,7 @@ public class SVConsolePanel extends JPanel {
 		JEditorPane editorPane = new JEditorPane();
 		editorPane.setEditable(false);
 		add(editorPane);
-
+		setMinimumSize(new Dimension(100,100));
 	}
 
 }

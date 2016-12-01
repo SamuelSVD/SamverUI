@@ -30,7 +30,7 @@ public class SVMainForm extends JFrame {
 	 */
 	public SVMainForm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 480);
+		setBounds(100, 100, 1000, 700);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));

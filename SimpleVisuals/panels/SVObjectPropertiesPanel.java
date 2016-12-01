@@ -29,6 +29,7 @@ public class SVObjectPropertiesPanel extends JPanel {
 		resizeColumnWidth(table);
 		scrollPane.setPreferredSize(new Dimension(120,120));;
 		scrollPane.setMinimumSize(new Dimension(50,50));
+		setMinimumSize(new Dimension(50, 50));
 	}
 	public void resizeColumnWidth(JTable table) {
     final TableColumnModel columnModel = table.getColumnModel();
