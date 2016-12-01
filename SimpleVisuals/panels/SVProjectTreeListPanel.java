@@ -5,6 +5,7 @@ import javax.swing.JTree;
 import java.awt.BorderLayout;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.Dimension;
 
 public class SVProjectTreeListPanel extends JPanel {
 
@@ -24,7 +25,7 @@ public class SVProjectTreeListPanel extends JPanel {
 			}
 		));
 		add(tree, BorderLayout.CENTER);
-
+		setMinimumSize(new Dimension(50,50));
 	}
 
 }

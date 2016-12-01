@@ -7,6 +7,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import processing.core.*;
+import sketches.*;
 
 public class SVMainPanel extends JPanel {
 	private SVObjectPropertiesPanel objectProperties;
@@ -52,5 +54,4 @@ public class SVMainPanel extends JPanel {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		mnNewMenu_1.add(mntmNewMenuItem_2);
 	}
-
 }
