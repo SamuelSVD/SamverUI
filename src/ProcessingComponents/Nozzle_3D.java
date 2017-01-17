@@ -1,33 +1,15 @@
 package ProcessingComponents;
 
-import ProcessingJava.VisualComponent;
+import ProcessingJava.*;
 import processing.core.PVector;
 
-public class Nozzle_3D extends VisualComponent {
+public class Nozzle_3D extends VisualContainer {
   int scale = 100;
   PVector primaryColour;
   PVector secondaryColour;
   PVector metalColour;
-  double[][] primaryShape = {{0, 1.5, 1.7, 3.3, 3.9, 4.1, 4.6, 4.4, 3.9, 3.5, 3.0, 2.3, 1.3, 1.6, 1.3, 0.0, 0.0}, 
-  		                       {0,   0, 0.2, 0.2,   0,-0.9,-1.1,-1.6,-1.4,-1.6,-1.4,-1.9,-1.6,-0.4,-0.2,-0.2, 0.0}};
-  /*	vertex(0    ,0    ,0);
-	vertex(1.5  ,0    ,0);
-	vertex(1.7  ,0.2  ,0);
-	vertex(3.3  ,0.2  ,0);
-	vertex(3.9  ,0    ,0);
-	vertex(4.1  ,-0.9 ,0);
-	vertex(4.6  ,-1.1 ,0);
-	vertex(4.4  ,-1.6 ,0);
-	vertex(3.9  ,-1.4 ,0);
-	vertex(3.5  ,-1.6 ,0);
-	vertex(3.0  ,-1.4 ,0);
-	vertex(2.3  ,-1.9 ,0);
-	vertex(1.3  ,-1.6 ,0);
-	vertex(1.6  ,-0.4 ,0);
-	vertex(1.3  ,-0.2 ,0);
-	vertex(0.0  ,-0.2 ,0);
-	vertex(0,0,0); */
-  
+  Shape handle_0;
+  Shape handle_1;
 	public Nozzle_3D() {
     this(new PVector(), new PVector());
 	}
@@ -41,12 +23,20 @@ public class Nozzle_3D extends VisualComponent {
 		this.primaryColour = primaryColour;
 		this.secondaryColour = secondaryColour;
 		this.metalColour = metalColour;
+		this.handle_0 = new Shape(new PVector(0,0,-25), primaryColour, new PVector(100,100));
+		try {
+		  this.handle_0.init("Data/Shapes/Items/Pump_Handle.pts");
+		} catch (Exception e) {}
+		this.addVisualComponent(handle_0);
+		this.handle_1 = new Shape(new PVector(0,0,25), primaryColour, new PVector(100,100));
+		try {
+		  this.handle_1.init("Data/Shapes/Items/Pump_Handle.pts");
+		} catch (Exception e) {}
+		this.addVisualComponent(handle_1);
 	}
 	
 	public void draw() {
-		
-		drawPrimaryFace(0,0,-.25);
-		drawPrimaryFace(0,0,.25);
+		super.draw();
 		joinShape(primaryShape, 0, 0, -0.25, 0, 0, 0.25);
 		sketch.fill(secondaryColour);
 		sketch.beginShape();
@@ -64,7 +54,7 @@ public class Nozzle_3D extends VisualComponent {
 		vertex(1,1,2);
 		vertex(0,1,2);
 		vertex(0,0,2);
-		sketch.endShape();
+		sketch.endShape();  // */
 	}
 	
 	private void vertex(double x, double y, double z)

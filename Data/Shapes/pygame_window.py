@@ -143,6 +143,12 @@ class ShapeMaker(Component):
 					self.selectedPoint.y = pygame.mouse.get_pos()[1]
 		if event.type == pygame.MOUSEBUTTONUP:
 			pass
+		if event.type == pygame.MOUSEMOTION:
+			mouse_pos = pygame.mouse.get_pos()
+			point = self.points.createPoint(mouse_pos)
+			if self.selectedPoint != 0 and event.buttons[0]:
+				self.selectedPoint.x = point.x;
+				self.selectedPoint.y = point.y;
 		if event.type == pygame.KEYUP:
 			pass
 		if event.type == pygame.KEYDOWN:
