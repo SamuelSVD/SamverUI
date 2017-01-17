@@ -16,7 +16,7 @@ public class SVConsolePanel extends JPanel {
 		JEditorPane editorPane = new JEditorPane();
 		editorPane.setEditable(false);
 		add(editorPane);
-		setMinimumSize(new Dimension(100,100));
+		setMinimumSize(new Dimension(100,50));
 	}
 
 }

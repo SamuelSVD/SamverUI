@@ -17,15 +17,13 @@ public class SVProcessingPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public SVProcessingPanel() {
-		setPreferredSize(new Dimension(500, 500));
+		setPreferredSize(new Dimension(550, 550));
 		setLayout(new BorderLayout(0, 0));
 		
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(500,500));
 		scrollPane = new JScrollPane( panel );
-//		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		add(scrollPane);		
+		add(scrollPane);
 	}
 	
 	public void setSketch(Sketch s) {
