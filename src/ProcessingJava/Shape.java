@@ -41,15 +41,11 @@ public class Shape extends VisualComponent{
   public void draw() {
     super.draw();
     sketch.fill(colour.x, colour.y, colour.z);
-//    sketch.pushMatrix();
-//    sketch.translate(position.x, position.y);
-//    sketch.rotate((float)rotation);
     sketch.beginShape();
     for (int i = 0; i < points.size()/2; i++) {
       sketch.vertex((float)(points.get((i*2))*size.x),(float)(points.get((i*2)+1)*size.y));
     }
     sketch.endShape();
-//    sketch.popMatrix();
   }
   public static ArrayList<Double> getCicle(double x, double y, double radius, double starting_angle, double ending_angle, int num_points) {
     ArrayList<Double> points = new ArrayList<Double>();
