@@ -9,10 +9,12 @@ import java.awt.Dimension;
 
 import Utils.SVPropertyList;
 import javax.swing.JScrollPane;
+import Utils.*;
 
-public class SVObjectPropertiesPanel extends JPanel {
+public class SVObjectPropertiesPanel extends JPanel implements SVContainer{
 	private JTable table;
   private PropertyTableModel model;
+  private SVComponentList componentList;
 	/**
 	 * Create the panel.
 	 */
@@ -116,6 +118,9 @@ public class SVObjectPropertiesPanel extends JPanel {
   			System.out.println();
   		}
   		System.out.println("--------------------------");
+  	}
+  	public void changeHappened() {
+  		
   	}
   }
 }
