@@ -10,6 +10,8 @@ import json
 
 FILE_DIR = os.path.dirname(__file__)
 FILE_PATH = __file__
+SCROLL_UP = 4
+SCROLL_DOWN = 5
 print FILE_DIR
 print FILE_PATH
 #Program States
@@ -118,7 +120,6 @@ class PointManager:
 			selected = self.toScreenPos(selected)
 			pygame.draw.ellipse(self.screen, (200, 0, 0), (selected[0]-5, selected[1]-5,10,10))
 	def toScreenPos(self, point):
-		self.offset
 		x = point.x * self.scale + self.offset[0]
 		y = (-point.y) * self.scale + self.offset[1]
 		return (x, y)
@@ -132,14 +133,32 @@ class PointManager:
 	def clear(self):
 		self.pointsList = []
 	def save(self, filename):
+		print 'Saving to: ', filename
 		file = open(filename, 'w')
 		for point in self.pointsList:
-			print point
 			file.write(str(point.x))
 			file.write(' ')
 			file.write(str(point.y))
 			file.write(' ')
 		file.close()
+		print 'Finished saving'
+	def open(self, filename):
+		print 'Opening: ', filename
+		self.pointsList = []
+		file = open(filename, 'r')
+		numbers = file.read()
+		numbers = numbers.split()
+		x = None
+		y = None
+		for number in numbers:
+			print number
+			if x == None:
+				x = float(number)
+			else:
+				y = float(number)
+				self.pointsList.append(Point(x, y))
+				x = None
+				y = None
 class ShapeMaker(Component):
 	state = psNone
 	mouse_state = msNone
@@ -148,26 +167,31 @@ class ShapeMaker(Component):
 	selectedPoint = 0
 	image = 0
 	offset = (0, 0)
+	scale = 100
+	image_offset = (0,0)
 	def __init__(self, position):
 		pygame.font.init()
 		self.font = pygame.font.SysFont("Comic Sans MS", 16)
 	def setScreen(self, screen):
 		self.screen = screen
-		self.points = PointManager(screen, 100)
+		self.points = PointManager(screen, self.scale)
 		self.offset = (self.screen.get_width()/ 2, self.screen.get_height() / 2)
+		self.image_offset = self.offset
 		self.points.offset = self.offset
 	def update(self, delta): pass
 	def draw(self):
 		origin = self.offset
 		pygame.draw.rect(self.screen, (255,255,255), [0, 0, self.screen.get_width(), self.screen.get_height()	])
 		if self.image != 0:
-			self.screen.blit(self.image, origin)
-		for i in range(-5, 5):
-			x = self.offset[0] % self.screen.get_width() + 100 * i
+			self.screen.blit(self.image, self.image_offset)
+		num_lines = self.screen.get_width() / self.scale
+		for i in range(-num_lines, num_lines):
+			x = self.offset[0] % self.screen.get_width() + self.scale * i
 			pygame.draw.line(self.screen, (150, 150, 150), (x, 0), (x, self.screen.get_height()))
 		pygame.draw.line(self.screen, (0, 0, 0), (self.offset[0], 0), (self.offset[0], self.screen.get_height()), 2)
-		for i in range(-5, 5):
-			y = self.offset[1] % self.screen.get_height() + 100 * i
+		num_lines = self.screen.get_height() / self.scale
+		for i in range(-num_lines, num_lines):
+			y = self.offset[1] % self.screen.get_height() + self.scale * i
 			pygame.draw.line(self.screen, (150, 150, 150), (0, y), (self.screen.get_width(), y))
 		pygame.draw.line(self.screen, (0, 0, 0), (0, self.offset[1]), (self.screen.get_width(), self.offset[1]), 2)
 		
@@ -179,6 +203,12 @@ class ShapeMaker(Component):
 	def handleEvent(self, event): pass
 	def OnMouseClick(self, event):
 		if self.mouse_state == msNone:
+			if event.button == SCROLL_UP:
+				self.scale += 1
+			elif event.button == SCROLL_DOWN:
+				if self.scale > 1:
+					self.scale -= 1
+			self.points.scale = self.scale
 			if pygame.mouse.get_pressed()[0]:
 				self.mouse_state = msLeft
 				mouse_pos = pygame.mouse.get_pos()
@@ -193,8 +223,8 @@ class ShapeMaker(Component):
 					self.selectedPoint = self.points.select(mouse_pos, 0.1)
 				if self.state == psNone:
 					if self.selectedPoint != 0:
-						self.selectedPoint.x = pygame.mouse.get_pos()[0]
-						self.selectedPoint.y = pygame.mouse.get_pos()[1]
+						self.selectedPoint.x = point.x
+						self.selectedPoint.y = point.y
 			elif pygame.mouse.get_pressed()[2]:
 				self.mouse_state = msRight
 			elif pygame.mouse.get_pressed()[1]:
@@ -207,7 +237,9 @@ class ShapeMaker(Component):
 			if self.selectedPoint != 0 and event.buttons[0]:
 				self.selectedPoint.x = point.x;
 				self.selectedPoint.y = point.y;
-		if self.mouse_state == msMiddle:
+		elif self.mouse_state == msRight:
+			self.image_offset = (self.image_offset[0] + rel[0], self.image_offset[1] + rel[1])
+		elif self.mouse_state == msMiddle:
 			self.offset = (self.offset[0] + rel[0], self.offset[1] + rel[1])
 			self.points.offset = self.offset
 	def OnMouseRelease(self, event):
@@ -225,9 +257,12 @@ class ShapeMaker(Component):
 		if event.key == K_c:
 			self.points.clear()
 			self.selectedPoint = 0
+		if event.key == K_o:
+			filename = easygui.fileopenbox(filetypes = ['*.pts'])
+			self.points.open( filename )
 		if event.key == K_i:
 			#try:
-				self.image = pygame.image.load(easygui.fileopenbox(filetypes = ['*.png', '*.jpg']))
+				self.image = pygame.image.load(easygui.fileopenbox(filetypes = ['*.jpg']))
 			#except:
 				pass
 		if event.key == K_SPACE:

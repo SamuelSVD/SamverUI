@@ -10,6 +10,7 @@ public class Nozzle_3D extends VisualContainer {
   PVector metalColour;
   Shape handle_0;
   Shape handle_1;
+  Shape handle_2;
 	public Nozzle_3D() {
     this(new PVector(), new PVector());
 	}
@@ -25,36 +26,24 @@ public class Nozzle_3D extends VisualContainer {
 		this.metalColour = metalColour;
 		this.handle_0 = new Shape(new PVector(0,0,-25), primaryColour, new PVector(100,100));
 		try {
-		  this.handle_0.init("Data/Shapes/Items/Pump_Handle.pts");
+		  this.handle_0.init("Data/Shapes/Items/nozzle_0.pts");
 		} catch (Exception e) {}
 		this.addVisualComponent(handle_0);
-		this.handle_1 = new Shape(new PVector(0,0,25), primaryColour, new PVector(100,100));
+		this.handle_1 = new Shape(new PVector(0,0,25), secondaryColour, new PVector(100,100));
 		try {
-		  this.handle_1.init("Data/Shapes/Items/Pump_Handle.pts");
+		  this.handle_1.init("Data/Shapes/Items/nozzle_1.pts");
 		} catch (Exception e) {}
 		this.addVisualComponent(handle_1);
+		this.handle_2 = new Shape(new PVector(0,0,25), metalColour, new PVector(100,100));
+		try {
+		  this.handle_2.init("Data/Shapes/Items/nozzle_2.pts");
+		} catch (Exception e) {}
+		this.addVisualComponent(handle_2);
 	}
 	
 	public void draw() {
 		super.draw();
-		joinShape(primaryShape, 0, 0, -0.25, 0, 0, 0.25);
-		sketch.fill(secondaryColour);
-		sketch.beginShape();
-		vertex(0,0,1);
-		vertex(1,0,1);
-		vertex(1,1,1);
-		vertex(0,1,1);
-		vertex(0,0,1);
-		sketch.endShape();
-		
-		sketch.fill(metalColour);
-		sketch.beginShape();
-		vertex(0,0,2);
-		vertex(1,0,2);
-		vertex(1,1,2);
-		vertex(0,1,2);
-		vertex(0,0,2);
-		sketch.endShape();  // */
+//		joinShape(primaryShape, 0, 0, -0.25, 0, 0, 0.25);
 	}
 	
 	private void vertex(double x, double y, double z)
@@ -80,7 +69,7 @@ public class Nozzle_3D extends VisualContainer {
 	{
 		sketch.fill(primaryColour);
 		sketch.translate((float)scale*(float)x, (float)scale*(float)y, (float)scale*(float)z );
-		drawShape(primaryShape, scale);
+//		drawShape(primaryShape, scale);
 //		System.out.println(primaryShape[0].length);
     sketch.translate((float)scale*(float)-x, (float)scale*(float)-y, (float)scale*(float)-z );		
 	}
