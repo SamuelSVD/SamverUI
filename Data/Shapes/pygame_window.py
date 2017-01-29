@@ -12,11 +12,20 @@ FILE_DIR = os.path.dirname(__file__)
 FILE_PATH = __file__
 print FILE_DIR
 print FILE_PATH
+#Program States
 psNone = 0
 psInsertBefore = 1
 psInsertAfter = 2
 psMove = 3
 program_states = ['NONE', 'INSERT BEFORE', 'INSERT AFTER', 'MOVE']
+
+#Mouse States
+msNone = 0
+msLeft = 1
+msRight = 2
+msMiddle = 3
+mouse_states = ['NONE', 'LEFT', 'RIGHT', 'MIDDLE']
+
 class Options:
 	version = '1.0.0.0'
 	options = {'version': version}
@@ -66,6 +75,7 @@ class Point:
 class PointManager:
 	pointsList = []
 	screen = 0
+	offset = (0,0)
 	scale = 1
 	def __init__(self, screen, scale):
 		self.screen = screen
@@ -98,24 +108,23 @@ class PointManager:
 		return 0
 	def draw(self):
 		for i in range(len(self.pointsList)):
-			current_point = self.toMousePos(self.pointsList[i])
+			current_point = self.toScreenPos(self.pointsList[i])
 			if i != (len(self.pointsList) - 1):
-				next_point = self.toMousePos(self.pointsList[i+1])
+				next_point = self.toScreenPos(self.pointsList[i+1])
 				pygame.draw.line(self.screen, (0,0,0), current_point, next_point)
 			pygame.draw.ellipse(self.screen, (0, 0, 0), (current_point[0]-5, current_point[1]-5,10,10))
 	def drawSelected(self, selected):
 		if selected != 0:
-			selected = self.toMousePos(selected)
+			selected = self.toScreenPos(selected)
 			pygame.draw.ellipse(self.screen, (200, 0, 0), (selected[0]-5, selected[1]-5,10,10))
-	def toMousePos(self, point):
-		offset = self.screen.get_size()
-		x = point.x * self.scale + offset[0]
-		y = point.y * self.scale + offset[1]
+	def toScreenPos(self, point):
+		self.offset
+		x = point.x * self.scale + self.offset[0]
+		y = (-point.y) * self.scale + self.offset[1]
 		return (x, y)
 	def toPoint(self, mousePos):
-		offset = self.screen.get_size()
-		x = ( mousePos[0] - offset[0] ) / (1.0 * self.scale)
-		y = ( mousePos[1] - offset[1] ) / (1.0 * self.scale)
+		x = ( mousePos[0] - self.offset[0] ) / (1.0 * self.scale)
+		y = -( mousePos[1] - self.offset[1] ) / (1.0 * self.scale)
 		return Point(x, y)
 	def remove(self, point):
 		if point in self.pointsList:
@@ -132,8 +141,8 @@ class PointManager:
 			file.write(' ')
 		file.close()
 class ShapeMaker(Component):
-	#ProgramStates
 	state = psNone
+	mouse_state = msNone
 	points = 0
 	font = 0
 	selectedPoint = 0
@@ -146,46 +155,72 @@ class ShapeMaker(Component):
 		self.screen = screen
 		self.points = PointManager(screen, 100)
 		self.offset = (self.screen.get_width()/ 2, self.screen.get_height() / 2)
+		self.points.offset = self.offset
 	def update(self, delta): pass
 	def draw(self):
 		origin = self.offset
 		pygame.draw.rect(self.screen, (255,255,255), [0, 0, self.screen.get_width(), self.screen.get_height()	])
 		if self.image != 0:
 			self.screen.blit(self.image, origin)
-		for i in range(self.screen.get_width()/2 - 500, self.screen.get_width()/2 + 500, 100):
-			pygame.draw.line(self.screen, (150, 150, 150), (i, 0), (i, self.screen.get_height()))
-		pygame.draw.line(self.screen, (0, 0, 0), (self.screen.get_width()/2, 0), (self.screen.get_width()/2, self.screen.get_height()), 2)
-		for i in range(self.screen.get_height()/2 - 500, self.screen.get_height()/2 + 500, 100):
-			pygame.draw.line(self.screen, (150, 150, 150), (0, i), (self.screen.get_width(), i))
-		pygame.draw.line(self.screen, (0, 0, 0), (0, self.screen.get_height()/2), (self.screen.get_width(), self.screen.get_height()/2), 2)
+		for i in range(-5, 5):
+			x = self.offset[0] % self.screen.get_width() + 100 * i
+			pygame.draw.line(self.screen, (150, 150, 150), (x, 0), (x, self.screen.get_height()))
+		pygame.draw.line(self.screen, (0, 0, 0), (self.offset[0], 0), (self.offset[0], self.screen.get_height()), 2)
+		for i in range(-5, 5):
+			y = self.offset[1] % self.screen.get_height() + 100 * i
+			pygame.draw.line(self.screen, (150, 150, 150), (0, y), (self.screen.get_width(), y))
+		pygame.draw.line(self.screen, (0, 0, 0), (0, self.offset[1]), (self.screen.get_width(), self.offset[1]), 2)
 		
-		self.screen.blit(self.font.render(str(program_states[self.state]), False, (0,0,0)) ,(0,0))
-		self.screen.blit(self.font.render(options.version, False, (0,0,0)) ,(0,20))
+		self.screen.blit(self.font.render(options.version, False, (0,0,0)) ,(0,0))
+		self.screen.blit(self.font.render(program_states[self.state], False, (0,0,0)) ,(0,20))
+		self.screen.blit(self.font.render(mouse_states[self.mouse_state], False, (0,0,0)) ,(0,40))
 		self.points.draw()
 		self.points.drawSelected(self.selectedPoint)
 	def handleEvent(self, event): pass
 	def OnMouseClick(self, event):
-		mouse_pos = pygame.mouse.get_pos()
-		point = self.points.createPoint(mouse_pos)
-		if self.state == psInsertAfter:
-			self.points.insertAfter(self.selectedPoint, point)
-			self.selectedPoint = point
-		if self.state == psInsertBefore:
-			self.points.insertBefore(self.selectedPoint, point)
-			self.selectedPoint = point
-		if self.state == psNone:
-			self.selectedPoint = self.points.select(mouse_pos, 0.1)
-		if self.state == psNone:
-			if self.selectedPoint != 0:
-				self.selectedPoint.x = pygame.mouse.get_pos()[0]
-				self.selectedPoint.y = pygame.mouse.get_pos()[1]
+		if self.mouse_state == msNone:
+			if pygame.mouse.get_pressed()[0]:
+				self.mouse_state = msLeft
+				mouse_pos = pygame.mouse.get_pos()
+				point = self.points.createPoint(mouse_pos)
+				if self.state == psInsertAfter:
+					self.points.insertAfter(self.selectedPoint, point)
+					self.selectedPoint = point
+				if self.state == psInsertBefore:
+					self.points.insertBefore(self.selectedPoint, point)
+					self.selectedPoint = point
+				if self.state == psNone:
+					self.selectedPoint = self.points.select(mouse_pos, 0.1)
+				if self.state == psNone:
+					if self.selectedPoint != 0:
+						self.selectedPoint.x = pygame.mouse.get_pos()[0]
+						self.selectedPoint.y = pygame.mouse.get_pos()[1]
+			elif pygame.mouse.get_pressed()[2]:
+				self.mouse_state = msRight
+			elif pygame.mouse.get_pressed()[1]:
+				self.mouse_state = msMiddle
 	def OnMouseDrag(self, event):
 		mouse_pos = pygame.mouse.get_pos()
-		point = self.points.createPoint(mouse_pos)
-		if self.selectedPoint != 0 and event.buttons[0]:
-			self.selectedPoint.x = point.x;
-			self.selectedPoint.y = point.y;
-	def OnMouseRelease(self, event): pass
+		rel = pygame.mouse.get_rel()
+		if self.mouse_state == msLeft:
+			point = self.points.createPoint(mouse_pos)
+			if self.selectedPoint != 0 and event.buttons[0]:
+				self.selectedPoint.x = point.x;
+				self.selectedPoint.y = point.y;
+		if self.mouse_state == msMiddle:
+			self.offset = (self.offset[0] + rel[0], self.offset[1] + rel[1])
+			self.points.offset = self.offset
+	def OnMouseRelease(self, event):
+		pressed = pygame.mouse.get_pressed()
+		if self.mouse_state == msLeft:
+			if not pressed[0]:
+				self.mouse_state = msNone
+		elif self.mouse_state == msRight:
+			if not pressed[2]:
+				self.mouse_state = msNone
+		elif self.mouse_state == msMiddle:
+			if not pressed[1]:
+				self.mouse_state = msNone
 	def OnKeyPress(self, event):
 		if event.key == K_c:
 			self.points.clear()
