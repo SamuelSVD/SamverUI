@@ -24,26 +24,28 @@ public class Nozzle_3D extends VisualContainer {
 		this.primaryColour = primaryColour;
 		this.secondaryColour = secondaryColour;
 		this.metalColour = metalColour;
-		this.handle_0 = new Shape(new PVector(0,0,-25), primaryColour, new PVector(100,100));
+		handle_0 = new Shape(new PVector(0,0,0), primaryColour, new PVector(100,100));
 		try {
-		  this.handle_0.init("Data/Shapes/Items/nozzle_0.pts");
+		  handle_0.init("Data/Shapes/Items/nozzle_0.pts");
+		  handle_0.set3D(-25, 25);
 		} catch (Exception e) {}
 		this.addVisualComponent(handle_0);
-		this.handle_1 = new Shape(new PVector(0,0,25), secondaryColour, new PVector(100,100));
+		handle_1 = new Shape(new PVector(0,0,0), secondaryColour, new PVector(100,100));
 		try {
-		  this.handle_1.init("Data/Shapes/Items/nozzle_1.pts");
+		  handle_1.init("Data/Shapes/Items/nozzle_1.pts");
+		  handle_1.set3D(-10, 10);
 		} catch (Exception e) {}
 		this.addVisualComponent(handle_1);
-		this.handle_2 = new Shape(new PVector(0,0,25), metalColour, new PVector(100,100));
+		this.handle_2 = new Shape(new PVector(0,0,0), metalColour, new PVector(100,100));
 		try {
 		  this.handle_2.init("Data/Shapes/Items/nozzle_2.pts");
+		  handle_2.set3D(-10, 10);
 		} catch (Exception e) {}
 		this.addVisualComponent(handle_2);
 	}
 	
 	public void draw() {
 		super.draw();
-//		joinShape(primaryShape, 0, 0, -0.25, 0, 0, 0.25);
 	}
 	
 	private void vertex(double x, double y, double z)
