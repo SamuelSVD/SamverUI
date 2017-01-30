@@ -1,18 +1,22 @@
 package ProcessingJava;
 
 import processing.core.PVector;
-
+import ProcessingJava.ShapeUtils.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import Math.*;
-
 import java.io.File;
+import ProcessingJava.ShapeUtils;
 
 public class Shape extends VisualComponent{
+	
   public static int RESOLUTION = 100; 
+  ArrayList<Vertex> vertices;
   ArrayList<Double> points;
   PVector size;
+  boolean extrude = false;
+  double fromZ = 0;
+  double toZ = 0;
   public Shape(PVector position, PVector colour) {
     this(position, colour, new PVector(1,1));
   }
@@ -22,39 +26,58 @@ public class Shape extends VisualComponent{
   public Shape(PVector position, PVector colour, PVector size, double rotation) {
     super(position, colour);
     points = new ArrayList<Double>();
+    vertices = new ArrayList<Vertex>();
     this.size = size;
     this.rotation_after_translate = rotation;
   }
   public void init(String filename) throws Exception{
-    File file = new File(filename);
-    Scanner in = new Scanner(file);
-    while (in.hasNext()) {
-      double a = in.nextDouble();
-      System.out.println(a);
-      points.add(a);
-    }
-    in.close();
+  	vertices = ShapeUtils.loadVerticesFromFile(filename);
+  }
+  public void set3D(double fromZ, double toZ) {
+  	extrude = true;
+  	this.fromZ = fromZ;
+  	this.toZ = toZ;
   }
   public void init(ArrayList<Double> points) {
     this.points = points;
   }
   public void draw() {
     super.draw();
+    if (extrude) {
+    	draw3D();
+    } else {
+    	draw2D();
+    }
+    System.out.println(sketch.screenX(100, 100, 100));
+  }
+  private void draw2D() {
     sketch.fill(colour.x, colour.y, colour.z);
     sketch.beginShape();
-    for (int i = 0; i < points.size()/2; i++) {
-      sketch.vertex((float)(points.get((i*2))*size.x),(float)(points.get((i*2)+1)*size.y));
+    for (int i = 0; i < vertices.size(); i++) {
+      sketch.vertex((float)(vertices.get(i).x*size.x),(float)(vertices.get(i).y*size.y));
     }
     sketch.endShape();
   }
-  public static ArrayList<Double> getCicle(double x, double y, double radius, double starting_angle, double ending_angle, int num_points) {
-    ArrayList<Double> points = new ArrayList<Double>();
-    double dT = (ending_angle - starting_angle)/(num_points-1);
-    for (int i = 0; i < num_points; i++) {
-      points.add(x + radius * Math.cos(starting_angle + i * dT));
-      points.add(y + radius * Math.sin(starting_angle + i * dT));
+  private void draw3D() {
+    sketch.fill(colour.x, colour.y, colour.z);
+    sketch.beginShape();
+    for (int i = 0; i < vertices.size(); i++) {
+      sketch.vertex((float)(vertices.get(i).x*size.x),(float)(vertices.get(i).y*size.y), (float)fromZ);
     }
-    return points;
+    sketch.endShape();
+
+    sketch.beginShape();
+    for (int i = 0; i < vertices.size(); i++) {
+      sketch.vertex((float)(vertices.get(i).x*size.x),(float)(vertices.get(i).y*size.y), (float)toZ);
+    }
+    sketch.endShape();
+    for (int i = 0; i < vertices.size() - 1; i++) {
+    	sketch.beginShape();
+      sketch.vertex((float)(vertices.get(i).x*size.x),(float)(vertices.get(i).y*size.y), (float)fromZ);
+      sketch.vertex((float)(vertices.get(i+1).x*size.x),(float)(vertices.get(i+1).y*size.y), (float)fromZ);
+      sketch.vertex((float)(vertices.get(i+1).x*size.x),(float)(vertices.get(i+1).y*size.y), (float)toZ);
+      sketch.vertex((float)(vertices.get(i).x*size.x),(float)(vertices.get(i).y*size.y), (float)toZ);
+      sketch.endShape();
+    }
   }
-  
 }
